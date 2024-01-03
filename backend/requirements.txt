@@ -1,0 +1,7 @@
+python -m pip install -q --upgrade pip
+pip install -q -U langchain
+pip install -q -U python-dotenv
+pip install -U -q langchain-google-genai pillow
+
+
+pip install -q -U google-generativeai
