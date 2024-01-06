@@ -1,2 +1,3 @@
-# AgenetSmiths
-llm intergration with multiagent systems for webdev solutions
+# AgentSmiths
+
+llm integration with multi agent systems for web dev solutions
