@@ -1,0 +1,112 @@
+/* ==============HomePage================= */
+.HomePage{
+    width: 100%; 
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    gap: 100px;
+    /* justify-content: space-evenly; */
+    margin: 0%;
+  }
+  
+  .HomePage-ContentBG{
+    width: 100%; 
+    height: 100%;
+    background: rgba(3.90, 3.80, 3.80, 0.5);
+    display: flex;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    margin: 0%;
+  }
+  
+  .HomePage-Description{
+    width: 50%;
+    height: 500px;
+    color: #ffffff;
+    font-weight: 800;
+    word-wrap: 'break-word';
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-evenly;
+    padding: 30px;
+    /* background-color: aquamarine; */
+    /* align-items: baseline; */
+    
+  }
+  
+  .HomePage-Description-Paragraph{
+    font-size: 20px;
+    line-height:1.5;
+    /* margin-top:20; */
+    font-weight: 700;
+    /* margin: 30px 0px; */
+  }
+  
+  .HomePage-IntroImage{
+    width: auto;
+    height: 500px;;
+    /* overflow: hidden; */
+    /* flex-grow: 1; */
+    /* justify-content: flex-end; Align content to the end (right) */
+    /* object-fit: cover; */
+    /* align-items: center; */
+    /* background-color: rgb(127, 255, 165); */
+  }
+  
+  .HomePage-Image{
+    max-width: 120%;
+    max-height: 120%;
+    width:120%;
+    height: 120%;
+    align-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .HomePage-Description-Input{
+    /* margin: 20px 0px; */
+    position: relative;
+    width: 100%;
+    display: flex; /*me*/
+  }
+  .Input-Field{
+    width: 100%;
+    border: 2px solid rgba(255, 255, 255, 1); /* Fully opaque white border */
+    border-radius: 100px;
+    padding: 10px 100px 10px 20px; 
+    line-height: 1;
+    box-sizing: border-box;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.5); /* White background with 0.5 opacity */
+    /* opacity: 0.5; */
+    &::placeholder{
+      color: #0ef21d; 
+      font-size: 18px;
+    }
+  }
+  
+  .HomePage-Description-Input .GetStarted{
+    position: absolute;
+    right: 0px; 
+    top: 0px;
+    bottom: 0px;
+    border: 0;
+    background-color: #ffffff;
+    color: #33007E;
+    font-size: 18px;
+    font-weight: 800;
+    outline: none;
+    margin: 0;
+    padding: 0 20px;
+    border-radius: 0px 100px 100px 0px; 
+    z-index: 2;
+    &:hover {
+      opacity: 0.7;
+      background-color: #ffffff;
+    }
+  }
+  
+  
