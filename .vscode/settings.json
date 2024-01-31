@@ -1,3 +1,12 @@
 {
-  "cSpell.words": ["chainquery", "dotenv", "genai", "langchain"]
+  "cSpell.words": [
+    "chainquery",
+    "dotenv",
+    "Firestore",
+    "genai",
+    "generativeai",
+    "langchain",
+    "psudo",
+    "subcollection"
+  ]
 }
