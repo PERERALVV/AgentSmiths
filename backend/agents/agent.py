@@ -53,7 +53,7 @@ class formatter:
         if not self.input_string:
             return self.result_dict
 
-        delimiter = "///"
+        delimiter = "```"
         parts = self.input_string.split(delimiter)
 
         html_part = ""
