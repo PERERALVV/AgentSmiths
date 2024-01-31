@@ -1,13 +1,13 @@
 from agent import dev_agent
 
 # create the agent
-WebDev= dev_agent()
+WebDev = dev_agent()
 
 # create the input
-iinput={}
+input = {}
 input["project"] = "hotel booking system"
 input["webpage"] = "login page"
-input["description"]='''
+input["description"] = '''
 I would like the login page of my hotel booking system website to have the following features:
 
 * **Clean and user-friendly design:** The login page should have a simple and intuitive layout that is easy to navigate, even for first-time users. It should also be visually appealing and reflect the overall branding of my hotel booking website.
@@ -26,5 +26,5 @@ I would like the login page of my hotel booking system website to have the follo
 
 Overall, I expect the login page of my hotel booking system website to be secure, user-friendly, and customizable to meet the unique requirements of my business.
 '''
-result=WebDev.chainquery(input)
+result = WebDev.chainquery(input)
 print(result)
