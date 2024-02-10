@@ -7,6 +7,7 @@
     "generativeai",
     "langchain",
     "psudo",
-    "subcollection"
+    "subcollection",
+    "TTFB"
   ]
 }
