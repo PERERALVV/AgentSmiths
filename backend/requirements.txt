@@ -5,3 +5,20 @@ pip install -U -q langchain-google-genai pillow
 
 
 pip install -q -U google-generativeai
+
+//Gayuni
+python -m venv venv
+.\venv\Scripts\Activate
+$env:PYTHONPATH
+pip install fastapi==0.78.0 uvicorn==0.17.6
+
+//frontend
+npm init
+npm install
+npm start
+npm install @mui/material
+npm install react-router-dom
+npm install react-dom
+npm install web-vitals
+npm install @emotion/react @emotion/styled
+
