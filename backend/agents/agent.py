@@ -28,7 +28,7 @@ class agent:
         response = self.llm.invoke(input_text)
         return response
 
-    # use the model to make structred query
+    # use the model to make structured query
     def chainquery(self, input):
         chain = self.prompt | self.llm | self.output_parser
         response = chain.invoke(input)
@@ -70,7 +70,7 @@ class planner(agent):
         self.template = """
         create a description for the given webpage of the given project:
         
-        *describe the needed webpage asuming you are the client*
+        *describe the needed webpage assuming you are the client*
         
         project:{project}
         webpage:{webpage}

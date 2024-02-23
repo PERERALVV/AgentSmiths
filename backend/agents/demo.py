@@ -23,7 +23,7 @@ for i in range(project_data["no_of_webpages"]):
 
     except google.generativeai.types.generation_types.StopCandidateException:
         print("Generation process stopped due to a stop candidate.")
-        # psudo query to trick the model about reciation
+        # psudo query to trick the model about recitation
         temp = dev.query("what is my last response")
         dev_response = dev.chainquery(input)
 
