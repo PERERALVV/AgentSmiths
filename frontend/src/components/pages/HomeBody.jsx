@@ -1,5 +1,5 @@
 import { Button, Input, colors} from "@mui/material";
-const HomePage = () => {
+const HomeBody = () => {
     return(
         <div className="HomePage" >
 
@@ -69,4 +69,4 @@ const HomePage = () => {
     );
 }
 
-export default HomePage;
+export default HomeBody;

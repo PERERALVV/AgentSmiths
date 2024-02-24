@@ -1,0 +1,51 @@
+.chatInterface{
+    text-align: center;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    padding: 50px 0px 50px 50px;
+    flex-direction: column; /*default*/
+    background: linear-gradient(180deg, #9D0191 0%, #FD3A69 81.72%);
+    /* margin: 0%; */
+    font-family: sans-serif;
+}
+
+.chatInterface-holder {
+    display: flex;
+    /* flex-direction: row;
+    justify-content: space-evenly;
+    align-items: stretch;
+    flex-wrap: nowrap; default */
+    gap: 30px; /* gap between holders */
+  }
+  
+  .middleHolder,
+  .rightHolder {
+    flex: 1; /* Use flex-grow to make both holders take equal width */
+    background-color: rgba(255, 255, 255, 0.5); /* 50% transparent white background */
+    border-radius: 20px; /* Rounded corners */
+    padding: 10px; /* Padding for inner content */
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Box shadow */
+  }
+
+  .leftHolder{
+    /* flex: 1; */
+    width : 20%;
+    height: auto;
+    min-height: 100vh;
+    background-color: bisque;
+  }
+
+  .middleHolder{
+    flex: 2;
+    width : 50%;
+    height: auto;
+    min-height: 100vh;
+    flex-shrink: 0;
+  }
+
+  .rightHolder{
+    width : 30%;
+    border-radius: 20px 0px 0px 10px;
+    min-height: 100vh;
+  }
