@@ -21,4 +21,16 @@ npm install react-router-dom
 npm install react-dom
 npm install web-vitals
 npm install @emotion/react @emotion/styled
+npm start
+
+//backend
+pip install fastapi
+pip install uvicorn
+uvicorn api:app --reload
+pip install 'uvicorn[standard]'
+pip install websockets
+uvicorn api:app --reload
+python --fileName--
+
+
 
