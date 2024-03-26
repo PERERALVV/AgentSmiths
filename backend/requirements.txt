@@ -32,5 +32,11 @@ pip install websockets
 uvicorn api:app --reload
 python --fileName--
 
+C:\Users\User\Desktop\AgentSmithsFinal> mkdir env
+C:\Users\User\Desktop\AgentSmithsFinal> python -m venv myenv
+C:\Users\User\Desktop\AgentSmithsFinal\env> .\myenv\Scripts\activate 
+pip install sentence-transformers
+
+
 
 

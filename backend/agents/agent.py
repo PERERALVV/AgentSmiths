@@ -50,44 +50,52 @@ class dev_agent(agent):
         """
         super().__init__(self.template, 0.1, "text")
 
+class validator(agent): 
+    def __init__(self): 
+        #developer template 
+        self.template = """ 
+        Say Hi if you get a response
+         
+        user response:{response} 
+        """ 
+        super().__init__(self.template,0.1)
 
-class code_checker(agent):
-    def __init__(self):
-        # developer template
-        self.template = """
-        analyze the given code and check for bugs and possible improvements and return the modified code:
-        *the codes should be complete and ready to run*
-        *reply only with the modified code*
+# class code_checker(agent):
+#     def __init__(self):
+#         # developer template
+#         self.template = """
+#         analyze the given code and check for bugs and possible improvements and return the modified code:
+#         *the codes should be complete and ready to run*
+#         *reply only with the modified code*
         
-        code:{code}
-        """
-        super().__init__(self.template, 0.1, "text")
+#         code:{code}
+#         """
+#         super().__init__(self.template, 0.1, "text")
 
 
-class planner(agent):
-    def __init__(self):
-        # developer template
-        self.template = """
-        create a description for the given webpage of the given project:
+# class planner(agent):
+#     def __init__(self):
+#         # developer template
+#         self.template = """
+#         create a description for the given webpage of the given project:
         
-        *describe the needed webpage asuming you are the client*
+#         *describe the needed webpage asuming you are the client*
         
-        project:{project}
-        webpage:{webpage}
-        """
-        super().__init__(self.template, 0.1, "text")
+#         project:{project}
+#         webpage:{webpage}
+#         """
+#         super().__init__(self.template, 0.1, "text")
 
-
-class dev_sup(agent):
-    def __init__(self):
-        # developer template
-        self.template = """
-        check if the given codes for the webpage of the given project is correct, complete and aligns with the given description of the webpage when the code is run:
+# class dev_sup(agent):
+#     def __init__(self):
+#         # developer template
+#         self.template = """
+#         check if the given codes for the webpage of the given project is correct, complete and aligns with the given description of the webpage when the code is run:
         
-        project name : {project_name}
-        project description:{project}
-        webpage:{webpage}
-        web page description:{description}
-        code:{code}
-        """
-        super().__init__(self.template, 0.1, "text")
+#         project name : {project_name}
+#         project description:{project}
+#         webpage:{webpage}
+#         web page description:{description}
+#         code:{code}
+#         """
+#         super().__init__(self.template, 0.1, "text")
