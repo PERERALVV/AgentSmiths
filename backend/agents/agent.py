@@ -54,7 +54,7 @@ class validator(agent):
     def __init__(self): 
         #developer template 
         self.template = """ 
-        Say Hi if you get a response
+        Provide the answer to the question
          
         user response:{response} 
         """ 

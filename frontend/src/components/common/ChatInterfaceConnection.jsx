@@ -29,15 +29,17 @@ const ChatInterfaceConnection = () => {
 
   const onClick = () => {
     if (message !== "") {
-      // Send message to server
+      // Send message to server with message type
       if (socket) {
-        socket.send(message);
+        const messageType = "frontend";
+        const messageWithPrefix = `${messageType}:${message}`;
+        socket.send(messageWithPrefix);
       }
       setMessage("");
     } else {
       alert("Please Add A Message");
     }
-  };
+  };  
 
   return (
     <div>
