@@ -1,6 +1,6 @@
 /* ==============Whole Website Styles================= */
 
-.App { 
+.App {
   text-align: center;
   display: flex;
 
@@ -8,9 +8,12 @@
   height: auto;
   min-height: 100vh;
   padding: 10px;
-  flex-direction: column; /*Makes the main axis vertical*/
-  /* align-items: flex-start; */ /*align-contect property is unlocked when flex-wrap:wrap*/
-  align-content: flex-start; /*This is used because align-items is making the nav weird*/
+  flex-direction: column;
+  /*Makes the main axis vertical*/
+  /* align-items: flex-start; */
+  /*align-content property is unlocked when flex-wrap:wrap*/
+  align-content: flex-start;
+  /*This is used because align-items is making the nav weird*/
   gap: 10px;
   background: linear-gradient(180deg, #33007E 0%, #9D0191 36.63%, #120078 68.92%, #9D0191 100%);
   /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset; */
@@ -18,29 +21,31 @@
   font-family: sans-serif;
 }
 
-.NavBar-nav{
+.NavBar-nav {
   color: #ffffff;
-  display:flex;
-  /* flex-direction: row; */ /*No need to specify this because display is making the main axis row*/
+  display: flex;
+  /* flex-direction: row; */
+  /*No need to specify this because display is making the main axis row*/
   align-items: baseline;
   /* gap: 5rem; */
   padding: 2rem;
-  margin:0px;
+  margin: 0px;
   /* background-color: #120078; */
   /* flex-wrap:nowrap; */
 }
 
-.NavLink{
-  color:#ffffff;
+.NavLink {
+  color: #ffffff;
   font-size: 20px;
   /* font-family: ; */
   font-weight: bolder;
-  /* word-wrap: 'break-word'; */ /*Allow long words to be able to break and wrap onto the next line*/
+  /* word-wrap: 'break-word'; */
+  /*Allow long words to be able to break and wrap onto the next line*/
   text-decoration: none;
 }
 
-.Brand{
-  color:#ffffff;
+.Brand {
+  color: #ffffff;
   font-size: 50px;
   /* margin: 0px; */
   /* margin-bottom: 20px; */
@@ -49,16 +54,18 @@
   text-decoration: none;
 }
 
-.NavBar-nav ul{
+.NavBar-nav ul {
   list-style: none;
   display: flex;
-  gap: 4rem; /*gap betweek list items*/
+  gap: 4rem;
+  /*gap between list items*/
 }
 
-.NavBar-nav button{
+.NavBar-nav button {
   width: 108px;
   height: 42px;
-  flex-shrink: 0; /*Buttopn to not shrink when the window shrinks*/
+  flex-shrink: 0;
+  /*Button to not shrink when the window shrinks*/
   background-color: #ffffff;
   border: none;
   border-radius: 52px;
@@ -69,11 +76,12 @@
   margin-left: auto;
 }
 
-.NavBar-nav ul li{
-  padding-bottom: 15px; /*So that the hover boarder apears 15px below the li*/
+.NavBar-nav ul li {
+  padding-bottom: 15px;
+  /*So that the hover boarder appears 15px below the li*/
 }
 
-.NavBar-nav ul li:hover{
+.NavBar-nav ul li:hover {
   border-bottom: 3px solid #fff;
 }
 
