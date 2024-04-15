@@ -1,5 +1,6 @@
+import Chat from '../components/common/Chat';
 import '../styles/pages/ChatInterface.css';
-import ChatInterfaceConnection from '../components/common/ChatInterfaceConnection';
+// import Chat from '../components/common/Chat';
 
 function ChatInterface() {
   return (
@@ -9,7 +10,7 @@ function ChatInterface() {
                 Agent Smiths
             </div>
             <div className="middleHolder">
-                <ChatInterfaceConnection/>
+                <Chat/>
             </div>
             <div className="rightHolder">
                 

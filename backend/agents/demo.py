@@ -18,12 +18,8 @@ async def receive_messages(websocket):
         await websocket.send("demo_response:" + result)
 
 def process_message(message):
-    # Assuming v is an instance of the validator class
-    # You need to adapt this part based on your actual implementation
-    
     # Process the message with the validator
     result = v.chainquery({"response": message})
-    
     # Return the response obtained from the validator
     return result
 
