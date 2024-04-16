@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    
     "start": "react-scripts start"
   },
   "author": "",
@@ -16,5 +15,17 @@
     "@mui/icons-material": "^5.15.15",
     "axios": "^1.6.8",
     "react-router-dom": "^6.22.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
