@@ -50,7 +50,7 @@ class dev_agent(agent):
         """
         super().__init__(self.template, 0.1, "text")
 
-class validator(agent): 
+class responseAgent(agent): 
     def __init__(self): 
         #developer template 
         self.template = """ 
@@ -59,6 +59,13 @@ class validator(agent):
         user response:{response} 
         """ 
         super().__init__(self.template,0.1)
+    #     self.message = message  # Store the message as an instance variable
+
+    # def to_dict(self):
+    #     return {
+    #         'message': self.message
+    #         # Add more attributes if needed
+    #     }
 
 # class code_checker(agent):
 #     def __init__(self):

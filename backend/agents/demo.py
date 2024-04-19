@@ -1,8 +1,8 @@
 import asyncio
 import websockets
-from agent import validator
+from agent import responseAgent
 
-v = validator()
+v = responseAgent()
 
 async def receive_messages(websocket):
     while True:
@@ -18,9 +18,9 @@ async def receive_messages(websocket):
         await websocket.send("demo_response:" + result)
 
 def process_message(message):
-    # Process the message with the validator
+    # Process the message with the responseAgent
     result = v.chainquery({"response": message})
-    # Return the response obtained from the validator
+    # Return the response obtained from the responseAgent
     return result
 
 async def connect_to_app():

@@ -1,4 +1,7 @@
 import socketio
+from agents.agent import responseAgent
+
+ra = responseAgent()
 
 # Creating socketio server
 sio_server = socketio.AsyncServer(
@@ -20,6 +23,10 @@ async def connect(sid,environ,auth):
 @sio_server.event
 async def chat(sid,message):
     await sio_server.emit('chat',{'sid':sid,'message':message})
+    response = ra.chainquery({"response": message})
+    if response:
+        print(f'Response for message "{message}": {response}')  # Print the response
+        await sio_server.emit('chat_response', {'sid': sid, 'message': response})   
 
 @sio_server.event
 async def disconnect(sid):

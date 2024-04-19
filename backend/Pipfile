@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = "*"
+autopep8 = "*"
+python-socketio = {extras = ["asyncio_client"], version = "*"}
+websockets = "*"
+langchain-core = "*"
+langchain = "*"
+langchain-google-genai = "*"
+python-dotenv = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

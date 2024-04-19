@@ -10,6 +10,13 @@ pipenv install autopep8
 Creating a socketio client
 pipenv install "python-socketio[asyncio_client]"
 
+To run the agent.py code,
+pipenv install langchain
+pipenv install langchain-core
+pipenv install langchain-google-genai
+pipenv install python-dotenv
+
+pipenv shell
 run main.py,
 python -m main
 
@@ -20,3 +27,4 @@ frontend===========
 
 npm install socket.io-client
 
+npm start
