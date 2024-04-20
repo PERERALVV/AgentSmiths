@@ -10,24 +10,37 @@ function Chat() {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const [responses, setResponses] = useState([]);
+
     useEffect(()=>{
         socket.on('connect',() => {
             setIsConnected(socket.connected);
+            console.log('Socket connected');
         });
 
         socket.on('disconnect',() => {
             setIsConnected(socket.connected);
+            console.log('Socket disconnected');
         });
 
         socket.on('join',(data) => {
             setMessages((prevMessages)=>[...prevMessages,{...data,type:'join'}]);
+                        console.log('Joined:', data);
         })
 
         socket.on('chat',(data) => {
             setMessages((prevMessages)=>[...prevMessages,{...data,type:'chat'}]);
+            console.log('Received chat message:', data);
         })
 
+        socket.on('chat_response', (data) => {
+            setResponses((prevResponses) => [...prevResponses, { ...data, type: 'chat_response' }]);
+            console.log('Received chat response:', data);
+        });
+
     },[]);
+    console.log('Rendered with messages:', messages);
+    console.log('Rendered with responses:', responses);
     return (
         <>
             <h2>Status : {isConnected?'Connected':'Disconnected'}</h2>
@@ -43,7 +56,22 @@ function Chat() {
                 }}
             >
                 {messages.map((message,index)=>(
-                    <Message message={message} key={index}/>
+                    // <Message message={message} key={index}/>
+                    <div key={index}>
+                        <Message content={message} />
+                        {/* {responses.filter(response => response.sid === message.sid).map((response, index) => (
+                            <Message message={response} key={index} />
+                        ))} */}
+                    </div>
+                ))}
+                {responses.map((response,index)=>(
+                    // <Message message={message} key={index}/>
+                    <div key={index}>
+                        <Message content={response} />
+                        {/* {responses.filter(response => response.sid === message.sid).map((response, index) => (
+                            <Message message={response} key={index} />
+                        ))} */}
+                    </div>
                 ))}
             </div>
             <input 

@@ -1,15 +1,23 @@
-function Message({message}) {
-    if(message.type==='join')
+function Message({content}) {
+    if(content.type==='join')
       return(
         <p>
-          {`${message.sid} just joined`}
+          {`${content.sid} just joined`}
         </p>
       );
   
-    if(message.type==='chat')
+    if(content.type==='chat')
       return(
         <p>
-          {`${message.sid}:${message.message}`}
+          {`${content.sid}:${content.message}`}
+        </p>
+      );
+
+    if(content.type==='chat_response')
+      return(
+        <p>
+          <strong>Response:</strong>
+          {`${content.sid}:${content.message}`}
         </p>
       );
   }
