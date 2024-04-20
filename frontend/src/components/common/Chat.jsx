@@ -58,19 +58,14 @@ function Chat() {
                 {messages.map((message,index)=>(
                     // <Message message={message} key={index}/>
                     <div key={index}>
-                        <Message content={message} />
+                        <Message content={messages[index]} />
                         {/* {responses.filter(response => response.sid === message.sid).map((response, index) => (
-                            <Message message={response} key={index} />
+                            <Message content={response}/>
                         ))} */}
-                    </div>
-                ))}
-                {responses.map((response,index)=>(
-                    // <Message message={message} key={index}/>
-                    <div key={index}>
-                        <Message content={response} />
-                        {/* {responses.filter(response => response.sid === message.sid).map((response, index) => (
-                            <Message message={response} key={index} />
-                        ))} */}
+                        {responses[index] && <Message content={responses[index]} />}
+                        {/* HERE THE MESSAGE IS DISPLAYED AFTER THE ANSWER. FIX THIS ISSUE USING THE METHOD SUGGESTED BY CHATGPT
+                        IT INVOLVES PARING MESSAGES AND RESPONSES. SINCE WE WANT TO PAIR LLM QUESTIONS AND ANSWERS AND NOT THE RESPONCE AND NEXT QUESTION, 
+                        I'M NOT GOING TO FIX THAT HERE YET */}
                     </div>
                 ))}
             </div>
