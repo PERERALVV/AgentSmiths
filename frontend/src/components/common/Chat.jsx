@@ -2,6 +2,9 @@ import React,{useEffect, useState} from "react";
 import io from 'socket.io-client';
 import Message from "./Message";
 
+import '../../styles/components/ChatInterfaceConnection.css';
+import SendIcon from '@mui/icons-material/Send';
+
 const socket = io('http://localhost:8000',{
     path:'/sockets',
 });
