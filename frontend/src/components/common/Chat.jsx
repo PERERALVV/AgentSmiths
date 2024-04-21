@@ -2,7 +2,7 @@ import React,{useEffect, useState} from "react";
 import io from 'socket.io-client';
 import Message from "./Message";
 
-import '../../styles/components/ChatInterfaceConnection.css';
+import '../../styles/components/Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 
 const socket = io('http://localhost:8000',{
@@ -47,20 +47,11 @@ function Chat() {
     return (
         <>
             <h2>Status : {isConnected?'Connected':'Disconnected'}</h2>
-            <div
-                style={{
-                    height:'500px',
-                    overflowY:'scroll',
-                    border:'solid black 1px',
-                    padding:'10px',
-                    marginTop:'15px',
-                    display:'flex',
-                    flexDirection:'column',
-                }}
+            <div className="d-flex flex-column mt-3 vh-100 custom-scrollbar"
             >
                 {messages.map((message,index)=>(
                     // <Message message={message} key={index}/>
-                    <div key={index}>
+                    <div className="mx-3"key={index}>
                         <Message content={messages[index]} />
                         {/* {responses.filter(response => response.sid === message.sid).map((response, index) => (
                             <Message content={response}/>
@@ -72,23 +63,35 @@ function Chat() {
                     </div>
                 ))}
             </div>
-            <input 
-                type={'text'} 
-                id='message' 
-                onChange={(event)=>{
-                    const value = event.target.value.trim();
-                    setMessage(value);
-                }}
-            ></input>
-            <button onClick={()=>{
-                if(message && message.length){
-                    socket.emit('chat',message);
-                }
-                var messageBox = document.getElementById('message');
-                messageBox.value='';
-                setMessage('');
+            <hr className="w-60 mx-auto text-muted"/>
+            <div className="SendMessage">
+                {/* MAKE THIS RESPONSIVE ALONG WITH THE MAIN DIV */}                
+                <input 
+                    // className="message-input form-control"
+                    className="Input-Field"
+                    placeholder="Type your message..."
+                    type={'text'} 
+                    id='message' 
+                    onChange={(event)=>{
+                        const value = event.target.value.trim();
+                        setMessage(value);
+                    }}
+                ></input>
+                <button 
+                    // className="send-button btn btn-primary" 
+                    className="GetStarted"
+                    onClick={()=>{
+                    if(message && message.length){
+                        socket.emit('chat',message);
+                    }
+                    var messageBox = document.getElementById('message');
+                    messageBox.value='';
+                    setMessage('');
 
-            }}>Send</button>
+                }}>
+                    <SendIcon className="Send-Icon"/>
+                </button>  
+            </div>
         </>
     );
   }
