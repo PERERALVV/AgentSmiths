@@ -1,12 +1,12 @@
-from bot import chatbot
+from src.services.chatbot.bot import chatbot
 from fastapi import FastAPI
 from socketio import AsyncServer
 from socketio.asgi import ASGIApp
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
-origins=['https://obscure-train-g99v6v46jr629p99-3001.app.github.dev','http://127.0.0.1:3000']
+origins=['http://127.0.0.1:3000'] #add your orodings here
 sio = AsyncServer(async_mode='asgi', cors_allowed_origins=origins
-                  )  # Adjust CORS origins
+                  ) 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

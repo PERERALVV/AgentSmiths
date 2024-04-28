@@ -1,5 +1,6 @@
-from llm import *
-from vecDB import *
+# from PromptRetriver import *
+from src.routes.llm import *
+from src.database.vecDB import *
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
@@ -61,7 +62,7 @@ class chatbot:
         llm = groq_chat()
 
         def format_docs(docs):
-            print("\n\n".join(doc.page_content for doc in docs))
+            # print("\n\n".join(doc.page_content for doc in docs))
             return "\n\n".join(doc.page_content for doc in docs)
         
 
