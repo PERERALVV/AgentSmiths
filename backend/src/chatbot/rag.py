@@ -4,9 +4,15 @@ from langchain_experimental.text_splitter import SemanticChunker
 from langchain_community.document_loaders import TextLoader
 
 from llm import *
+import os
+
+
+script_dir = os.path.dirname(os.path.realpath(__file__))
+content_path = os.path.join(script_dir, 'content.txt')
+
 
 def get_splits():
-    loader = TextLoader("./content.txt")
+    loader = TextLoader(content_path)
     docs = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(
@@ -17,7 +23,7 @@ def get_splits():
 
 # -----------------------------------------------------------------------------------------------------------
 def get_semantic_splits():
-    loader = TextLoader("./content.txt")
+    loader = TextLoader(content_path)
 
     docs = loader.load()
     text=[]
@@ -37,6 +43,7 @@ def get_semantic_splits():
 
 
 # splits=get_semantic_splits()
+# splits=get_splits()
 # for split in splits:
 #     print(split.page_content)
 #     print("-------------------------------------------------------------------------------------------")
