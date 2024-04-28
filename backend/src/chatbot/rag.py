@@ -7,7 +7,7 @@ from llm import *
 
 def get_splits():
     loader = TextLoader("./content.txt")
-    docs = loader.Toad()
+    docs = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000, chunk_overlap=200)
@@ -36,7 +36,7 @@ def get_semantic_splits():
 
 
 
-# splits=get_splits()
+# splits=get_semantic_splits()
 # for split in splits:
 #     print(split.page_content)
 #     print("-------------------------------------------------------------------------------------------")

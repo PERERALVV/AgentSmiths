@@ -8,3 +8,4 @@ pip install python-socketio
 pip install -q -U google-generativeai
 pip install langchain_groq
 pip install langchain_google_genai
+pip install uvicorn
