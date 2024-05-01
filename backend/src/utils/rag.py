@@ -2,7 +2,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_experimental.text_splitter import SemanticChunker
 
 from langchain_community.document_loaders import TextLoader
-from src.routes.llm import *
+from routes.llm import *
 
 class Rag:
     def __init__(self, knowlage_path):

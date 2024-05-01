@@ -1,11 +1,12 @@
-python -m pip install -q --upgrade pip
-pip install -q -U langchain
-pip install -q -U python-dotenv
-pip install langchain-community
-pip install langchain-experimental
-pip install fastapi
-pip install python-socketio
-pip install -q -U google-generativeai
-pip install langchain_groq
-pip install langchain_google_genai
-pip install uvicorn
+pip>=24.0
+langchain
+python-dotenv
+langchain-community
+langchain-experimental
+fastapi
+python-socketio
+google-generativeai
+langchain_groq
+langchain_google_genai
+uvicorn
+chromadb

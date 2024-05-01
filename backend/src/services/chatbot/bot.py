@@ -1,6 +1,6 @@
 # from PromptRetriver import *
-from src.routes.llm import *
-from src.database.vecDB import *
+from routes.llm import *
+from database.vecDB import *
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage

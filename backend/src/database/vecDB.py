@@ -1,8 +1,8 @@
 import os
 
 from langchain_community.vectorstores import Chroma
-from src.routes.llm import *
-from src.utils.rag import Rag
+from routes.llm import *
+from utils.rag import Rag
 import shutil
 
 # if __name__ == "__main__":
@@ -14,7 +14,7 @@ import shutil
     
 
 def getDB():
-    db_directory = "src/models/support_chatbot"
+    db_directory = os.path.join(os.environ['ROOT_PATH'], "models", "support_chatbot")
     if not os.path.exists(db_directory):
         print("vectorstore corrupted or not initialized")
 
@@ -26,8 +26,9 @@ def getDB():
 
 
 def initDB():
-    db_directory = "src/models/support_chatbot"
-    retriver = Rag("src/const/chatbot_knowledge.txt")
+    db_directory = os.path.join(os.environ['ROOT_PATH'], "models", "support_chatbot")
+    konwledge_file = os.path.join(os.environ['ROOT_PATH'], "const", "chatbot_knowledge.txt")
+    retriver = Rag(konwledge_file)
     # Delete everything in the directory
     if os.path.exists(db_directory):
         shutil.rmtree(db_directory)

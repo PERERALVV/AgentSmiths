@@ -1,4 +1,4 @@
-from src.services.chatbot.bot import chatbot
+from services.chatbot.bot import chatbot
 from fastapi import FastAPI
 from socketio import AsyncServer
 from socketio.asgi import ASGIApp

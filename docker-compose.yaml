@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: AgentSmiths-backend-server
+    command: python /code/backend/src/main.py
+    ports:
+      - 8080:80
+      # - 5678:5678
+    volumes:
+      - .:/code
