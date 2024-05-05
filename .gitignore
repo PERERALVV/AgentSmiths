@@ -4,4 +4,4 @@
 */__pycache__/
 *.py[cod]
 backend/src/models/*
-*/.devcontainer/
+.devcontainer/

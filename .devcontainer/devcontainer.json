@@ -1,5 +1,5 @@
 {
-    "name": "Python Project",
+    "name": "AgentSmiths",
     "dockerComposeFile": "../docker-compose.yaml",
     "service": "app",
     "workspaceFolder": "/code",
