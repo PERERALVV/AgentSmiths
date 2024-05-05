@@ -5,3 +5,5 @@
 *.py[cod]
 backend/src/models/*
 */.devcontainer/
+MAS/MetaGPT/config/config2.yaml
+config2.yaml
