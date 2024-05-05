@@ -20,12 +20,12 @@ import metagpt
 def get_metagpt_package_root():
     """Get the root directory of the installed package."""
     package_root = Path(metagpt.__file__).parent.parent
-    for i in (".git", ".project_root", ".gitignore"):
-        if (package_root / i).exists():
-            break
-    else:
-        package_root = Path.cwd()
-        # package_root = Path(__file__).parent.parent
+    # for i in (".git", ".project_root", ".gitignore"):
+    #     if (package_root / i).exists():
+    #         break
+    # else:
+    #     package_root = Path.cwd()
+    #     # package_root = Path(__file__).parent.parent
 
     logger.info(f"Package root set to {str(package_root)}")
     return package_root
