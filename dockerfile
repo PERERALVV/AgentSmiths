@@ -26,6 +26,6 @@ RUN apt-get purge -y --auto-remove \
     g++-11 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir --upgrade -e ./MAS/MetaGPT/.
+# RUN pip install --no-cache-dir --upgrade -e ./MAS/MetaGPT/.
 
 CMD ["python", "code/backend/src/main.py"]
