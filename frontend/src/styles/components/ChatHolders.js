@@ -22,12 +22,13 @@ export const LeftHolderImage = styled.img`
 `;
 
 export const MiddleHolderDiv = styled.div`
-    flex: 1; /* Use flex-grow to make both holders take equal width */
+    flex: 2; /* Use flex-grow to make both holders take equal width */
     background-color: rgba(151, 142, 142, 0.5); /* 50% transparent white background */
+    // background: linear-gradient(to bottom, rgba(155, 155, 155, 0.23) 65px, rgba(151, 142, 142, 0.5) 40px); /* Pink color for top 40px */
     border-radius: 20px; /* Rounded corners */
     padding: 10px; /* Padding for inner content */
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Box shadow */
-    width : 50%;
+    width : 700px;
     height: auto;
     min-height: 100vh;
     flex-shrink: 0;
@@ -35,12 +36,15 @@ export const MiddleHolderDiv = styled.div`
 
 export const RightHolderDiv = styled.div`
     flex: 1; /* Use flex-grow to make both holders take equal width */
-    background-color: rgba(151, 142, 142, 0.5); /* 50% transparent white background */
+    background-color: none; /* 50% transparent white background */
+    border: 2px solid #3A40CB;
+    border-right: 0px;
     border-radius: 20px; /* Rounded corners */
     padding: 10px; /* Padding for inner content */
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Box shadow */
     width : 30%;
     border-radius: 20px 0px 0px 20px;
     min-height: 100vh;
+    // background-color: rgba(151, 142, 142, 0.5); /* 50% transparent white background */
 `;
 

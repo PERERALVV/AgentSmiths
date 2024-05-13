@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 // import '../../styles/components/BrandName.css'; 
 import { BrandNameDiv } from '../../styles/components/BrandName';
 
-function BrandName() {
+function BrandName({ color }) {
     return (
-            <BrandNameDiv>
+            <BrandNameDiv color={color}>
                 AgentSmiths
             </BrandNameDiv>
     );

@@ -4,10 +4,8 @@ import BrandName from '../common/BrandName';
 function ChatLeftHolder() {
   return (
     <LeftHolderDiv>
-    {/* <div className="leftHolder"> */}
         <BrandName/>
         <LeftHolderImage src="ChatLeftHolderImage.png" alt="Unprocessed Image"/>
-    {/* </div> */}
     </LeftHolderDiv>
   );
 }

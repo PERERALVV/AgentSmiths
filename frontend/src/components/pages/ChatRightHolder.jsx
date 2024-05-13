@@ -1,10 +1,18 @@
-import '../../styles/components/ChatHolders.css';
+import { RightHolderDiv } from '../../styles/components/ChatHolders';
+import { GradientTextDiv } from '../../styles/components/GradientText';
+import SummaryList from '../common/SummaryList';
 
 function ChatRightHolder() {
+  // Hardcoded sample data
+  const webName = "Gayuni's Boutique";
+
   return (
-    <div className="rightHolder">
-             
-    </div>
+    <RightHolderDiv>
+      <GradientTextDiv>
+        {webName}
+      </GradientTextDiv>
+      <SummaryList/>
+    </RightHolderDiv>
   );
 }
 

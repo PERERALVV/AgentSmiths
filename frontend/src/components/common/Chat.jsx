@@ -4,6 +4,7 @@ import Message from "./Message";
 
 import '../../styles/components/Chat.css';
 import SendIcon from '@mui/icons-material/Send';
+import { GradientTextDiv } from "../../styles/components/GradientText";
 
 const socket = io('http://localhost:8000',{
     path:'/sockets',
@@ -46,7 +47,7 @@ function Chat() {
     console.log('Rendered with responses:', responses);
     return (
         <>
-            <h2>Status : {isConnected?'Connected':'Disconnected'}</h2>
+            <GradientTextDiv>{isConnected?'Connected':'Disconnected'}</GradientTextDiv>
             <div className="d-flex flex-column mt-3 vh-100 custom-scrollbar"
             >
                 {messages.map((message,index)=>(
@@ -67,7 +68,6 @@ function Chat() {
             <div className="SendMessage">
                 {/* MAKE THIS RESPONSIVE ALONG WITH THE MAIN DIV */}                
                 <input 
-                    // className="message-input form-control"
                     className="Input-Field"
                     placeholder="Type your message..."
                     type={'text'} 
@@ -78,7 +78,6 @@ function Chat() {
                     }}
                 ></input>
                 <button 
-                    // className="send-button btn btn-primary" 
                     className="GetStarted"
                     onClick={()=>{
                     if(message && message.length){

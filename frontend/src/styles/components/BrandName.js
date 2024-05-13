@@ -8,6 +8,7 @@ export const BrandNameDiv = styled.div`
     text-decoration: none;
     display: flex;
     justify-content: center;
+    color: ${(props) => props.color || '#0D1B2A'};
     @media (max-width: 1100px) {
             font-size: calc(28px + (35 - 28) * ((100vw - 800px) / (1100 - 800)));
     }

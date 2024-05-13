@@ -1,26 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
+// import '../styles/layouts/NavBar.css'
+import BrandName from '../components/common/BrandName';
+import { NavBarDiv, NavBarLi, NavBarUl, NavLinkA, NavBarButton } from '../styles/layouts/NavBar';
 
 const NavBar = () => {
+  const brandColor = "#ffffff"; 
   return (
-    <nav className='NavBar-nav'>
-        <Link to="" className='Brand'>AgentSmiths</Link>
-        <ul>
-            <li>
-            <Link to="" className='NavLink'>HOME</Link>
-            </li>
-            <li>
-            <Link to="" className='NavLink'>SUPPORT</Link>
-            </li>
-            <li>
-            <Link to="" className='NavLink'>SERVICE PLANS</Link>
-            </li>
-            <li>
-            <Link to="" className='NavLink'>CONTACT</Link>
-            </li>
-        </ul>
-        <button className='logInButton'>LOG IN</button> 
-    </nav>
+    <BrowserRouter>
+      <NavBarDiv>
+          <NavBarUl>
+              <NavBarLi>
+                <BrandName color={brandColor}/>
+              </NavBarLi>
+              <NavBarLi>
+                <NavLinkA to="#">HOME</NavLinkA>
+              </NavBarLi>
+              <NavBarLi>
+                <NavLinkA to="#">SUPPORT</NavLinkA>
+              </NavBarLi>
+              <NavBarLi>
+                <NavLinkA to="#">SERVICE PLANS</NavLinkA>
+              </NavBarLi>
+              <NavBarLi>
+                <NavLinkA to="#">CONTACT</NavLinkA>
+              </NavBarLi>
+              {/* <button className='logInButton'>LOG IN</button>  */}
+          </NavBarUl>
+          <NavBarButton>LOG IN</NavBarButton> 
+      </NavBarDiv>
+    </BrowserRouter>
   );
 };
 
