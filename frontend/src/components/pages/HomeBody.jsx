@@ -1,37 +1,36 @@
-import { Button, Input, colors} from "@mui/material";
+import { HomePage, HomePageContentBG, HomePageDescription} from "../../styles/components/HomeBody";
+import { Title } from "../../styles/components/Title";
+import { Description } from "../../styles/components/Description";
+import GetStartedInputField from "../common/GetStartedInputField";
 
 const HomeBody = () => {
     return(
-        <div className="HomePage" >
-
-        <div className="HomePage-ContentBG">
-            <div className="HomePage-Description">
-                <span style={{fontSize: 60, lineHeight: 1.2}}>Build with<br/>AgentSmiths<br/></span>
-                <div className="HomePage-Description-Paragraph">
+        <HomePage>
+        <HomePageContentBG>
+            <HomePageDescription>
+                <Title fontSize={'40px'}>Build with</Title><Title>AgentSmiths</Title>
+                <Description>
                 Hey there, welcome to AgentSmiths!<br/>
                 Creating your dream website is now a breeze with our friendly agents. 
                 No more headaches with complicated codes or dull designs. 
                 Let AgentSmiths craft a site for you that's not only responsive and 
                 high-performing but also tailored to your unique style and needs. 
                 Say goodbye to the hassle and hello to your amazing new website in just seconds!<br/>
-                </div>
-                <div className="HomePage-Description-Input">
-                    <Input type="text" className="Input-Field" placeholder="Type your website's domain..."/>
-                    <Button className="GetStarted" type="submit">Get Started &lt; &gt;</Button>
-                </div>
-            </div>
+                </Description>
+                <GetStartedInputField/>
+            </HomePageDescription>
             <div className="HomePage-IntroImage">
                 <img src="HomePageIntro2.png" alt="Description of the image" class="HomePage-Image"/>
             </div>
-        </div>
+        </HomePageContentBG>
 
-        <div className="HomePage-ContentBG">
+        <HomePageContentBG>
             <div className="HomePage-IntroImage">
                 <img src="HomePageIntro.png" alt="Description of the image" class="HomePage-Image"/>
             </div>
-            <div className="HomePage-Description">
-                <span style={{fontSize: 60, lineHeight: 1.2}}>What’s so<br/>Different?<br/></span>
-                <div className="HomePage-Description-Paragraph">
+            <HomePageDescription>
+                <Title fontSize={'40px'}>What’s so</Title><Title>Different?</Title>
+                <Description>
                 Ready to make your dream website a reality?<br/>
                 Simply chat with our friendly AgentSmiths agent to share your ideas. 
                 Forget the hassle of traditional website building. Within seconds, 
@@ -39,34 +38,27 @@ const HomeBody = () => {
                 Enjoy the freedom to tweak its look and add new features whenever you please. 
                 And the best part? Making future changes is a breeze! 
                 Just log in to your user space and update your website with ease.<br/>
-                </div>
-                <div className="HomePage-Description-Input">
-                    <Input type="text" className="Input-Field" placeholder="Type your website's domain..."/>
-                    <Button className="GetStarted" type="submit">Get Started &lt; &gt;</Button>
-                </div>
-            </div>
-        </div>
+                </Description>
+                <GetStartedInputField/>
+            </HomePageDescription>
+        </HomePageContentBG>
 
-        <div className="HomePage-ContentBG">
-            <div className="HomePage-Description">
-                <span style={{fontSize: 60, lineHeight: 1.2}}>What we<br/>Facilitate<br/></span>
-                <div className="HomePage-Description-Paragraph">
+        <HomePageContentBG>
+            <HomePageDescription>
+                <Title fontSize={'40px'}>What we</Title><Title>Facilitate</Title>
+                <Description>
                 "Step into the world of AgentSmiths and discover the magic of captivating UI designs 
                 for an amazing user experience. 
                 Our optimized coding ensures a smooth and efficient workflow for your website.  
                 With the AgentSmiths platform, you can keep an eye on user activities without any hassle. <br/>
-                </div>
-                <div className="HomePage-Description-Input">
-                    <Input type="text" className="Input-Field" placeholder="Type your website's domain..."/>
-                    <Button className="GetStarted" type="submit">Get Started &lt; &gt;</Button>
-                </div>
-            </div>
+                </Description>
+                <GetStartedInputField/>
+            </HomePageDescription>
             <div className="HomePage-IntroImage">
                 <img src="HomePageFeatures.png" alt="Description of the image" class="HomePage-Image"/>
             </div>
-        </div>
-
-        </div>
+        </HomePageContentBG>
+        </HomePage>
     );
 }
 

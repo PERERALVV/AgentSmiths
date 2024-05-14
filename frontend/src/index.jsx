@@ -7,12 +7,13 @@ import Home from './pages/Home';
 import ChatInterface from './pages/ChatInterface';
 import NavBar from './layouts/NavBar';
 import HomeBody from './components/pages/HomeBody';
+import GetStartedInputField from './components/common/GetStartedInputField';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <ChatInterface/>
-  // <Home/>
-  <NavBar/>
+  <Home/>
+  // <GetStartedInputField/>
   // <HomeBody/>
 );
 

@@ -1,14 +1,13 @@
 import '../styles/components/HomeBody.css';
-import NavBar from '../layouts/NavBar';
+// import NavBar from '../layouts/NavBar';
 import HomeBody from '../components/pages/HomeBody';
+import NavBar from '../layouts/NavBar';
 
 function Home() {
   return (
     <div className="App">
-      {/* <header className="App-header">
       <NavBar/>
-      </header> */}
-      {/* <HomeBody/> */}
+      <HomeBody/>
     </div>
   );
 }
