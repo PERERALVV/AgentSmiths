@@ -1,4 +1,4 @@
-import { HomePage, HomePageContentBG, HomePageDescription} from "../../styles/components/HomeBody";
+import { HomePage, HomePageContentBG, HomePageDescription, HomePageImage, HomePageIntroImage} from "../../styles/components/HomeBody";
 import { Title } from "../../styles/components/Title";
 import { Description } from "../../styles/components/Description";
 import GetStartedInputField from "../common/GetStartedInputField";
@@ -19,15 +19,15 @@ const HomeBody = () => {
                 </Description>
                 <GetStartedInputField/>
             </HomePageDescription>
-            <div className="HomePage-IntroImage">
-                <img src="HomePageIntro2.png" alt="Description of the image" class="HomePage-Image"/>
-            </div>
+            <HomePageIntroImage>
+                <HomePageImage src="HomePageD1Image1.png" alt="Description of the image"/>
+            </HomePageIntroImage>
         </HomePageContentBG>
 
         <HomePageContentBG>
-            <div className="HomePage-IntroImage">
-                <img src="HomePageIntro.png" alt="Description of the image" class="HomePage-Image"/>
-            </div>
+            <HomePageIntroImage>
+                <HomePageImage src="HomePageD2Image1.png" alt="Description of the image"/>
+            </HomePageIntroImage>
             <HomePageDescription>
                 <Title fontSize={'40px'}>What’s so</Title><Title>Different?</Title>
                 <Description>
@@ -54,9 +54,9 @@ const HomeBody = () => {
                 </Description>
                 <GetStartedInputField/>
             </HomePageDescription>
-            <div className="HomePage-IntroImage">
-                <img src="HomePageFeatures.png" alt="Description of the image" class="HomePage-Image"/>
-            </div>
+            <HomePageIntroImage>
+                <HomePageImage src="HomePageD1Image1.png" alt="Description of the image"/>
+            </HomePageIntroImage>
         </HomePageContentBG>
         </HomePage>
     );

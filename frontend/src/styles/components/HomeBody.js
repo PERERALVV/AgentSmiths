@@ -8,7 +8,7 @@ export const HomePage = styled.div`
     align-content: flex-start;
     gap: 100px;
     /* justify-content: space-evenly; */
-    margin: 0%;
+    margin: 20px;
 `;
 
 export const HomePageContentBG = styled.div`
@@ -30,27 +30,32 @@ export const HomePageDescription = styled.div`
     text-align: justify;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    // gap: 20px;
     justify-content: space-evenly;
-    padding: 30px;
-    /* background-color: aquamarine; */
-    /* align-items: baseline; */
+    // margin: 30px;
+    @media (max-width: 800px) {
+        width:100%; /* Hides the container when screen size is less than 700px */
+    }
 `;
 
 export const HomePageIntroImage = styled.div`
 width: auto;
-height: 500px;;
+height: 500px;
+@media (max-width: 800px) {
+    display: none; /* Hides the container when screen size is less than 700px */
+}
 `;
 
-export const HomePageImage = styled.div`
-    max-width: 120%;
-    max-height: 120%;
-    width:120%;
-    height: 120%;
+export const HomePageImage = styled.img`
+    max-width: 100%;
+    max-height: 100%;
+    width:100%;
+    height: 100%;
     align-content: center;
     margin: 0;
     padding: 0;
 `;
+  
   
 
   

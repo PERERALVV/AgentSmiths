@@ -1,5 +1,3 @@
-import '../styles/components/HomeBody.css';
-// import NavBar from '../layouts/NavBar';
 import HomeBody from '../components/pages/HomeBody';
 import NavBar from '../layouts/NavBar';
 
