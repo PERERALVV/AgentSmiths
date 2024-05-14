@@ -4,7 +4,8 @@ export const NavBarDiv = styled.div`
     display:flex;
     // align-items: center; /* Center-align items vertically */
     // padding: 2rem;
-    margin:10px;
+    margin:20px;
+    margin-bottom:40px;
     height : 50px;
     width: 100%; /* Set width to 100% to take up the full width of the screen */
 `;
@@ -40,7 +41,7 @@ export const NavBarButton = styled.button`
   font-size: 20px;
   font-weight: 800;
   margin-left: 15px;
-  margin-bottom: 0;
+  // margin-bottom: 0;
   @media (max-width: 1100px) {
     font-size: 16px; /* Set font size to 17px when screen size is less than 75% */
 }
