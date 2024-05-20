@@ -7,7 +7,7 @@ name = "pypi"
 fastapi = "*"
 uvicorn = "*"
 autopep8 = "*"
-python-socketio = {extras = ["asyncio_client"], version = "*"}
+python-socketio = "*"
 websockets = "*"
 langchain-core = "*"
 langchain = "*"

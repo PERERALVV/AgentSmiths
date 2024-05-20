@@ -3,6 +3,9 @@ from fastapi import FastAPI
 from sockets import sio_app
 from fastapi.middleware.cors import CORSMiddleware
 
+from uvicorn import run
+
+
 app = FastAPI()
 app.mount('/',app=sio_app)
 
@@ -16,9 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get('/')
-async def home():
-    return {'message':'Hello Developers!'}
+# @app.get('/')
+# async def home():
+#     return {'message':'Hello Developers!'}
 
 if __name__=='__main__':
     uvicorn.run('main:app',reload=True)
