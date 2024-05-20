@@ -7,7 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { GradientTextDiv } from "../../styles/components/GradientText";
 
 const socket = io('http://localhost:8000',{
-    path:'/sockets',
+    path:'/sockets', //Not api??
 });
 
 function Chat() {

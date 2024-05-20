@@ -2,7 +2,7 @@ import uvicorn
 from uvicorn import run
 
 from fastapi import FastAPI
-from api import sio_app
+from routes.api import sio_app
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

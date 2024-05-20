@@ -1,12 +1,15 @@
 import socketio
-from agents.agent import responseAgent
+from core.agents.chatllm import chatllm
+
+# from agentsOld.agent import responseAgent
 
 # from fastapi import FastAPI
 # from fastapi.middleware.cors import CORSMiddleware
 
 # from services.chatbot.bot import chatbot
 
-ra = responseAgent()
+# ra = responseAgent()
+cl = chatllm()
 
 # Creating socketio server
 sio_server = socketio.AsyncServer(
@@ -29,7 +32,8 @@ async def connect(sid,environ,auth):
 @sio_server.event
 async def chat(sid,message):
     await sio_server.emit('chat',{'sid':sid,'message':message})
-    response = ra.chainquery({"response": message})
+    # response = ra.chainquery({"response": message})
+    response = cl.talk(message)
     if response:
         print(f'Response for message "{message}": {response}')  # Print the response
         await sio_server.emit('chat_response', {'sid': sid, 'message': response})   

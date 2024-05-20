@@ -1,4 +1,4 @@
-from src.routes.llm import Ggemini
+from routes.llm import Ggemini
 
 class chatllm:
     
