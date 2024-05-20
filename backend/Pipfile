@@ -13,6 +13,9 @@ langchain-core = "*"
 langchain = "*"
 langchain-google-genai = "*"
 python-dotenv = "*"
+langchain-community = "*"
+langchain-groq = "*"
+google-generativeai = "*"
 
 [dev-packages]
 

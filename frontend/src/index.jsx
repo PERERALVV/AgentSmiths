@@ -11,8 +11,8 @@ import GetStartedInputField from './components/common/GetStartedInputField';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <ChatInterface/>
-  <Home/>
+  <ChatInterface/>
+  // <Home/>
   // <GetStartedInputField/>
   // <HomeBody/>
 );

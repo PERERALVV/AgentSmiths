@@ -48,8 +48,7 @@ function Chat() {
     return (
         <>
             <GradientTextDiv>{isConnected?'Connected':'Disconnected'}</GradientTextDiv>
-            <div className="d-flex flex-column mt-3 vh-100 custom-scrollbar"
-            >
+            <div className="custom-scrollbar">
                 {messages.map((message,index)=>(
                     // <Message message={message} key={index}/>
                     <div className="mx-3"key={index}>

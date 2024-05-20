@@ -53,6 +53,7 @@
 
   .custom-scrollbar {
     height: 500px;
+    height: 100vh;
     overflow-y: scroll;
 }
 

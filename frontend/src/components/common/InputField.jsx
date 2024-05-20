@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import SendIcon from '@mui/icons-material/Send';
 
 function InputField(onChange, onClick) {

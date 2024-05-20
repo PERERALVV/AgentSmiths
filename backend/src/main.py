@@ -6,9 +6,6 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 app.mount('/',app=sio_app)
 
-# Specify the origins - or else won't have permission
-# origins = ["http://localhost:3000"]
-
 # Add middleware
 app.add_middleware(
     CORSMiddleware,
