@@ -1,38 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import FontEditorChild from "./FontEditorChild";
 
-const FontEditor = ({ onChange }) => {
-  const [fonts, setFonts] = useState([]);
+const FontEditor = () => {
   const [selectedFont, setSelectedFont] = useState("");
 
-  useEffect(() => {
-    fetch(
-      "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyB0g8CpYltBybAu1agE685z5bnFSZbePas"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setFonts(data.items.map((font) => font.family));
-      })
-      .catch((error) => console.error("Error fetching fonts:", error));
-  }, []);
-
-  const handleFontChange = (event) => {
-    const font = event.target.value;
+  const handleFontChange = (font) => {
+    console.log("Selected font:", font);
     setSelectedFont(font);
-    onChange(font);
   };
 
   return (
     <div>
-      {" "}
-      <select value={selectedFont} onChange={handleFontChange}>
-        <option value="">Select a font</option>
-        {fonts.map((font) => (
-          <option key={font} value={font} style={{ fontFamily: font }}>
-            {font}
-          </option>
-        ))}
-      </select>
-      <div style={{ fontFamily: selectedFont }}>{selectedFont}</div>
+      <h1 style={{ fontFamily: selectedFont }}>Font Preview</h1>
+      <FontEditorChild onChange={handleFontChange} />
     </div>
   );
 };
