@@ -16,6 +16,8 @@ python-dotenv = "*"
 langchain-community = "*"
 langchain-groq = "*"
 google-generativeai = "*"
+transformers = "*"
+motor = "*"
 
 [dev-packages]
 

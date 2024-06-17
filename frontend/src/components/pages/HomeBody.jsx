@@ -3,7 +3,7 @@ import { Title } from "../../styles/components/Title";
 import { Description } from "../../styles/components/Description";
 import GetStartedInputField from "../common/GetStartedInputField";
 
-const HomeBody = () => {
+function HomeBody() {
     return(
         <HomePage>
         <HomePageContentBG>

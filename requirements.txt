@@ -30,6 +30,7 @@ pip install 'uvicorn[standard]'
 pip install websockets
 uvicorn api:app --reload //Inside App file to run the server
 python --fileName--
+pip install transformers
 
 //Steps - Gayuni
 1. Run frontend - npm start //(inside frontend folder)

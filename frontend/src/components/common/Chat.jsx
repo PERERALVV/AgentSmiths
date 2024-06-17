@@ -29,7 +29,7 @@ function Chat() {
 
         socket.on('join',(data) => {
             setMessages((prevMessages)=>[...prevMessages,{...data,type:'join'}]);
-                        console.log('Joined:', data);
+            console.log('Joined:', data);
         })
 
         socket.on('chat',(data) => {
