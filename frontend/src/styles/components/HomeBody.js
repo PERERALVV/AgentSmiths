@@ -30,11 +30,10 @@ export const HomePageDescription = styled.div`
     text-align: justify;
     display: flex;
     flex-direction: column;
-    // gap: 20px;
     justify-content: space-evenly;
-    // margin: 30px;
     @media (max-width: 800px) {
         width:100%; /* Hides the container when screen size is less than 700px */
+        margin-right: 30px;
     }
 `;
 

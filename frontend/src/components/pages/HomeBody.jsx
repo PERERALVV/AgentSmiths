@@ -1,7 +1,7 @@
 import { HomePage, HomePageContentBG, HomePageDescription, HomePageImage, HomePageIntroImage} from "../../styles/components/HomeBody";
 import { Title } from "../../styles/components/Title";
 import { Description } from "../../styles/components/Description";
-import GetStartedInputField from "../common/GetStartedInputField";
+import InputFieldGetStarted from "../common/InputFieldGetStarted";
 
 function HomeBody() {
     return(
@@ -17,7 +17,7 @@ function HomeBody() {
                 high-performing but also tailored to your unique style and needs. 
                 Say goodbye to the hassle and hello to your amazing new website in just seconds!<br/>
                 </Description>
-                <GetStartedInputField/>
+                <InputFieldGetStarted/>
             </HomePageDescription>
             <HomePageIntroImage>
                 <HomePageImage src="HomePageD1Image1.png" alt="Description of the image"/>
@@ -39,7 +39,7 @@ function HomeBody() {
                 And the best part? Making future changes is a breeze! 
                 Just log in to your user space and update your website with ease.<br/>
                 </Description>
-                <GetStartedInputField/>
+                <InputFieldGetStarted/>
             </HomePageDescription>
         </HomePageContentBG>
 
@@ -52,7 +52,7 @@ function HomeBody() {
                 Our optimized coding ensures a smooth and efficient workflow for your website.  
                 With the AgentSmiths platform, you can keep an eye on user activities without any hassle. <br/>
                 </Description>
-                <GetStartedInputField/>
+                <InputFieldGetStarted/>
             </HomePageDescription>
             <HomePageIntroImage>
                 <HomePageImage src="HomePageD1Image1.png" alt="Description of the image"/>

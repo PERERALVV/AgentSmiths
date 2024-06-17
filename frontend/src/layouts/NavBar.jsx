@@ -4,17 +4,23 @@ import {Link, useNavigate } from 'react-router-dom';
 import BrandName from '../components/common/BrandName';
 import { NavBarDiv, NavBarLi, NavBarUl, NavLinkA, NavBarButton } from '../styles/layouts/NavBar';
 import MobileMenuIcon from '../components/common/MobileMenuIcon';
+import { FaUserCircle } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
   const handleLoginClick = () => {
-    navigate('/login');
+    if (!LogInState) {
+      navigate('/login');
+    }
   };
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const [LogInState, setLogInState] = useState(false);
+  //Here change the useState parameter to a login state input
   
   const brandColor = "#ffffff"; 
 
@@ -38,7 +44,9 @@ const NavBar = () => {
             {/* <button className='logInButton'>LOG IN</button>  */}
 
         </NavBarUl>
-        <NavBarButton as="button" onClick={handleLoginClick} isVisible={mobileMenuOpen}>LOG IN</NavBarButton> 
+        <NavBarButton as="button" onClick={handleLoginClick} isVisible={mobileMenuOpen}>
+          {LogInState ? <FaUserCircle size={40} /> : "Log In"}
+        </NavBarButton> 
     </NavBarDiv>
   );
 };
