@@ -6,9 +6,7 @@ import '../../styles/components/Chat.css';
 import SendIcon from '@mui/icons-material/Send';
 import { GradientTextDiv } from "../../styles/components/GradientText";
 
-const socket = io('http://localhost:8000',{
-    path:'/sockets', //Not api??
-});
+const socket = io('http://localhost:80');
 
 function Chat() {
     const [isConnected, setIsConnected] = useState(socket.connected);
