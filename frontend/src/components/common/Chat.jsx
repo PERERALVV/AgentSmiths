@@ -1,10 +1,9 @@
 import React,{useEffect, useState} from "react";
 import io from 'socket.io-client';
 import Message from "./Message";
-
-import '../../styles/components/Chat.css';
-import SendIcon from '@mui/icons-material/Send';
+import { IoSendSharp } from "react-icons/io5";
 import { GradientTextDiv } from "../../styles/components/GradientText";
+import { ChatDiv, ChatHr, ChatScrollDiv, MessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField } from "../../styles/components/ChatBox";
 
 const socket = io('http://localhost:80');
 
@@ -44,12 +43,13 @@ function Chat() {
     console.log('Rendered with messages:', messages);
     console.log('Rendered with responses:', responses);
     return (
-        <>
-            <GradientTextDiv>{isConnected?'Connected':'Disconnected'}</GradientTextDiv>
-            <div className="custom-scrollbar">
+        <ChatDiv>
+            {/* <GradientTextDiv>{isConnected?'Connected':'Disconnected'}</GradientTextDiv> */}
+            <GradientTextDiv>{isConnected?'You are connected':'Disconnected'}</GradientTextDiv>
+            <ChatScrollDiv>
                 {messages.map((message,index)=>(
                     // <Message message={message} key={index}/>
-                    <div className="mx-3"key={index}>
+                    <MessageContainerDiv key={index}>
                         <Message content={messages[index]} />
                         {/* {responses.filter(response => response.sid === message.sid).map((response, index) => (
                             <Message content={response}/>
@@ -58,13 +58,13 @@ function Chat() {
                         {/* HERE THE MESSAGE IS DISPLAYED AFTER THE ANSWER. FIX THIS ISSUE USING THE METHOD SUGGESTED BY CHATGPT
                         IT INVOLVES PARING MESSAGES AND RESPONSES. SINCE WE WANT TO PAIR LLM QUESTIONS AND ANSWERS AND NOT THE RESPONCE AND NEXT QUESTION, 
                         I'M NOT GOING TO FIX THAT HERE YET */}
-                    </div>
+                    </MessageContainerDiv>
                 ))}
-            </div>
-            <hr className="w-60 mx-auto text-muted"/>
-            <div className="SendMessage">
+            </ChatScrollDiv>
+            <ChatHr/>
+            <ReqChatInputDiv>
                 {/* MAKE THIS RESPONSIVE ALONG WITH THE MAIN DIV */}                
-                <input 
+                <ReqChatInputField 
                     className="Input-Field"
                     placeholder="Type your message..."
                     type={'text'} 
@@ -73,8 +73,8 @@ function Chat() {
                         const value = event.target.value.trim();
                         setMessage(value);
                     }}
-                ></input>
-                <button 
+                ></ReqChatInputField >
+                <ReqChatButton 
                     className="GetStarted"
                     onClick={()=>{
                     if(message && message.length){
@@ -85,10 +85,10 @@ function Chat() {
                     setMessage('');
 
                 }}>
-                    <SendIcon className="Send-Icon"/>
-                </button>  
-            </div>
-        </>
+                    <IoSendSharp size={25} color={'#07297A'}/>
+                </ReqChatButton>  
+            </ReqChatInputDiv>
+        </ChatDiv>
     );
   }
 

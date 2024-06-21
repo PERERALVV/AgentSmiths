@@ -1,17 +1,15 @@
-import '../styles/pages/ChatInterface.css';
 import ChatLeftHolder from '../components/pages/ChatLeftHolder';
 import ChatMiddleHolder from '../components/pages/ChatMiddleHolder';
 import ChatRightHolder from '../components/pages/ChatRightHolder';
+import { ChatInterfaceDiv } from '../styles/pages/ChatInterface';
 
 function ChatInterface() {
   return (
-    <div className="chatInterface">
-        <div className="chatInterface-holder">
+    <ChatInterfaceDiv>
             <ChatLeftHolder/>
             <ChatMiddleHolder/>
             <ChatRightHolder/>
-        </div>
-    </div>
+    </ChatInterfaceDiv>
   );
 }
 

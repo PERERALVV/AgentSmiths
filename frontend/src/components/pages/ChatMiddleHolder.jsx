@@ -1,6 +1,4 @@
-import { MiddleHolderDiv } from '../../styles/components/ChatHolders';
-import '../../styles/components/ChatHolders.css';
-import { ConnectedBarDiv } from '../../styles/components/ConnectedBar';
+import { MiddleHolderDiv } from '../../styles/pages/ChatInterface';
 import Chat from '../common/Chat';
 
 function ChatMiddleHolder() {

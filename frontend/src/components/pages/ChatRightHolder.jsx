@@ -1,5 +1,5 @@
-import { RightHolderDiv } from '../../styles/components/ChatHolders';
 import { GradientTextDiv } from '../../styles/components/GradientText';
+import { RightHolderDiv } from '../../styles/pages/ChatInterface';
 import SummaryList from '../common/SummaryList';
 
 function ChatRightHolder() {
