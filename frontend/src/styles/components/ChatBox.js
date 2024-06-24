@@ -50,18 +50,17 @@ export const ReqChatInputDiv = styled.div`
     width: 100%;
     height: 40px;
     border-radius:2rem;
+    // overflow: hidden;
 `;
 
 export const ReqChatInputField = styled.input`
     flex-grow:1;
     width: 100%;
     height: 100%;
-    diplay: flex;
-    align-items:start;
-    flex-shrik: 5;
+    padding: 0 1rem;
     border: 0;
     border-radius:2rem 0rem 0rem 2rem;
-    padding: 1rem;
+    box-sizing: border-box; 
     &::placeholder{
       color: #797e79; 
       font-size: 16px;

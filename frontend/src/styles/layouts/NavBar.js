@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const NavBarDiv = styled.nav`
+    background-color:#ff3000;
     display:flex;
-    // align-items: center; /* Center-align items vertically */
-    justify-content: flex-end; /* Aligns child to the right */
+    align-items: center; /* Align items vertically */
+    justify-content: space-between; /* Space between items */
     margin:20px;
     margin-bottom:40px;
     height : 50px;
@@ -29,12 +30,15 @@ export const NavLinkA = styled(Link)`
 export const NavBarUl = styled.ul`
   list-style: none;
   display: flex;
+  align-items: center; /* Align items vertically */
+  height: 100%;
+  flex-grow: 1;
+  margin: 0;
+  margin-right:10px;
+  padding: 0; 
   border-radius: 25rem 0rem 0rem 25rem;
   background: #0D1B2A;
-  align-items: center; 
-  height: 100%;
   justify-content: space-evenly; 
-  flex-grow: 1;
   @media (max-width: 750px) {
     flex-direction:column;
     border-radius: 0rem;
@@ -45,14 +49,17 @@ export const NavBarUl = styled.ul`
 
 export const NavBarButton = styled.button`
   width: 150px;
-  height: relative;
+  height: 100%;
   background: #0D1B2A;
   border: none;
   border-radius:  0rem 52rem 52rem 0rem;
   color: #ffffff;
   font-size: 20px;
   font-weight: 800;
-  margin-left: 15px;
+  margin: 0;
+  margin-left: 10px;  
+  padding: 0;
+
   display: flex; /* Use flexbox for alignment */
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center items horizontally */
@@ -65,7 +72,6 @@ export const NavBarButton = styled.button`
     border-radius: 0rem;
     margin-left: 0rem;
     height: 40px;
-    // display:none;
     display: ${({ isVisible }) => (isVisible ? "flex" : "none")}; /* Conditional display */
   }    
 `;
@@ -74,7 +80,6 @@ export const NavBarLi = styled.li`
   align-items: center; 
   @media (max-width: 750px) {
     margin:1rem;
-    // display:none;
     display: ${({ isVisible }) => (isVisible ? "flex" : "none")}; /* Conditional display */
   } 
 `;

@@ -7,7 +7,7 @@ import { ChatDiv, ChatHr, ChatScrollDiv, MessageContainerDiv, ReqChatButton, Req
 
 const socket = io('http://localhost:80');
 
-function Chat() {
+function Chat2() {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
@@ -30,32 +30,34 @@ function Chat() {
         })
 
         socket.on('chat',(data) => {
+            setMessages((prevMessages)=>[...prevMessages,{...data,type:'chat'}]);
             console.log('Received chat message:', data);
         })
 
         socket.on('chat_response', (data) => {
-            setMessages((prevMessages)=>[...prevMessages,{...data,type:'chat_response'}]);
+            setResponses((prevResponses) => [...prevResponses, { ...data, type: 'chat_response' }]);
             console.log('Received chat response:', data);
         });
 
     },[]);
     console.log('Rendered with messages:', messages);
-    // console.log('Rendered with responses:', responses);
+    console.log('Rendered with responses:', responses);
     return (
         <ChatDiv>
+            {/* <GradientTextDiv>{isConnected?'Connected':'Disconnected'}</GradientTextDiv> */}
             <GradientTextDiv>{isConnected?'You are connected':'Disconnected'}</GradientTextDiv>
             <ChatScrollDiv>
-{/* ========================================================================== */}
-            <MessageContainerDiv>
-            {messages.map((message,index)=>(
-                // <Message key={index} content={messages[index]} />
-                <Message key={index} content={messages[index]} />
-            ))}
-            </MessageContainerDiv>
-{/* ========================================================================== */}
+                {messages.map((message,index)=>(
+                    // <Message message={message} key={index}/>
+                    <MessageContainerDiv key={index}>
+                        <Message content={messages[index]} />
+                        {responses[index] && <Message content={responses[index]} />}
+                    </MessageContainerDiv>
+                ))}
             </ChatScrollDiv>
             <ChatHr/>
-            <ReqChatInputDiv>            
+            <ReqChatInputDiv>
+                {/* MAKE THIS RESPONSIVE ALONG WITH THE MAIN DIV */}                
                 <ReqChatInputField 
                     className="Input-Field"
                     placeholder="Type your message..."
@@ -69,14 +71,15 @@ function Chat() {
                 <ReqChatButton 
                     className="GetStarted"
                     onClick={()=>{
-                        if(message && message.trim().length > 0){
-                            setMessages((prevMessages)=>[...prevMessages,{message:message.trim(),type:'chat'}]);
-                            socket.emit('chat',message);
-                        }
-                        var messageBox = document.getElementById('message');
-                        messageBox.value='';
-                        setMessage('');
-                    }}>
+                    if(message && message.trim().length > 0){
+                        setMessages((prevMessages)=>[...prevMessages,{...message,type:'chat'}]);
+                        socket.emit('chat',message);
+                    }
+                    var messageBox = document.getElementById('message');
+                    messageBox.value='';
+                    setMessage('');
+
+                }}>
                     <IoSendSharp size={25} color={'#07297A'}/>
                 </ReqChatButton>  
             </ReqChatInputDiv>
@@ -84,7 +87,4 @@ function Chat() {
     );
   }
 
-export default Chat;
-
-
-
+export default Chat2;

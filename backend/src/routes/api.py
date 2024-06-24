@@ -220,8 +220,8 @@ BA=BA()
 async def chat(sid,message):
     await sio.emit('chat',{'sid':sid,'message':message})
     # response = ra.chainquery({"response": message})
-    response=talk_with_moda_gayuni(message)
-    # response = BA.consult(message)
+    # response=talk_with_moda_gayuni(message)
+    response = BA.consult(message)
     if response:
         print(f'Response for message "{message}": {response}')  # Print the response
         await sio.emit('chat_response', {'sid': sid, 'message': response})   

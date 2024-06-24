@@ -20,13 +20,13 @@ function HomeBody() {
                 <InputFieldGetStarted/>
             </HomePageDescription>
             <HomePageIntroImage>
-                <HomePageImage src="HomePageD1Image1.png" alt="Description of the image"/>
+                <HomePageImage src="HomePage1.gif" alt="Description of the image"/>
             </HomePageIntroImage>
         </HomePageContentBG>
 
         <HomePageContentBG>
             <HomePageIntroImage>
-                <HomePageImage src="HomePageD2Image1.png" alt="Description of the image"/>
+                <HomePageImage src="HomePage2.gif" alt="Description of the image"/>
             </HomePageIntroImage>
             <HomePageDescription>
                 <Title fontSize={'40px'}>What’s so</Title><Title>Different?</Title>
@@ -55,7 +55,7 @@ function HomeBody() {
                 <InputFieldGetStarted/>
             </HomePageDescription>
             <HomePageIntroImage>
-                <HomePageImage src="HomePageD1Image1.png" alt="Description of the image"/>
+                <HomePageImage src="HomePage3.gif" alt="Description of the image"/>
             </HomePageIntroImage>
         </HomePageContentBG>
         </HomePage>

@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { BaMessageBoxDiv, BaMessageDiv, JoinDiv, UserIconDiv, UserIconImage, UserMessageBoxDiv, UserMessageDiv } from '../../styles/components/Message';
 
 function Message({ content }) {
