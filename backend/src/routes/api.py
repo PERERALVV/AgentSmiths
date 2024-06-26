@@ -4,6 +4,7 @@ from socketio import AsyncServer
 from socketio.asgi import ASGIApp
 from fastapi.middleware.cors import CORSMiddleware
 
+from typing import Dict, List, Any
 from models.model import requirements_chats
 from database.database2 import (
     create_chatHistory,
@@ -32,6 +33,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+active_users: Dict[str, Dict[str, Any]] = {}
+
 # Add Vibuda's first part here
 
 @app.get("/")
@@ -44,9 +47,15 @@ async def root():
 # gayuni
 @sio.on("connect")
 async def connect(sid,environ,auth):
+    userID = sid
+    # # userID = auth.get('userID') 
+    active_users[sid] = {
+        "userID": userID, 
+        "conversation": []
+    }
     print(f'{sid} : connected')
     await sio.emit('join',{'sid':sid})
-    await sio.emit("message", {"data": "Welcome!"}, to=sid)
+    # await sio.emit("message", {"data": "Welcome!"}, to=sid)
 
 # ===============only for testing============================
 import importlib
@@ -60,17 +69,30 @@ def talk_with_moda_gayuni(message):
 BA=BA()
 @sio.on("chat")
 async def chat(sid,message):
-    await sio.emit('chat',{'sid':sid,'message':message})
+    # await sio.emit('chat',{'sid':sid,'message':message})
     # response = ra.chainquery({"response": message})
     # response=talk_with_moda_gayuni(message)
+    active_users[sid]["conversation"].append({"user": message})
     response = BA.consult(message)
     if response:
         print(f'Response for message "{message}": {response}')  # Print the response
+        active_users[sid]["conversation"].append({"bot": response})
         await sio.emit('chat_response', {'sid': sid, 'message': response})   
+
+# @sio.on("end_conversation")
+# async def end_conversation(sid,messages):
 
 @sio.on("disconnect")
 async def disconnect(sid):
-    print(f'{sid} : diconnected')
+    if sid in active_users:
+        user_data = active_users.pop(sid)
+        userID = user_data["userID"]
+        conversation = user_data["conversation"]
+        
+        # Create a document for the chat history
+        chatHistory = requirements_chats(userID=userID, conversation=conversation)
+        await post_chatHistory(chatHistory)
+    print(f'{sid} ({userID}) : disconnected and conversation saved')
 
 @app.post("/api/chatHistory", response_model=requirements_chats)
 async def post_chatHistory(chatHistory:requirements_chats):

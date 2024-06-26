@@ -6,6 +6,7 @@ import ServicePlansPage from './pages/ServicePlans';
 import ContactPage from './pages/Contact';
 import ChatInterface from './pages/ChatInterface';
 import LogInPage from './pages/LogIn';
+import DemoPage from './pages/DemoPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/ContactUs" element={<ContactPage/>} />
         <Route path="/GetStarted" element={<ChatInterface />} />
         <Route path="/LogIn" element={<LogInPage/>} />
+        <Route path="/Demo" element={<DemoPage/>} />
       </Routes>
     </BrowserRouter>
   );

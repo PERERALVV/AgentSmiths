@@ -22,6 +22,7 @@ npm install web-vitals
 npm install @emotion/react @emotion/styled
 npm start
 npm install react-icons
+npm install --save react-spinners
 
 
 //backend

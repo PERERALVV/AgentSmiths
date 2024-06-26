@@ -4,19 +4,24 @@ import Message from "./Message";
 import { IoSendSharp } from "react-icons/io5";
 import { GradientTextDiv } from "../../styles/components/GradientText";
 import { ChatDiv, ChatHr, ChatScrollDiv, MessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField } from "../../styles/components/ChatBox";
+import { useNavigate } from 'react-router-dom';
 
 const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
 // const socket = io('http://localhost:80');
 
 function Chat() {
+    const navigate = useNavigate();
+
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const [sid, setSid] = useState('');  // New state to store the socket ID
     // const [responses, setResponses] = useState([]);
 
     useEffect(()=>{
         const handleConnect = () => {
             setIsConnected(true);
+            setSid(socket.id);  // Capture the socket ID
             console.log('Socket connected');
         };
 
@@ -35,10 +40,17 @@ function Chat() {
             console.log('Received chat response:', data);
         };
 
+        // const handleEndConversation = (state) => {
+        //     //socket.emit(sid,messages);
+        //     console.log('Starting to create the website');
+        //     navigate('/Demo');
+        // }
+
         socket.on('connect', handleConnect);
         socket.on('disconnect', handleDisconnect);
         socket.on('join', handleJoin);
         socket.on('chat_response', handleChatResponse);
+        // socket.on('end_conversation', handleEndConversation);
 
         // Cleanup to avoid multiple listeners
         return () => {
@@ -51,7 +63,7 @@ function Chat() {
 
     const handleMessageSend = () => {
         if (message.trim()) {
-            setMessages((prevMessages) => [...prevMessages, { message: message.trim(), type: 'chat' }]);
+            setMessages((prevMessages) => [...prevMessages, { sid: sid, message: message.trim(), type: 'chat' }]);
             socket.emit('chat', message);
             setMessage('');  // Clear message after sending
         }
