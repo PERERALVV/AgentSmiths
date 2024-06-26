@@ -48,7 +48,6 @@ async def connect(sid,environ,auth):
     await sio.emit('join',{'sid':sid})
     await sio.emit("message", {"data": "Welcome!"}, to=sid)
 
-
 # ===============only for testing============================
 import importlib
 
