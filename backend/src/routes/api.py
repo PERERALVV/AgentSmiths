@@ -4,6 +4,15 @@ from socketio import AsyncServer
 from socketio.asgi import ASGIApp
 from fastapi.middleware.cors import CORSMiddleware
 
+from models.model import requirements_chats
+from database.database2 import (
+    create_chatHistory,
+    fetch_one_chatHistory,
+    fetch_all_chatHistory,
+    update_chatHistory,
+    remove_chatHistory,
+)
+
 # import json
 # from metagpt.logs import logger
 # from metagpt.context import Context
@@ -22,6 +31,100 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add Vibuda's first part here
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+# Add Vibuda's second part here
+    
+# ==========================================
+# gayuni
+@sio.on("connect")
+async def connect(sid,environ,auth):
+    print(f'{sid} : connected')
+    await sio.emit('join',{'sid':sid})
+    await sio.emit("message", {"data": "Welcome!"}, to=sid)
+
+
+# ===============only for testing============================
+import importlib
+
+gemini=getattr(importlib.import_module('routes.llm'), 'Ggemini')()
+
+def talk_with_moda_gayuni(message):
+    rsp=gemini.chatGemini(message)
+    return rsp
+# ====================================================================
+BA=BA()
+@sio.on("chat")
+async def chat(sid,message):
+    await sio.emit('chat',{'sid':sid,'message':message})
+    # response = ra.chainquery({"response": message})
+    # response=talk_with_moda_gayuni(message)
+    response = BA.consult(message)
+    if response:
+        print(f'Response for message "{message}": {response}')  # Print the response
+        await sio.emit('chat_response', {'sid': sid, 'message': response})   
+
+@sio.on("disconnect")
+async def disconnect(sid):
+    print(f'{sid} : diconnected')
+
+@app.post("/api/chatHistory", response_model=requirements_chats)
+async def post_chatHistory(chatHistory:requirements_chats):
+    response = await create_chatHistory(chatHistory.dict())
+    if response:
+        return response
+    raise HTTPException(400,"Something went wrong / Bad request")
+
+@app.get("/api/chatHistory")
+async def get_requirement():
+    response = await fetch_all_chatHistory()
+    return response
+
+@app.get("/api/chatHistory{userID}", response_model=requirements_chats)
+async def get_requirement_by_id(userID):
+    response = await fetch_one_chatHistory(userID)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+
+@app.put("/api/chatHistory{userID}", response_model=requirements_chats)
+async def put_chatHistory(userID:str,conv:list):
+    response = await update_chatHistory(userID,conv)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+
+@app.delete("/api/chatHistory{userID}")
+async def delete_chatHistory(userID):
+    response = await remove_chatHistory(userID)
+    if response:
+        return "Successfully deleted conversation"
+    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+
+asgi_app = ASGIApp(sio, app)
+
+if __name__ == "__main__":
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ===================================================
 # import importlib
 # RA=getattr(importlib.import_module('core.agents.ReqAnalyst'), 'RA')
 # ra=RA()
@@ -61,9 +164,9 @@ app.add_middleware(
 # * Contact page: The contact page will be a simple HTML page with the hotel's phone number.
 
 # The website will not have any user authentication or registration functionality, images or videos. The website will have a basic design with no specific color scheme or font preferences."""
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+# ===================================================
+
+# =====================================================================
 # import json
 # getchat=getattr(importlib.import_module('database.database'), 'retrieve_chats_by_attribute')
 # @app.get("/chatlist")
@@ -196,41 +299,4 @@ async def root():
 #     res=ba.consult(data)
 #     print(res)
 #     await sio.emit("response", res, to=sid)
-
-# ==========================================
-# gayuni
-@sio.on("connect")
-async def connect(sid,environ,auth):
-    print(f'{sid} : connected')
-    await sio.emit('join',{'sid':sid})
-    await sio.emit("message", {"data": "Welcome!"}, to=sid)
-
-
-# ===============only for testing============================
-import importlib
-
-gemini=getattr(importlib.import_module('routes.llm'), 'Ggemini')()
-
-def talk_with_moda_gayuni(message):
-    rsp=gemini.chatGemini(message)
-    return rsp
-# ====================================================================
-BA=BA()
-@sio.on("chat")
-async def chat(sid,message):
-    await sio.emit('chat',{'sid':sid,'message':message})
-    # response = ra.chainquery({"response": message})
-    # response=talk_with_moda_gayuni(message)
-    response = BA.consult(message)
-    if response:
-        print(f'Response for message "{message}": {response}')  # Print the response
-        await sio.emit('chat_response', {'sid': sid, 'message': response})   
-
-@sio.on("disconnect")
-async def disconnect(sid):
-    print(f'{sid} : diconnected')
-
-asgi_app = ASGIApp(sio, app)
-
-if __name__ == "__main__":
-    pass
+# =====================================================================
