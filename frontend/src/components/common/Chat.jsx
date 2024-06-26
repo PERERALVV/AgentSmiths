@@ -40,17 +40,17 @@ function Chat() {
             console.log('Received chat response:', data);
         };
 
-        // const handleEndConversation = (state) => {
-        //     //socket.emit(sid,messages);
-        //     console.log('Starting to create the website');
-        //     navigate('/Demo');
-        // }
+        const handleEndConversation = (state) => {
+            //socket.emit(sid,messages);
+            console.log('Starting to create the website');
+            navigate('/Demo');
+        }
 
         socket.on('connect', handleConnect);
         socket.on('disconnect', handleDisconnect);
         socket.on('join', handleJoin);
         socket.on('chat_response', handleChatResponse);
-        // socket.on('end_conversation', handleEndConversation);
+        socket.on('end_conversation', handleEndConversation);
 
         // Cleanup to avoid multiple listeners
         return () => {

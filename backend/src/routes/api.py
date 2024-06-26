@@ -66,14 +66,20 @@ def talk_with_moda_gayuni(message):
     rsp=gemini.chatGemini(message)
     return rsp
 # ====================================================================
-BA=BA()
+BA=BA(sio=sio)
+
+test=getattr(importlib.import_module("core.temp_done"),"test")
+
 @sio.on("chat")
 async def chat(sid,message):
     # await sio.emit('chat',{'sid':sid,'message':message})
     # response = ra.chainquery({"response": message})
     # response=talk_with_moda_gayuni(message)
+    # print(message)
+    if message.lower()=="done":
+        await test(sio)
     active_users[sid]["conversation"].append({"user": message})
-    response = BA.consult(message)
+    response = await BA.consult(message)
     if response:
         print(f'Response for message "{message}": {response}')  # Print the response
         active_users[sid]["conversation"].append({"bot": response})

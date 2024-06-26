@@ -5,7 +5,7 @@ import importlib
 ProjectConst = importlib.import_module('const.ProjectConst')
 USE_JSON = getattr(ProjectConst, 'USE_JSON')
 STATIC_SITES = getattr(ProjectConst, 'STATIC_SITES')
-
+# end_conversation=getattr(importlib.import_module("routes.api"),"end_conversation")
 BAoverload = importlib.import_module('core.agents.BAoverload')
 BAoverload = getattr(BAoverload, 'BAoverload')
 
@@ -24,7 +24,7 @@ class BA:
     name:str ="Minu"
     profile:str="Business Analyst"
 
-    def __init__(self,techstack:str="JAVASCRIPT/REACT",frontend:str="REACT with Styled components",initquestion:str="put your question here"):
+    def __init__(self,sio,techstack:str="JAVASCRIPT/REACT",frontend:str="REACT with Styled components",initquestion:str="put your question here"):
         if USE_JSON:
             self.sysprompt=BApurpose+ASKQUESTIONS1.format(techstack=techstack,frontend=frontend)+ASKQUESTIONS2_JSON
         elif STATIC_SITES:
@@ -35,12 +35,13 @@ class BA:
         self.llm = Ggemini(self.sysprompt,json=USE_JSON)
         self.reviewer=BAoverload()
         self.convo=[{"question":initquestion,"answer":""}]
+        self.sio=sio
         if USE_JSON:
             self.parse=self.parse_json
         else:
             self.parse=self.parse_non_json
     
-    def consult(self,msg:str,client:bool=True)->str:
+    async def consult(self,msg:str,client:bool=True)->str:
         # TODO: analyze the client's response if its a simple one no need to create complex specification(can send straight to dev)
         if client:
             self.convo[-1]["answer"]=msg
@@ -49,6 +50,7 @@ class BA:
             try:
                 response = self.llm.chatGemini(msg)
                 print(response)
+                # await self.sio.emit("end_conversation")# for testing
                 jsonobj = self.parse(response)
                 break  # if the above lines succeed, break the loop
             except Exception as e:
@@ -66,7 +68,7 @@ class BA:
             if review is not None:
                 if review[0] == "MISSING-INFORMATION":
                     selfmsg = RESPEC.format(MISSINGINFO=review[1])
-                    resp = self.consult(selfmsg,False)
+                    resp = await self.consult(selfmsg,False)
                     if resp != "":
                         return resp
                     print("missing information")
@@ -75,10 +77,17 @@ class BA:
                     print("---------------------------------------------------------------done-----------------------------------------------------------------------------------------------")
                     # TODO: call gayuinis function to note end of questions
                     # TODO: to next agent here
+                    await sio.emit("end_conversation")
                     print(jsonobj)
+                    with open("my_file.txt", "w") as file:
+                        file.write(jsonobj)
                     return ""
             else:
                 # TODO: may need to send to next agent from here too 
+                await sio.emit("end_conversation")
+                print(jsonobj)
+                with open("my_file.txt", "w") as file:
+                    file.write(jsonobj)
                 print("returned since baoverload returned None")
                 return ""
                 # return jsonobj
@@ -90,7 +99,7 @@ class BA:
         elif jsonobj is None:
             print("Error: jsonobj is None")
             return ""
-            
+    
     @staticmethod
     def parse_non_json(rsp:str)->dict:
         json_pattern = r"^```json(.*)```$"
