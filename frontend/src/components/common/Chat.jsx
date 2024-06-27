@@ -65,6 +65,8 @@ function Chat() {
         if (message.trim()) {
             setMessages((prevMessages) => [...prevMessages, { sid: sid, message: message.trim(), type: 'chat' }]);
             socket.emit('chat', message);
+            var messageBox = document.getElementById('message');
+            messageBox.value='';	            
             setMessage('');  // Clear message after sending
         }
     };

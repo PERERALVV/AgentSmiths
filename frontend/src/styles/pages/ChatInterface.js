@@ -15,6 +15,7 @@ export const ChatInterfaceDiv = styled.div`
 export const LeftHolderDiv = styled.div`
     width : 20%;
     height: 100%;
+    max-height: 100%;
     @media (max-width: 900px) {
         display: none;
     }
@@ -39,8 +40,8 @@ export const RightHolderDiv = styled.div`
     padding: 1rem; /* Padding for inner content */
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Box shadow */
     width : 30%;
+    max-height: 100%;
     border-radius: 20px 0px 0px 20px;
-    height: 100%;
     @media (max-width: 600px) {
         display: none;
     }
@@ -48,13 +49,12 @@ export const RightHolderDiv = styled.div`
 
 export const MiddleHolderDiv = styled.div`
     flex: 2; 
-    // background-color: rgba(151, 142, 142, 0.5); 
     background-color: rgb(144, 166, 218, 0.5); 
     border-radius: 2rem; 
     padding: 10px; 
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
     width : 700px;
-    height: 100%;
+    max-height: 100%;
     margin : 0 2rem;
     flex-shrink: 0;
 `;
