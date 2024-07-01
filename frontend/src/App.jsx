@@ -7,6 +7,7 @@ import ContactPage from './pages/Contact';
 import ChatInterface from './pages/ChatInterface';
 import LogInPage from './pages/LogIn';
 import DemoPage from './pages/DemoPage';
+import StaticWebsites from './pages/StaticWebsites';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/ServicePlans" element={<ServicePlansPage/>} />
         <Route path="/ContactUs" element={<ContactPage/>} />
         <Route path="/GetStarted" element={<ChatInterface />} />
+        <Route path="/StaticWebsites" element={<StaticWebsites/>} />
         <Route path="/LogIn" element={<LogInPage/>} />
         <Route path="/Demo" element={<DemoPage/>} />
       </Routes>

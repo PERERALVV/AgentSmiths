@@ -88,5 +88,18 @@ export const ReqChatButton = styled.button`
     }
 `;
 
+/////////////////StaticChat////////////////////
+
+export const StaticMessageContainerDiv = styled.form`
+    // width: 80%;
+    height : auto;
+    padding: 1rem;              
+    margin: 0.5rem;      
+    background-color: white;    
+    border:0px;
+    border-radius: 0.5rem;     
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+`;
+
   
   

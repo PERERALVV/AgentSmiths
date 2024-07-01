@@ -14,6 +14,10 @@ from database.database2 import (
     remove_chatHistory,
 )
 
+from core.validators.prompt_validator import is_message_legitimate
+from core.validators.summarize import message_summary
+from core.validators.word_count import count_words
+
 # import json
 # from metagpt.logs import logger
 # from metagpt.context import Context
@@ -78,12 +82,27 @@ async def chat(sid,message):
     # print(message)
     if message.lower()=="done":
         await test(sio)
-    active_users[sid]["conversation"].append({"user": message})
-    response = await BA.consult(message)
-    if response:
-        print(f'Response for message "{message}": {response}')  # Print the response
-        active_users[sid]["conversation"].append({"bot": response})
-        await sio.emit('chat_response', {'sid': sid, 'message': response})   
+    #TODO prompt_validator.py
+    #TODO qna_validator.py
+    #TODO summarize.py
+    if count_words(message)>20:
+        message = message_summary(message)
+        message = message.strip('"\'')
+    legitimacy = is_message_legitimate(message)
+    print(message)
+    print(legitimacy)
+    if not legitimacy:
+        response = 'An illegitimate prompt injection was detected. \
+            Please note that after 3 illegitimate attempts, \
+                your user account will be banned from AgentSmiths.'
+        await sio.emit('chat_response', {'sid': sid, 'message': response})  
+    else:
+        active_users[sid]["conversation"].append({"user": message})
+        response = await BA.consult(message)
+        if response:
+            print(f'Response for message "{message}": {response}')  # Print the response
+            active_users[sid]["conversation"].append({"bot": response})
+            await sio.emit('chat_response', {'sid': sid, 'message': response})   
 
 # @sio.on("end_conversation")
 # async def end_conversation(sid,messages):
