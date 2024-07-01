@@ -38,53 +38,44 @@ function StaticChat() {
     },[]); 
 
     const handleChange = (e, questionId, optionType) => {
-        const { name, value, checked } = e.target;
+        const { value, checked } = e.target;
 
-        setCurrentResponse(prevState => {
+        setResponses(prevResponses => {
+            const currentAnswer = prevResponses[questionId]?.answers || '';
+    
             let newValue;
             if (optionType === 'checkbox') {
-                // Handle checkbox input
-                const currentChecks = prevState.answers || [];
+                const currentChecks = Array.isArray(currentAnswer) ? currentAnswer : [];
                 newValue = checked
                     ? [...currentChecks, value]
                     : currentChecks.filter(item => item !== value);
             } else {
-                // Handle radio button or text input
                 newValue = value;
             }
-
+    
             return {
-                ...prevState,
-                questionId: questionId,
-                question: questionsAnswers.find(q => q.id === questionId).question,
-                answers: newValue,
+                ...prevResponses,
+                [questionId]: {
+                    questionId: questionId,
+                    question: questionsAnswers.find(q => q.id === questionId).question,
+                    answers: newValue,
+                },
             };
         });
     };
 
     const handleSubmit = (questionId) => {
-        setResponses(prevResponses => {
-            // Check if the question has already been answered
-            const existingResponseIndex = prevResponses.findIndex(r => r.questionId === questionId);
-            if (existingResponseIndex !== -1) {
-                // Update existing response
-                const updatedResponses = [...prevResponses];
-                updatedResponses[existingResponseIndex] = currentResponse;
-                return updatedResponses;
-            } else {
-                // Add new response
-                return [...prevResponses, currentResponse];
-            }
-        });
+
+        // Ensure all questions have been answered
+        const allQuestionsAnswered = questionsAnswers.every(q => responses[q.id]?.answers);
 
         // Mark question as submitted
         setSubmittedQuestions(prevState => [...prevState, questionId]);
 
         // Clear the current response
-        // setCurrentResponse({});
+        setCurrentResponse({});
 
-        // Check if all questions have been answered
-        if (responses.length + 1 === questionsAnswers.length) {
+        if (Object.keys(responses).length + 1 === questionsAnswers.length) {
             console.log('All responses:', responses);
             navigate('/DemoPage');
         }
@@ -111,7 +102,8 @@ function StaticChat() {
                                         name={`question-${index}`} 
                                         value={option} 
                                         onChange={(e) => handleChange(e, questionAnswer.id, 'radio_button')}
-                                        checked={currentResponse.answers === option}
+                                        checked={responses[questionAnswer.id]?.answers === option}
+                                        disabled={submittedQuestions.includes(questionAnswer.id)}
                                     />
                                     <label htmlFor={`radio-${index}-${idx}`}>{option}</label>
                                 </div>
@@ -124,7 +116,8 @@ function StaticChat() {
                                         name={`question-${index}`} 
                                         value={option} 
                                         onChange={(e) => handleChange(e, questionAnswer.id, 'checkbox')}
-                                        checked={currentResponse.answers?.includes(option)}
+                                        checked={responses[questionAnswer.id]?.answers?.includes(option)}
+                                        disabled={submittedQuestions.includes(questionAnswer.id)}
                                     />
                                     <label htmlFor={`checkbox-${index}-${idx}`}>{option}</label>
                                 </div>
@@ -134,8 +127,9 @@ function StaticChat() {
                                     type="text" 
                                     name={`question-${index}`} 
                                     placeholder="Your answer here" 
-                                    value={currentResponse.answers || ''}
+                                    value={responses[questionAnswer.id]?.answers || ''}
                                     onChange={(e) => handleChange(e, questionAnswer.id, 'text')}
+                                    disabled={submittedQuestions.includes(questionAnswer.id)}
                                 />
                             )}
                         </div>
@@ -148,24 +142,6 @@ function StaticChat() {
             </MessageContainerDiv>
 {/* ========================================================================== */}
             </ChatScrollDiv>
-            {/* <ChatHr/>
-                <ReqChatInputDiv>            
-                <ReqChatInputField 
-                    className="Input-Field"
-                    placeholder="Type your message..."
-                    type={'text'} 
-                    id='message' 
-                    onChange={(event)=>{
-                        const value = event.target.value.trim();
-                        setMessage(value);
-                    }}
-                ></ReqChatInputField >
-                <ReqChatButton 
-                    className="GetStarted"
-                    onClick={handleMessageSend}>
-                    <IoSendSharp size={25} color={'#07297A'}/>
-                </ReqChatButton>  
-            </ReqChatInputDiv> */}
         </ChatDiv>
     );
   }
