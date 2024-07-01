@@ -15,6 +15,7 @@ function StaticChat() {
     const [responses, setResponses] = useState([]);
     const [currentResponse, setCurrentResponse] = useState({});
     const [submittedQuestions, setSubmittedQuestions] = useState([]);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     // const [sid, setSid] = useState('');  
     const userSid = 'user123'; //TEMP!!!!!!!!!!!!!!!!!!//////////////////
     // const [messages, setMessages] = useState([]);
@@ -75,10 +76,21 @@ function StaticChat() {
         // Clear the current response
         setCurrentResponse({});
 
-        if (Object.keys(responses).length + 1 === questionsAnswers.length) {
-            console.log('All responses:', responses);
-            navigate('/DemoPage');
-        }
+        setCurrentQuestionIndex(prevIndex => {
+            if (prevIndex + 1 < questionsAnswers.length) {
+                return prevIndex + 1;
+            } else {
+                // Navigate to the demo page if all questions are answered
+                console.log('All responses:', responses);
+                navigate('/DemoPage');
+                return prevIndex;
+            }
+        });
+
+        // if (Object.keys(responses).length + 1 === questionsAnswers.length) {
+        //     console.log('All responses:', responses);
+        //     navigate('/DemoPage');
+        // }
     };
 
     return (
@@ -87,7 +99,7 @@ function StaticChat() {
             <ChatScrollDiv>
 {/* ========================================================================== */}
             <MessageContainerDiv>
-            {questionsAnswers.map((questionAnswer, index) => (
+            {questionsAnswers.slice(0, currentQuestionIndex + 1).map((questionAnswer, index) => (
                         // <Message key={index} content={msg.message} />
                     <StaticMessageContainerDiv key={index}>
                         <div>
