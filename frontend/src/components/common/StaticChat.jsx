@@ -73,6 +73,7 @@ function StaticChat() {
                 [questionId]: {
                     questionId: questionId,
                     question: questionsAnswers.find(q => q.id === questionId).question,
+                    label: questionsAnswers.find(q => q.id === questionId).label,
                     answers: newValue,
                 },
             };
@@ -135,6 +136,7 @@ function StaticChat() {
         const conversation = Object.values(responses).map(response => ({
             questionId: response.questionId,
             question: response.question,
+            label: response.label,
             answers: response.answers,
         }));
     
