@@ -7,7 +7,6 @@ import { ChatDiv, ChatHr, ChatScrollDiv, MessageContainerDiv, ReqChatButton, Req
 import { useNavigate } from 'react-router-dom';
 
 const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
-// const socket = io('http://localhost:80');
 
 function Chat() {
     const navigate = useNavigate();

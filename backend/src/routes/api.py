@@ -13,6 +13,14 @@ from database.database2 import (
     update_chatHistory,
     remove_chatHistory,
 )
+from models.model import static_requirements_chats
+from database.database2 import (
+    create_staticChatHistory,
+    fetch_one_staticChatHistory,
+    fetch_all_staticChatHistory,
+    update_staticChatHistory,
+    remove_staticChatHistory,
+)
 
 from core.validators.prompt_validator import is_message_legitimate
 from core.validators.summarize import message_summary
@@ -82,9 +90,7 @@ async def chat(sid,message):
     # print(message)
     if message.lower()=="done":
         await test(sio)
-    #TODO prompt_validator.py
     #TODO qna_validator.py
-    #TODO summarize.py
     if count_words(message)>20:
         message = message_summary(message)
         message = message.strip('"\'')
@@ -119,6 +125,20 @@ async def disconnect(sid):
         await post_chatHistory(chatHistory)
     print(f'{sid} ({userID}) : disconnected and conversation saved')
 
+@sio.on("static_chat")
+async def static_chat(sid,uid,convID,conv):
+    print('RECEIVED!!!!!!!!!!!')
+    try:
+        staticChatHistory = static_requirements_chats(userID=uid, conversationID=convID, conversation=conv)
+        await post_staticChatHistory(staticChatHistory)
+        print(f'{uid} ({sid}) : disconnected and static website conversation saved')
+        await sio.emit("chat_updated", {"status": "success"}, room=sid)
+    except Exception as e:
+        print(f"Error updating conversation: {str(e)}")
+        await sio.emit("chat_updated", {"status": "error", "message": str(e)}, room=sid)
+
+#===========dynamic_requirements_chats=====================
+
 @app.post("/api/chatHistory", response_model=requirements_chats)
 async def post_chatHistory(chatHistory:requirements_chats):
     response = await create_chatHistory(chatHistory.dict())
@@ -148,6 +168,41 @@ async def put_chatHistory(userID:str,conv:list):
 @app.delete("/api/chatHistory{userID}")
 async def delete_chatHistory(userID):
     response = await remove_chatHistory(userID)
+    if response:
+        return "Successfully deleted conversation"
+    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+
+#===========static_requirements_chats=====================
+
+@app.post("/api/staticChatHistory", response_model=static_requirements_chats)
+async def post_staticChatHistory(staticChatHistory:static_requirements_chats):
+    response = await create_staticChatHistory(staticChatHistory.dict())
+    if response:
+        return response
+    raise HTTPException(400,"Something went wrong / Bad request")
+
+@app.get("/api/staticChatHistory")
+async def get_requirement():
+    response = await fetch_all_staticChatHistory()
+    return response
+
+@app.get("/api/staticChatHistory{userID}", response_model=static_requirements_chats)
+async def get_requirement_by_id(userID):
+    response = await fetch_one_staticChatHistory(userID)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+
+@app.put("/api/staticChatHistory{userID}", response_model=static_requirements_chats)
+async def put_chatHistory(userID:str,conv:str):
+    response = await update_staticChatHistory(userID,conv)
+    if response:
+        return response
+    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+
+@app.delete("/api/staticChatHistory{userID}")
+async def delete_staticChatHistory(userID):
+    response = await remove_staticChatHistory(userID)
     if response:
         return "Successfully deleted conversation"
     raise HTTPException(404, f"There is no conversation by the user ID {userID}")

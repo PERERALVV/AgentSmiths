@@ -1,29 +1,35 @@
 import React,{useEffect, useState} from "react";
-// import io from 'socket.io-client';
-import Message from "./Message";
-import { IoSendSharp } from "react-icons/io5";
+import io from 'socket.io-client';
 import { GradientTextDiv } from "../../styles/components/GradientText";
-import { ChatDiv, ChatHr, ChatScrollDiv, StaticMessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField, MessageContainerDiv } from "../../styles/components/ChatBox";
+import { ChatDiv, ChatScrollDiv, StaticMessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField, MessageContainerDiv } from "../../styles/components/ChatBox";
 import { useNavigate, useSubmit } from 'react-router-dom';
 
-// const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
+const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
 
 function StaticChat() {
     const navigate = useNavigate();
-    const [isConnected, setIsConnected] = useState(true); // Assume connected as there's no backend in this context
+    const [isConnected, setIsConnected] = useState(socket.connected); // Assume connected as there's no backend in this context
     const [questionsAnswers, setQuestionsAnswers] = useState([]);
     const [responses, setResponses] = useState([]);
     const [currentResponse, setCurrentResponse] = useState({});
     const [submittedQuestions, setSubmittedQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    // const [sid, setSid] = useState('');  
-    const userSid = 'user123'; //TEMP!!!!!!!!!!!!!!!!!!//////////////////
-    // const [messages, setMessages] = useState([]);
-    // const [message, setMessage] = useState('');
-    // const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [sessionid, setSid] = useState('');  
+    // const userSid = 'user123'; //TEMP!!!!!!!!!!!!!!!!!!//////////////////
 
     useEffect(()=>{
-        // Fetch questions from static_questions.json in public folder
+
+        const handleConnect = () => {
+            setIsConnected(true);
+            setSid(socket.id);  // Capture the socket ID
+            console.log('Socket connected');
+        };
+
+        const handleDisconnect = () => {
+            setIsConnected(false);
+            console.log('Socket disconnected');
+        };
+
         const fetchQuestions = async () => {
             try {
                 const response = await fetch('/static_questions.json');
@@ -34,8 +40,16 @@ function StaticChat() {
                 console.error('Error fetching questions and answers:', error);
             }
         };
+                
+        socket.on('connect', handleConnect);
+        socket.on('disconnect', handleDisconnect);
 
         fetchQuestions();
+
+        return () => {
+            socket.off('connect', handleConnect);
+            socket.off('disconnect', handleDisconnect);
+        };
     },[]); 
 
     const handleChange = (e, questionId, optionType) => {
@@ -80,24 +94,27 @@ function StaticChat() {
             if (prevIndex + 1 < questionsAnswers.length) {
                 return prevIndex + 1;
             } else {
-                // Navigate to the demo page if all questions are answered
-                console.log('All responses:', responses);
-                navigate('/DemoPage');
+                if (allQuestionsAnswered && currentQuestionIndex === questionsAnswers.length - 1) {
+                    // All questions answered, send data to backend
+                    const conversation = Object.values(responses).map(response => ({
+                        questionId: response.questionId,
+                        question: response.question,
+                        answers: response.answers,
+                    }));
+        
+                    socket.emit('static_chat', sessionid, sessionid, conversation);
+                    console.log('All responses:', responses);
+                    navigate('/Demo');
+                }
                 return prevIndex;
             }
         });
-
-        // if (Object.keys(responses).length + 1 === questionsAnswers.length) {
-        //     console.log('All responses:', responses);
-        //     navigate('/DemoPage');
-        // }
     };
 
     return (
         <ChatDiv>
             <GradientTextDiv>{isConnected?'You are connected':'Disconnected'}</GradientTextDiv>
             <ChatScrollDiv>
-{/* ========================================================================== */}
             <MessageContainerDiv>
             {questionsAnswers.slice(0, currentQuestionIndex + 1).map((questionAnswer, index) => (
                         // <Message key={index} content={msg.message} />
@@ -152,7 +169,6 @@ function StaticChat() {
                     </StaticMessageContainerDiv>
             ))}
             </MessageContainerDiv>
-{/* ========================================================================== */}
             </ChatScrollDiv>
         </ChatDiv>
     );
