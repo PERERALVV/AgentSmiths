@@ -50,34 +50,12 @@
             "Services",
             "Portfolio or Gallery",
             "Blog or News",
-            "Contact",
-            "Other (please specify)"
+            "Contact"
         ],
         "answer_type": "checkbox"
     },
     {
         "id": 6,
-        "question": "What types of content are needed in this pages?",
-        "options": [
-            "Text and images",
-            "Videos",
-            "Forms",
-            "Contact information",
-            "Maps",
-            "Documents",
-            "Buttons",
-            "Links"
-        ],
-        "answer_type": "checkbox"
-    },
-    {
-        "id": 7,
-        "question": "Please provide a brief description about this web page",
-        "options": [],
-        "answer_type": "text"
-    },
-    {
-        "id": 8,
         "question": "Do you have a preferred layout?",
         "options": [
             "Single-page layout",
@@ -88,7 +66,7 @@
         "answer_type": "radio_button"
     },
     {
-        "id": 9,
+        "id": 7,
         "question": "What design elements do you want to include?",
         "options": [
             "Sliders",
@@ -100,7 +78,7 @@
         "answer_type": "checkbox"
     },
     {
-        "id": 10,
+        "id": 8,
         "question": "Desired user experience?",
         "options": [
             "Easy and intuitive",
@@ -111,7 +89,7 @@
         "answer_type": "checkbox"
     },
     {
-        "id": 11,
+        "id": 9,
         "question": "Any user journey considerations?",
         "options": [
             "Easy navigation",
@@ -122,7 +100,7 @@
         "answer_type": "checkbox"
     },
     {
-        "id": 12,
+        "id": 10,
         "question": "Please provide a brief description about your needs which might not have been coverd during this conversation",
         "options": [],
         "answer_type": "text"

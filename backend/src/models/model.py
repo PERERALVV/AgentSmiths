@@ -9,3 +9,4 @@ class static_requirements_chats(BaseModel):
     userID : str
     conversationID: str
     conversation: list
+    description: list

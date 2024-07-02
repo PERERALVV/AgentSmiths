@@ -12,7 +12,6 @@ export const BrandNameDiv = styled.div`
     @media (max-width: 1100px) {
             font-size: calc(28px + (35 - 28) * ((100vw - 800px) / (1100 - 800)));
     }
-    
     // @media (max-width: 800px) {
     //         font-size: 22px;
     // }

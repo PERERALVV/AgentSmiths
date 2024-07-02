@@ -4,24 +4,24 @@ import { GradientTextDiv } from "../../styles/components/GradientText";
 import { ChatDiv, ChatScrollDiv, StaticMessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField, MessageContainerDiv } from "../../styles/components/ChatBox";
 import { useNavigate, useSubmit } from 'react-router-dom';
 
-const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
+const socket = io('http://localhost:80', { transports: ['websocket'] }); 
 
 function StaticChat() {
     const navigate = useNavigate();
-    const [isConnected, setIsConnected] = useState(socket.connected); // Assume connected as there's no backend in this context
+    const [isConnected, setIsConnected] = useState(socket.connected); 
     const [questionsAnswers, setQuestionsAnswers] = useState([]);
     const [responses, setResponses] = useState([]);
     const [currentResponse, setCurrentResponse] = useState({});
     const [submittedQuestions, setSubmittedQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [sessionid, setSid] = useState('');  
-    // const userSid = 'user123'; //TEMP!!!!!!!!!!!!!!!!!!//////////////////
+    const [pageDescriptions, setPageDescriptions] = useState([]);
 
     useEffect(()=>{
 
         const handleConnect = () => {
             setIsConnected(true);
-            setSid(socket.id);  // Capture the socket ID
+            setSid(socket.id);  
             console.log('Socket connected');
         };
 
@@ -81,13 +81,10 @@ function StaticChat() {
 
     const handleSubmit = (questionId) => {
 
-        // Ensure all questions have been answered
         const allQuestionsAnswered = questionsAnswers.every(q => responses[q.id]?.answers);
 
-        // Mark question as submitted
         setSubmittedQuestions(prevState => [...prevState, questionId]);
-
-        // Clear the current response
+        
         setCurrentResponse({});
 
         setCurrentQuestionIndex(prevIndex => {
@@ -95,20 +92,54 @@ function StaticChat() {
                 return prevIndex + 1;
             } else {
                 if (allQuestionsAnswered && currentQuestionIndex === questionsAnswers.length - 1) {
-                    // All questions answered, send data to backend
-                    const conversation = Object.values(responses).map(response => ({
-                        questionId: response.questionId,
-                        question: response.question,
-                        answers: response.answers,
-                    }));
-        
-                    socket.emit('static_chat', sessionid, sessionid, conversation);
                     console.log('All responses:', responses);
-                    navigate('/Demo');
                 }
                 return prevIndex;
             }
         });
+    };
+
+    const handleDescriptionChange = (e, pageName) => {
+        // Debugging: Check form target
+        console.log('Form target:', e.target);
+        const { value } = e.target;
+        console.log(value);
+    
+        setPageDescriptions(prevDescriptions => {
+            // Update the specific description for the given pageName
+            const updatedDescriptions = prevDescriptions.map(desc =>
+                desc.pageName === pageName ? { ...desc, description: value } : desc
+            );
+    
+            // If pageName does not exist, add a new entry
+            if (!updatedDescriptions.find(desc => desc.pageName === pageName)) {
+                updatedDescriptions.push({ pageName, description: value });
+            }
+    
+            return updatedDescriptions;
+        });
+    };    
+
+    const handleSubmitPageDescriptions = (e) => {
+        e.preventDefault();
+    
+        // Create descriptions from pageDescriptions state
+        const descriptions = pageDescriptions.map(desc => ({
+            pageName: desc.pageName,
+            description: desc.description,
+        }));
+    
+        console.log('Page Descriptions:', descriptions);
+    
+        // Create the conversation data
+        const conversation = Object.values(responses).map(response => ({
+            questionId: response.questionId,
+            question: response.question,
+            answers: response.answers,
+        }));
+    
+        socket.emit('static_chat', sessionid, sessionid, conversation, descriptions);
+        navigate('/Demo');
     };
 
     return (
@@ -152,8 +183,7 @@ function StaticChat() {
                                 </div>
                             ))}
                             {questionAnswer.answer_type === 'text' && (
-                                <input 
-                                    type="text" 
+                                <textarea 
                                     name={`question-${index}`} 
                                     placeholder="Your answer here" 
                                     value={responses[questionAnswer.id]?.answers || ''}
@@ -165,9 +195,23 @@ function StaticChat() {
                         {!submittedQuestions.includes(questionAnswer.id) && (
                             <button type="button" onClick={() => handleSubmit(questionAnswer.id)}>Submit</button>
                         )}
-                        {/* <button type="button" onClick={() => handleSubmit(questionAnswer.id)}>Submit</button> */}
                     </StaticMessageContainerDiv>
             ))}
+            {questionsAnswers.every(q => responses[q.id]?.answers) && (
+            <StaticMessageContainerDiv>
+                {responses[5]?.answers.map((answer,index)=>(
+                    <div key={index}>
+                        <div>{answer}</div>
+                        <textarea 
+                            name={`description-${answer}`} 
+                            placeholder="Please provide a brief description about this web page" 
+                            onChange={(e) => handleDescriptionChange(e, answer)}
+                            value={pageDescriptions.find(desc => desc.pageName === answer)?.description || ''}
+                        />
+                    </div>
+                ))}
+                <button type="submit" onClick={handleSubmitPageDescriptions}>Submit</button>
+            </StaticMessageContainerDiv>)}
             </MessageContainerDiv>
             </ChatScrollDiv>
         </ChatDiv>

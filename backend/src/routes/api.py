@@ -10,7 +10,7 @@ from database.database2 import (
     create_chatHistory,
     fetch_one_chatHistory,
     fetch_all_chatHistory,
-    update_chatHistory,
+    # update_chatHistory,
     remove_chatHistory,
 )
 from models.model import static_requirements_chats
@@ -18,7 +18,7 @@ from database.database2 import (
     create_staticChatHistory,
     fetch_one_staticChatHistory,
     fetch_all_staticChatHistory,
-    update_staticChatHistory,
+    # update_staticChatHistory,
     remove_staticChatHistory,
 )
 
@@ -126,10 +126,10 @@ async def disconnect(sid):
     print(f'{sid} ({userID}) : disconnected and conversation saved')
 
 @sio.on("static_chat")
-async def static_chat(sid,uid,convID,conv):
+async def static_chat(sid,uid,convID,conv,desc):
     print('RECEIVED!!!!!!!!!!!')
     try:
-        staticChatHistory = static_requirements_chats(userID=uid, conversationID=convID, conversation=conv)
+        staticChatHistory = static_requirements_chats(userID=uid, conversationID=convID, conversation=conv, description=desc)
         await post_staticChatHistory(staticChatHistory)
         print(f'{uid} ({sid}) : disconnected and static website conversation saved')
         await sio.emit("chat_updated", {"status": "success"}, room=sid)
@@ -158,12 +158,12 @@ async def get_requirement_by_id(userID):
         return response
     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
 
-@app.put("/api/chatHistory{userID}", response_model=requirements_chats)
-async def put_chatHistory(userID:str,conv:list):
-    response = await update_chatHistory(userID,conv)
-    if response:
-        return response
-    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+# @app.put("/api/chatHistory{userID}", response_model=requirements_chats)
+# async def put_chatHistory(userID:str,conv:list):
+#     response = await update_chatHistory(userID,conv)
+#     if response:
+#         return response
+#     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
 
 @app.delete("/api/chatHistory{userID}")
 async def delete_chatHistory(userID):
@@ -193,12 +193,12 @@ async def get_requirement_by_id(userID):
         return response
     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
 
-@app.put("/api/staticChatHistory{userID}", response_model=static_requirements_chats)
-async def put_chatHistory(userID:str,conv:str):
-    response = await update_staticChatHistory(userID,conv)
-    if response:
-        return response
-    raise HTTPException(404, f"There is no conversation by the user ID {userID}")
+# @app.put("/api/staticChatHistory{userID}", response_model=static_requirements_chats)
+# async def put_chatHistory(userID:str,conv:list,desc:list):
+#     response = await update_staticChatHistory(userID,conv)
+#     if response:
+#         return response
+#     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
 
 @app.delete("/api/staticChatHistory{userID}")
 async def delete_staticChatHistory(userID):

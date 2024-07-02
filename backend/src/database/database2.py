@@ -30,10 +30,10 @@ async def fetch_all_chatHistory():
         all_chatHistory.append(requirements_chats(**document))
     return all_chatHistory
 
-async def update_chatHistory(userID,conv):
-    await collection.update_one({"userID":userID},{"$set":{"conversation":conv}})
-    document = await collection.find_one({"userID":userID})
-    return document
+# async def update_chatHistory(userID,conv):
+#     await collection.update_one({"userID":userID},{"$set":{"conversation":conv}})
+#     document = await collection.find_one({"userID":userID})
+#     return document
 
 async def remove_chatHistory(userID):
     await collection.delete_one({"userID":userID})
@@ -57,12 +57,12 @@ async def fetch_all_staticChatHistory():
         all_staticChatHistory.append(requirements_chats(**document))
     return all_staticChatHistory
 
-async def update_staticChatHistory(userID,conv):
-    await static_requirements_chats.update_one({"userID":userID},{"$set":{"conversation":conv}})
-    document = await static_requirements_chats.find_one({"userID":userID})
-    return document
+# async def update_staticChatHistory(userID,conv):
+#     await static_requirements_chats.update_one({"userID":userID},{"$set":{"conversation":conv}})
+#     document = await static_requirements_chats.find_one({"userID":userID})
+#     return document
 
 async def remove_staticChatHistory(userID,conversationID):
-    await static_requirements_chats.delete_one({"userID":userID},{"$set":{"conversationID":convID}})
+    await static_requirements_chats.delete_one({"userID":userID},{"conversationID":convID})
     return True
 
