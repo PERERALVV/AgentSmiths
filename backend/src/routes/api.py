@@ -62,17 +62,25 @@ test=getattr(importlib.import_module("core.temp_done"),"test")
 
 @sio.on("connect")
 async def connect(sid,environ,auth):
+    print(f'{sid} : connected')
+
+@sio.on("start_conversation")
+async def start_conversation(sid):    
     userID = sid
     # # userID = auth.get('userID') 
     active_users[sid] = {
         "userID": userID, 
         "conversation": []
     }
-    print(f'{sid} : connected')
-    await sio.emit('join',{'sid':sid})
+    print(f'{sid} : start_conversation')
+    # await sio.emit('join',{'sid':sid})
     response = await BA.consult('Hi! Nice to meet you!')
     await sio.emit('chat_response', {'sid': sid, 'message': response})
     active_users[sid]["conversation"].append({"bot": response})
+
+@sio.on("end_conversation")
+async def end_conversation(sid,messages):
+        print(f'{sid} : end_conversation')
 
 @sio.on("chat")
 async def chat(sid,message):
@@ -99,9 +107,6 @@ async def chat(sid,message):
             print(f'Response for message "{message}": {response}')  # Print the response
             active_users[sid]["conversation"].append({"bot": response})
             await sio.emit('chat_response', {'sid': sid, 'message': response})   
-
-# @sio.on("end_conversation")
-# async def end_conversation(sid,messages):
 
 @sio.on("help_answer")
 async def help_answer(sid,message):

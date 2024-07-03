@@ -28,6 +28,7 @@ function Chat() {
             setIsConnected(true);
             setSid(socket.id);  // Capture the socket ID
             console.log('Socket connected');
+            socket.emit('start_conversation')
         };
 
         const handleDisconnect = () => {
@@ -35,8 +36,8 @@ function Chat() {
             console.log('Socket disconnected');
         };
 
-        const handleJoin = (data) => {
-            console.log('Joined:', data);
+        const handleStartConversation = () => {
+            console.log('handleStartConversation');
         };
 
         const handleChatResponse = (data) => {
@@ -73,19 +74,19 @@ function Chat() {
 
         socket.on('connect', handleConnect);
         socket.on('disconnect', handleDisconnect);
-        socket.on('join', handleJoin);
         socket.on('chat_response', handleChatResponse);
         socket.on('warning', handleWarning);
         socket.on('end_conversation', handleEndConversation);
+        socket.on('start_conversation', handleStartConversation);
 
         // Cleanup to avoid multiple listeners
         return () => {
             socket.off('connect', handleConnect);
             socket.off('disconnect', handleDisconnect);
-            socket.off('join', handleJoin);
             socket.off('chat_response', handleChatResponse);
             socket.off('warning', handleWarning);
             socket.off('end_conversation', handleEndConversation);
+            socket.off('start_conversation', handleStartConversation);
         };
     },[]); 
 
