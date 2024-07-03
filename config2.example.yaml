@@ -1,4 +1,0 @@
-llm:
-  api_type: 'gemini'
-  api_key: 'YOUR_API_KEY'
-  model: 'gemini-pro' #supported models"gemini-1.5-pro-latest","gemini-1.0-pro-latest","gemini-1.0-pro-001
