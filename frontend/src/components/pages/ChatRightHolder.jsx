@@ -1,17 +1,14 @@
 import { GradientTextDiv } from '../../styles/components/GradientText';
-import { RightHolderDiv } from '../../styles/pages/ChatInterface';
-import SummaryList from '../common/SummaryList';
+import { RightHolderDiv, RightHolderImage } from '../../styles/pages/ChatInterface';
 
 function ChatRightHolder() {
-  // Hardcoded sample data
-  const webName = "Gayuni's Boutique";
 
   return (
     <RightHolderDiv>
+      <RightHolderImage src="RightHolder.gif" alt="Unprocessed Image"/>
       <GradientTextDiv>
-        {webName}
+        Building ...
       </GradientTextDiv>
-      <SummaryList/>
     </RightHolderDiv>
   );
 }

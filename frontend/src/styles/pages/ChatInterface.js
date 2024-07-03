@@ -24,20 +24,23 @@ export const LeftHolderDiv = styled.div`
 export const LeftHolderImage = styled.img`
     max-width: 100%;
     max-height: 50%;
-    width: auto; /* Adjust to allow the image to maintain its aspect ratio */
-    height: auto; /* Adjust to allow the image to maintain its aspect ratio */
-    align-self: flex-end; /* Align the image to the bottom of the div */
+    width: auto; 
+    height: auto; 
     margin-top:100px;
     margin-botton:0px;
 `;
 
 export const RightHolderDiv = styled.div`
-    flex: 1; /* Use flex-grow to make both holders take equal width */
-    background-color: none; /* 50% transparent white background */
-    border: 2px solid #3A40CB;
+    flex: 1; 
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e4f7;
+    border: none;
     border-right: 0px;
-    border-radius: 20px; /* Rounded corners */
-    padding: 1rem; /* Padding for inner content */
+    border-radius: 20px; 
+    padding: 1rem; 
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); /* Box shadow */
     width : 30%;
     max-height: 100%;
@@ -46,6 +49,17 @@ export const RightHolderDiv = styled.div`
         display: none;
     }
 `;
+
+export const RightHolderImage = styled.img`
+    // max-width: 100%;
+    // max-height: 50%;
+    width: 50%; 
+    height: auto; 
+    align-self: center; 
+    margin-top:100px;
+    margin-botton:0px;
+`;
+
 
 export const MiddleHolderDiv = styled.div`
     flex: 2; 

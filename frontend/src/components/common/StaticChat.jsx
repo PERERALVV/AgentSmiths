@@ -1,8 +1,9 @@
 import React,{useEffect, useState} from "react";
 import io from 'socket.io-client';
 import { GradientTextDiv } from "../../styles/components/GradientText";
-import { ChatDiv, ChatScrollDiv, StaticMessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField, MessageContainerDiv } from "../../styles/components/ChatBox";
+import { ChatDiv, ChatScrollDiv, MessageContainerDiv } from "../../styles/components/ChatBox";
 import { useNavigate, useSubmit } from 'react-router-dom';
+import { OptionContainerDiv, OptionDiv, QuestionContainerDiv, SubmitButton, StaticMessageContainerDiv, DescriptionTextArea,  } from "../../styles/pages/StaticChat";
 
 const socket = io('http://localhost:80', { transports: ['websocket'] }); 
 
@@ -152,12 +153,12 @@ function StaticChat() {
             {questionsAnswers.slice(0, currentQuestionIndex + 1).map((questionAnswer, index) => (
                         // <Message key={index} content={msg.message} />
                     <StaticMessageContainerDiv key={index}>
-                        <div>
+                        <QuestionContainerDiv>
                             {questionAnswer.question}
-                        </div>
-                        <div>
+                        </QuestionContainerDiv>
+                        <OptionContainerDiv>
                             {questionAnswer.answer_type === 'radio_button' && questionAnswer.options.map((option, idx) => (
-                                <div key={idx}>
+                                <OptionDiv key={idx}>
                                     <input 
                                         type="radio" 
                                         id={`radio-${index}-${idx}`} 
@@ -168,10 +169,10 @@ function StaticChat() {
                                         disabled={submittedQuestions.includes(questionAnswer.id)}
                                     />
                                     <label htmlFor={`radio-${index}-${idx}`}>{option}</label>
-                                </div>
+                                </OptionDiv>
                             ))}
                             {questionAnswer.answer_type === 'checkbox' && questionAnswer.options.map((option, idx) => (
-                                <div key={idx}>
+                                <OptionDiv key={idx}>
                                     <input 
                                         type="checkbox" 
                                         id={`checkbox-${index}-${idx}`} 
@@ -182,10 +183,10 @@ function StaticChat() {
                                         disabled={submittedQuestions.includes(questionAnswer.id)}
                                     />
                                     <label htmlFor={`checkbox-${index}-${idx}`}>{option}</label>
-                                </div>
+                                </OptionDiv>
                             ))}
                             {questionAnswer.answer_type === 'text' && (
-                                <textarea 
+                                <DescriptionTextArea 
                                     name={`question-${index}`} 
                                     placeholder="Your answer here" 
                                     value={responses[questionAnswer.id]?.answers || ''}
@@ -193,9 +194,9 @@ function StaticChat() {
                                     disabled={submittedQuestions.includes(questionAnswer.id)}
                                 />
                             )}
-                        </div>
+                        </OptionContainerDiv>
                         {!submittedQuestions.includes(questionAnswer.id) && (
-                            <button type="button" onClick={() => handleSubmit(questionAnswer.id)}>Submit</button>
+                            <SubmitButton type="button" onClick={() => handleSubmit(questionAnswer.id)}>Submit</SubmitButton>
                         )}
                     </StaticMessageContainerDiv>
             ))}
@@ -203,8 +204,8 @@ function StaticChat() {
             <StaticMessageContainerDiv>
                 {responses[5]?.answers.map((answer,index)=>(
                     <div key={index}>
-                        <div>{answer}</div>
-                        <textarea 
+                        <QuestionContainerDiv>{answer}</QuestionContainerDiv>
+                        <DescriptionTextArea  
                             name={`description-${answer}`} 
                             placeholder="Please provide a brief description about this web page" 
                             onChange={(e) => handleDescriptionChange(e, answer)}
@@ -212,7 +213,7 @@ function StaticChat() {
                         />
                     </div>
                 ))}
-                <button type="submit" onClick={handleSubmitPageDescriptions}>Submit</button>
+                <SubmitButton type="submit" onClick={handleSubmitPageDescriptions}>Submit</SubmitButton>
             </StaticMessageContainerDiv>)}
             </MessageContainerDiv>
             </ChatScrollDiv>
