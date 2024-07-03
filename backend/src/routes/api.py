@@ -79,8 +79,16 @@ async def start_conversation(sid):
     active_users[sid]["conversation"].append({"bot": response})
 
 @sio.on("end_conversation")
-async def end_conversation(sid,messages):
-        print(f'{sid} : end_conversation')
+async def end_conversation(sid):
+    if sid in active_users:
+        user_data = active_users.pop(sid)
+        userID = user_data["userID"]
+        conversation = user_data["conversation"]
+        
+        # Create a document for the chat history
+        chatHistory = requirements_chats(userID=userID, conversation=conversation)
+        await post_chatHistory(chatHistory)
+    print(f'{sid} : conversation saved')
 
 @sio.on("chat")
 async def chat(sid,message):
@@ -108,6 +116,10 @@ async def chat(sid,message):
             active_users[sid]["conversation"].append({"bot": response})
             await sio.emit('chat_response', {'sid': sid, 'message': response})   
 
+@sio.on("disconnect")
+async def disconnect(sid):
+    print(f'{sid} : disconnected')
+
 @sio.on("help_answer")
 async def help_answer(sid,message):
     response=get_clarification(message)
@@ -116,18 +128,6 @@ async def help_answer(sid,message):
         await sio.emit('chat_response', {'sid': sid, 'message': response})
     else:
         print('No clarification received')  
-
-@sio.on("disconnect")
-async def disconnect(sid):
-    if sid in active_users:
-        user_data = active_users.pop(sid)
-        userID = user_data["userID"]
-        conversation = user_data["conversation"]
-        
-        # Create a document for the chat history
-        chatHistory = requirements_chats(userID=userID, conversation=conversation)
-        await post_chatHistory(chatHistory)
-    print(f'{sid} ({userID}) : disconnected and conversation saved')
 
 @sio.on("static_chat")
 async def static_chat(sid,uid,convID,conv,desc):
