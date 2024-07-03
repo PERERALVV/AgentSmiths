@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import Message from "./Message";
 import { IoSendSharp } from "react-icons/io5";
 import { GradientTextDiv } from "../../styles/components/GradientText";
-import { ChatDiv, ChatHr, ChatScrollDiv, MessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField } from "../../styles/components/ChatBox";
+import { ChatDiv, ChatHr, ChatScrollDiv, ClarifyButton, MessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField } from "../../styles/components/ChatBox";
 import { useNavigate } from 'react-router-dom';
 
 const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
@@ -14,7 +14,10 @@ function Chat() {
     const [isConnected, setIsConnected] = useState(socket.connected);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
-    const [sid, setSid] = useState('');  // New state to store the socket ID
+    const [sid, setSid] = useState('');  
+    const [warningTimer, setWarningTimer] = useState(null);
+    const [navigateTimer, setNavigateTimer] = useState(null);
+    const [isInputDisabled, setIsInputDisabled] = useState(false);
     // const [responses, setResponses] = useState([]);
 
     useEffect(()=>{
@@ -37,6 +40,15 @@ function Chat() {
         const handleChatResponse = (data) => {
             setMessages((prevMessages) => [...prevMessages, { ...data, type: 'chat_response' }]);
             console.log('Received chat response:', data);
+            setIsInputDisabled(false);
+            startInactivityTimers();
+        };
+
+        const handleWarning = (data) => {
+            setMessages((prevMessages) => [...prevMessages, { ...data, type: 'warning' }]);
+            console.log('Received warning from backend:', data);
+            setIsInputDisabled(false);
+            startInactivityTimers();
         };
 
         const handleEndConversation = (state) => {
@@ -49,6 +61,7 @@ function Chat() {
         socket.on('disconnect', handleDisconnect);
         socket.on('join', handleJoin);
         socket.on('chat_response', handleChatResponse);
+        socket.on('warning', handleWarning);
         socket.on('end_conversation', handleEndConversation);
 
         // Cleanup to avoid multiple listeners
@@ -57,6 +70,8 @@ function Chat() {
             socket.off('disconnect', handleDisconnect);
             socket.off('join', handleJoin);
             socket.off('chat_response', handleChatResponse);
+            socket.off('warning', handleWarning);
+            socket.off('end_conversation', handleEndConversation);
         };
     },[]); 
 
@@ -66,12 +81,55 @@ function Chat() {
             socket.emit('chat', message);
             var messageBox = document.getElementById('message');
             messageBox.value='';	            
-            setMessage('');  // Clear message after sending
+            setMessage('');  
+            setIsInputDisabled(true);
+
+            // Clear any existing inactivity timers
+            clearTimeout(warningTimer);
+            clearTimeout(navigateTimer);
         }
     };
 
+    const handleHelpAnswer = () => {
+        // Find the last 'chat_response' message
+        const lastChatResponse = [...messages].reverse().find(msg => msg.type === 'chat_response');
+        console.log('Help request for:', lastChatResponse);
+        if (lastChatResponse) {
+            socket.emit('help_answer', lastChatResponse.message);
+            setIsInputDisabled(true);
+            console.log('Sent help request for:', lastChatResponse.message);
+        } else {
+            console.warn('No chat_response message found.');
+        }
+    };
+
+    const startInactivityTimers = () => {
+        // Clear any existing timers
+        clearTimeout(warningTimer);
+        clearTimeout(navigateTimer);
+
+        // Set a timer for the warning message
+        const newWarningTimer = setTimeout(() => {
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { sid: sid, message: 'You have not responded for 120 seconds. Please respond to avoid conversation termination', type: 'warning' }
+            ]);
+            console.warn('User inactivity warning sent.');
+
+            // Set a timer to navigate to home after another 2 minutes
+            const newNavigateTimer = setTimeout(() => {
+                navigate('/');
+                console.warn('User redirected to HomePage due to inactivity.');
+            }, 120000); // 2 minutes
+
+            setNavigateTimer(newNavigateTimer);
+        }, 120000); // 2 minutes
+
+        setWarningTimer(newWarningTimer);
+    };
+
     console.log('Rendered with messages:', messages);
-    // console.log('Rendered with responses:', responses);
+
     return (
         <ChatDiv>
             <GradientTextDiv>{isConnected?'You are connected':'Disconnected'}</GradientTextDiv>
@@ -97,12 +155,11 @@ function Chat() {
                         setMessage(value);
                     }}
                 ></ReqChatInputField >
-                <ReqChatButton 
-                    className="GetStarted"
-                    onClick={handleMessageSend}>
+                <ReqChatButton onClick={handleMessageSend} disabled={isInputDisabled}>
                     <IoSendSharp size={25} color={'#07297A'}/>
                 </ReqChatButton>  
             </ReqChatInputDiv>
+            <ClarifyButton onClick={handleHelpAnswer} disabled={isInputDisabled}>Help me answer</ClarifyButton>
         </ChatDiv>
     );
   }

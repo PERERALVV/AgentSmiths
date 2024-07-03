@@ -88,6 +88,25 @@ export const ReqChatButton = styled.button`
     }
 `;
 
+export const ClarifyButton = styled.button`
+    flex-grow:1;
+    width: 50%;
+    // height: 100%;
+    padding: 0.25rem;
+    margin: 0.5rem;
+    border: 0;
+    border-radius:2rem;
+    box-sizing: border-box; 
+    background-color:#07297A;
+    color: #ffffff; 
+    font-size: 14px;
+    @media (max-width: 1100px) {
+        &::placeholder{
+            font-size: 12px;
+        }
+    }
+`;
+
 /////////////////StaticChat////////////////////
 
 export const StaticMessageContainerDiv = styled.form`

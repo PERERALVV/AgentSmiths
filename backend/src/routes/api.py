@@ -23,6 +23,7 @@ from database.database2 import (
 )
 
 from core.validators.prompt_validator import is_message_legitimate
+from core.validators.qna_validator import is_qna_match
 from core.validators.summarize import message_summary
 from core.validators.word_count import count_words
 
@@ -67,16 +68,27 @@ async def connect(sid,environ,auth):
     }
     print(f'{sid} : connected')
     await sio.emit('join',{'sid':sid})
-    # await sio.emit("message", {"data": "Welcome!"}, to=sid)
 
 # ===============only for testing============================
 import importlib
+import re
 
-gemini=getattr(importlib.import_module('routes.llm'), 'Ggemini')()
+# Import the Ggemini class
+gemini_module = importlib.import_module('routes.llm')
+gemini = getattr(gemini_module, 'Ggemini')()
 
-def talk_with_moda_gayuni(message):
-    rsp=gemini.chatGemini(message)
-    return rsp
+def remove_formatting(text: str) -> str:
+    # Remove ** and * used for bold or italic formatting
+    clean_text = re.sub(r'\*\*|[*]', '', text)
+    return clean_text
+
+# Define the get_clarification function
+def get_clarification(message: str) -> str:
+    clarification_prompt = f"Provide a brief clarification for this question: {message}"
+    response = gemini.chatGemini(clarification_prompt)
+    clean_response = remove_formatting(response)
+    return clean_response
+
 # ====================================================================
 BA=BA(sio=sio)
 
@@ -86,7 +98,7 @@ test=getattr(importlib.import_module("core.temp_done"),"test")
 async def chat(sid,message):
     # await sio.emit('chat',{'sid':sid,'message':message})
     # response = ra.chainquery({"response": message})
-    # response=talk_with_moda_gayuni(message)
+    # response=get_clarification(message)
     # print(message)
     if message.lower()=="done":
         await test(sio)
@@ -95,14 +107,16 @@ async def chat(sid,message):
         message = message_summary(message)
         message = message.strip('"\'')
     legitimacy = is_message_legitimate(message)
-    print(message)
-    print(legitimacy)
+    # print(message)
+    # print(legitimacy)
     if not legitimacy:
         response = 'An illegitimate prompt injection was detected. \
             Please note that after 3 illegitimate attempts, \
                 your user account will be banned from AgentSmiths.'
-        await sio.emit('chat_response', {'sid': sid, 'message': response})  
+        await sio.emit('warning', {'sid': sid, 'message': response})  
     else:
+        # qna_match = is_qna_match()
+
         active_users[sid]["conversation"].append({"user": message})
         response = await BA.consult(message)
         if response:
@@ -112,6 +126,15 @@ async def chat(sid,message):
 
 # @sio.on("end_conversation")
 # async def end_conversation(sid,messages):
+
+@sio.on("help_answer")
+async def help_answer(sid,message):
+    response=get_clarification(message)
+    if response:
+        print(f'Response for message "{message}": {response}') 
+        await sio.emit('chat_response', {'sid': sid, 'message': response})
+    else:
+        print('No clarification received')  
 
 @sio.on("disconnect")
 async def disconnect(sid):

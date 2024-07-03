@@ -1,6 +1,6 @@
 import React from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { BaMessageBoxDiv, BaMessageDiv, JoinDiv, UserIconDiv, UserIconImage, UserMessageBoxDiv, UserMessageDiv } from '../../styles/components/Message';
+import { BaMessageBoxDiv, BaMessageDiv, JoinDiv, UserIconDiv, UserIconImage, UserMessageBoxDiv, UserMessageDiv, WarningMessageBoxDiv } from '../../styles/components/Message';
 
 function Message({ content }) {
   if (content.type === 'join')
@@ -35,6 +35,19 @@ function Message({ content }) {
           </BaMessageBoxDiv>
         </BaMessageDiv>
     );
+
+    if (content.type === 'warning')
+      return (
+          <BaMessageDiv>
+            <UserIconDiv> {/* Hide on screens smaller than sm (576px) */}
+              <UserIconImage src="ServerBotIcon.png" alt="Profile"  style={{ width: '40px', height: '40px' }} />
+            </UserIconDiv>
+            <WarningMessageBoxDiv>
+              {/* <p><strong>Response:</strong> {`${content.sid}:${content.message}`}</p> */}
+              <p>{`${content.message}`}</p>
+            </WarningMessageBoxDiv>
+          </BaMessageDiv>
+      );
 }
 
 export default Message;

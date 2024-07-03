@@ -42,6 +42,16 @@ export const BaMessageBoxDiv = styled.div`
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
 `;
 
+export const WarningMessageBoxDiv = styled.div`
+    width: 60%;
+    background-color: #dba0a0; 
+    color: #000000; 
+    padding: 1rem; 
+    margin: 0.25rem; 
+    border-radius: 0.5rem; 
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+`;
+
 export const UserMessageDiv = styled.div`
     display: flex;          
     justify-content: flex-end; 
