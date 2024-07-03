@@ -1,0 +1,168 @@
+{
+  "name": "hondahitha hotels",
+  "BaSpecification": "## Frontend Specification\n\nA simple hotel website with a static menu for food ordering.\n\nThe website will have the following pages:\n\n* **Home page:**\n    * Displays a brief description of the hotel (e.g., location, amenities, contact information).\n    * Links to the food menu and contact page.\n* **Food menu page:**\n    * Displays a static menu of the hotel's restaurant. \n    * The menu will only feature one type of pizza, with no variations.\n    * Users can submit their order (with their name and phone number) for pickup or delivery.\n    * The order submission form will not allow users to select a specific time for pickup or delivery.\n* **Contact page:**\n    * Displays the hotel's phone number (0771234567).\n\nThe website will be built using the following technologies:\n\n* **Frontend:** ReactJS framework, styled-components for styling, and vanilla JavaScript.\n\nThe website will be implemented in the following way:\n\n* **Home page:** The home page will be a React component with a simple layout, including paragraphs of text and links to other pages.\n* **Food menu page:** The menu items (in this case, only one pizza) will be hardcoded into the React component. The website will display the menu items on the page. The order submission form will be handled by a React component, collecting user name and phone number and sending this data to the backend. The user will not receive any confirmation of their order after submitting it.\n* **Contact page:** The contact page will be a React component with a simple layout, displaying the hotel's phone number.\n\nThe website will not have any user authentication or registration functionality, images or videos. The website will have a basic design with no specific color scheme or font preferences. \n",
+  "userStories": [
+    "As a user, I want to visit the home page to learn about the hotel, including its location, amenities, and contact information.",
+    "As a user, I want to navigate to the food menu page from the home page to view the available food options.",
+    "As a user, I want to view the hotel's food menu, which includes a single pizza option.",
+    "As a user, I want to submit an order for the pizza, including my name and phone number.",
+    "As a user, I want to choose between pickup or delivery for my order.",
+    "As a user, I want to submit my order without specifying a specific pickup or delivery time.",
+    "As a user, I want to navigate to the contact page from the home page to find the hotel's phone number.",
+    "As a user, I want to view the hotel's phone number on the contact page."
+  ],
+  "userTasks": [
+    {
+      "user story": "As a user, I want to visit the home page to learn about the hotel, including its location, amenities, and contact information.",
+      "user tasks": [
+        "user navigates to the hotel's website home page",
+        "user views the hotel's location information",
+        "user views the hotel's amenities information",
+        "user views the hotel's contact information"
+      ]
+    },
+    {
+      "user story": "As a user, I want to navigate to the food menu page from the home page to view the available food options.",
+      "user tasks": [
+        "user navigates to the hotel's website home page",
+        "user clicks on the 'Food Menu' link or button"
+      ]
+    },
+    {
+      "user story": "As a user, I want to view the hotel's food menu, which includes a single pizza option.",
+      "user tasks": [
+        "user navigates to the food menu page",
+        "user views the pizza option on the menu"
+      ]
+    },
+    {
+      "user story": "As a user, I want to submit an order for the pizza, including my name and phone number.",
+      "user tasks": [
+        "user navigates to the food menu page",
+        "user selects the pizza option",
+        "user enters their name",
+        "user enters their phone number",
+        "user clicks on the 'Submit Order' button"
+      ]
+    },
+    {
+      "user story": "As a user, I want to choose between pickup or delivery for my order.",
+      "user tasks": [
+        "user navigates to the food menu page",
+        "user selects the pizza option",
+        "user selects 'Pickup' or 'Delivery' option"
+      ]
+    },
+    {
+      "user story": "As a user, I want to submit my order without specifying a specific pickup or delivery time.",
+      "user tasks": [
+        "user navigates to the food menu page",
+        "user selects the pizza option",
+        "user selects 'Pickup' or 'Delivery' option",
+        "user clicks on the 'Submit Order' button"
+      ]
+    },
+    {
+      "user story": "As a user, I want to navigate to the contact page from the home page to find the hotel's phone number.",
+      "user tasks": [
+        "user navigates to the hotel's website home page",
+        "user clicks on the 'Contact' link or button"
+      ]
+    },
+    {
+      "user story": "As a user, I want to view the hotel's phone number on the contact page.",
+      "user tasks": [
+        "user navigates to the contact page",
+        "user views the hotel's phone number"
+      ]
+    }
+  ],
+  "architecture": {
+    "architecture": "The application will be a single-page application (SPA) built with ReactJS. The frontend will handle all user interactions and display dynamic content. The application will not require a backend or database, as all data will be hardcoded into the React components. The frontend will be built using ReactJS, styled-components for styling, and vanilla JavaScript. The application will be deployed to a static hosting service, such as Netlify or Vercel.",
+    "system_dependencies": [
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime for building apps. This is required to be able to run the app you're building.",
+        "test": "node --version",
+        "required_locally": true
+      }
+    ],
+    "package_dependencies": [
+      {
+        "name": "react",
+        "description": "JavaScript library for building user interfaces"
+      },
+      {
+        "name": "react-dom",
+        "description": "React library for rendering components to the DOM"
+      },
+      {
+        "name": "styled-components",
+        "description": "CSS-in-JS library for styling React components"
+      },
+      {
+        "name": "vite",
+        "description": "Fast development server and build tool for React"
+      }
+    ],
+    "template": "javascript_react"
+  },
+  "architecture_desc": "The application will be a single-page application (SPA) built with ReactJS. The frontend will handle all user interactions and display dynamic content. The application will not require a backend or database, as all data will be hardcoded into the React components. The frontend will be built using ReactJS, styled-components for styling, and vanilla JavaScript. The application will be deployed to a static hosting service, such as Netlify or Vercel.",
+  "system_dependencies": [
+    {
+      "name": "Node.js",
+      "description": "JavaScript runtime for building apps. This is required to be able to run the app you're building.",
+      "test": "node --version",
+      "required_locally": true
+    }
+  ],
+  "package_dependencies": [
+    {
+      "name": "react",
+      "description": "JavaScript library for building user interfaces"
+    },
+    {
+      "name": "react-dom",
+      "description": "React library for rendering components to the DOM"
+    },
+    {
+      "name": "styled-components",
+      "description": "CSS-in-JS library for styling React components"
+    },
+    {
+      "name": "vite",
+      "description": "Fast development server and build tool for React"
+    }
+  ],
+  "template": "javascript_react",
+  "dev_plan": [
+    {
+      "description": "Create a basic Node.js project with Express server setup. Install necessary dependencies like Express, body-parser, and any other required packages. Set up a simple route for `/ping` that returns a status code of 200. This will ensure the server is running and responding correctly.",
+      "task": "setup-project"
+    },
+    {
+      "description": "Create a `home.js` file in the `routes` folder. Implement a route for `/` (home page) that renders the home page template. The home page should display basic information about the hotel, including its location, amenities, and contact information. The information should be fetched from a static JSON file or a database (if implemented).",
+      "task": "create-home-route"
+    },
+    {
+      "description": "Create a `menu.js` file in the `routes` folder. Implement a route for `/menu` (food menu page) that renders the menu page template. The menu page should display the available food options, which currently includes only a single pizza option. The menu data should be fetched from a static JSON file or a database (if implemented).",
+      "task": "create-menu-route"
+    },
+    {
+      "description": "Create a `contact.js` file in the `routes` folder. Implement a route for `/contact` (contact page) that renders the contact page template. The contact page should display the hotel's phone number. The phone number should be fetched from a static JSON file or a database (if implemented).",
+      "task": "create-contact-route"
+    },
+    {
+      "description": "Implement a simple order submission form on the menu page. The form should allow users to enter their name, phone number, and select between pickup or delivery. The form data should be submitted to a new route for processing. This route should handle the order submission logic, which includes storing the order details in a database or a file.",
+      "task": "implement-order-form"
+    },
+    {
+      "description": "Create a `order.js` file in the `routes` folder. Implement a route for `/order` that handles the order submission. This route should receive the order data from the form, validate the data, and store it in a database or a file. The route should then redirect the user to a confirmation page or display a success message.",
+      "task": "create-order-route"
+    },
+    {
+      "description": "Create a `confirmation.js` file in the `routes` folder. Implement a route for `/confirmation` that renders a confirmation page. This page should display a message confirming the order details and provide any necessary information, such as the order ID or estimated delivery time.",
+      "task": "create-confirmation-route"
+    }
+  ]
+}

@@ -4,8 +4,9 @@ langchain-community
 langchain-experimental
 fastapi
 python-socketio
-google-generativeai
-langchain_groq
 langchain_google_genai
 uvicorn
 chromadb
+google-generativeai
+colorlog
+jinja2
