@@ -4,11 +4,13 @@ class Signup(BaseModel):
     name: str
     email: EmailStr
     password: str
-
+    # role:str
+    
 class Login(BaseModel):
     name: str
     password: str
-
+    # role:str
+    
 class EmailCheck(BaseModel):
     email: EmailStr
 

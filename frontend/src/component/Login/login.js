@@ -14,6 +14,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie'; // Ensure js-cookie is imported correctly
 import useStyle from '../Lstyle';
+
+
 const ACCESS_TOKEN_EXPIRE_MINUTES = 30;
 
 function Login() {
@@ -45,19 +47,58 @@ function Login() {
         });
     };
 
-    useEffect(() => {
-        clearExistingToken();
-    }, []);
+    // useEffect(() => {
+    //     clearExistingToken();
+    // }, []);
 
-    const handleLoginResponse = (response) => {
-        const token = response.data.access_token;
+    // const handleLoginResponse = (response) => {
+    //     const token = response.data.access_token;
         
-        // Store token in cookie
-        Cookies.set("token", token, { expires: ACCESS_TOKEN_EXPIRE_MINUTES / (24 * 60) });
+    //     // Store token in cookie
+    //     Cookies.set("token", token, { expires: ACCESS_TOKEN_EXPIRE_MINUTES / (24 * 60) });
     
-        // Redirect to user profile page
-        navigate('/userprofile');
-    };
+    //     // Redirect to user profile page
+    //     navigate('/userprofile');
+    // };
+
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+
+    //     if (username.trim() !== '' && password.trim() !== '') {
+    //         if (password.length < 8) {
+    //             setPasswordError('Password must be at least 8 characters long.');
+    //             return;
+    //         } else {
+    //             setPasswordError('');
+    //         }
+
+    //         const formData = new FormData();
+    //         formData.append('name', username);
+    //         formData.append('password', password);
+
+    //         try {
+    //             const response = await axios.post(
+    //                 "http://127.0.0.1:8000/login",
+    //                 {'name':username,'password':password}
+    //             );
+
+    //             console.log(response.data.access_token);
+
+    //             if (response.data.access_token) {
+    //                 handleLoginResponse(response);
+    //             } else {
+    //                 console.error('Login failed');
+    //                 alert('Login failed');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error submitting form:', error);
+    //             alert('Error submitting form. Please try again.');
+    //         }
+    //     } else {
+    //         console.error('Invalid username or password');
+    //         alert('Invalid username or password');
+    //     }
+    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -70,20 +111,30 @@ function Login() {
                 setPasswordError('');
             }
 
-            const formData = new FormData();
-            formData.append('name', username);
-            formData.append('password', password);
-
             try {
                 const response = await axios.post(
                     "http://127.0.0.1:8000/login",
-                    {'name':username,'password':password}
+                    { name: username, password: password }
                 );
 
                 console.log(response.data.access_token);
 
                 if (response.data.access_token) {
-                    handleLoginResponse(response);
+                    const token = response.data.access_token;
+                    Cookies.set("token", token, { expires: ACCESS_TOKEN_EXPIRE_MINUTES / (24 * 60) });
+
+                    // Assuming the backend decodes the token and sends back the role
+                    const role = response.data.role;
+
+                    console.log(response);
+                    if (role === 'user') {
+                        navigate('/userprofile');
+                    } else if (role === 'admin') {
+                        navigate('/fpw');
+                    } else {
+                        console.error('Unknown role:', role);
+                        alert('Unknown role. Please contact support.');
+                    }
                 } else {
                     console.error('Login failed');
                     alert('Login failed');

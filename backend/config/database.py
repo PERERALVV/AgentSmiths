@@ -1,31 +1,31 @@
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
+# from pymongo.mongo_client import MongoClient
+# from pymongo.server_api import ServerApi
 
-# from passlib.context import CryptContext
-# uri = "mongodb+srv://Admin:1234@cluster0.4dfcpe1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-from urllib.parse import quote_plus
-username = quote_plus('ayesha')
-password= quote_plus('pTPivwignr4obw2U')
-cluster = 'cluster0.mhaksto.mongodb.net'
-uri = f'mongodb+srv://{username}:{password}@{cluster}/?retryWrites=true&w=majority&appName=Cluster0&ssl=true'
+# # from passlib.context import CryptContext
+# # uri = "mongodb+srv://Admin:1234@cluster0.4dfcpe1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# from urllib.parse import quote_plus
+# username = quote_plus('ayesha')
+# password= quote_plus('pTPivwignr4obw2U')
+# cluster = 'cluster0.mhaksto.mongodb.net'
+# uri = f'mongodb+srv://{username}:{password}@{cluster}/?retryWrites=true&w=majority&appName=Cluster0&ssl=true'
 
-# Create a new client and connect to the server
-client = MongoClient(uri, server_api=ServerApi('1'))
+# # Create a new client and connect to the server
+# client = MongoClient(uri, server_api=ServerApi('1'))
 
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
+# # Send a ping to confirm a successful connection
+# try:
+#     client.admin.command('ping')
+#     print("Pinged your deployment. You successfully connected to MongoDB!")
+# except Exception as e:
+#     print(e)
     
 
-db = client["AGENTSMTHS"] # Replace with your database name
+# db = client["AGENTSMTHS"] # Replace with your database name
 
-collection_name = db["User"]
+# collection_name = db["User"]
 
 
-fogotPassword = db["user_otp"]
+# fogotPassword = db["user_otp"]
 
 
 # import asyncio
@@ -56,3 +56,30 @@ fogotPassword = db["user_otp"]
 
 # # Call the function
 # # asyncio.run(ping_db())
+from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo.server_api import ServerApi
+from urllib.parse import quote_plus
+import os
+
+username = quote_plus('ayesha')
+password = quote_plus('pTPivwignr4obw2U')
+cluster = 'cluster0.mhaksto.mongodb.net'
+uri = f'mongodb+srv://{username}:{password}@{cluster}/?retryWrites=true&w=majority&appName=Cluster0&ssl=true'
+
+client = AsyncIOMotorClient(uri, server_api=ServerApi('1'))
+
+db = client["AGENTSMTHS"]  # Replace with your database name
+collection_name = db["User"]
+fogotPassword = db["user_otp"]
+
+async def main():
+    try:
+        await client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+    except Exception as e:
+        print(e)
+
+# Since the asyncio event loop is already running, we should call main() with await
+import asyncio
+
+asyncio.get_event_loop().create_task(main())
