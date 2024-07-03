@@ -28,7 +28,7 @@ def email_alert(subject, to):
 
     user = "ayeshaasarak@gmail.com"
     msg['From'] = user
-    password = "gxyiqbjgpfgaslns"  # Use your app password here
+  
 
     try:
         # Connect to Gmail SMTP server
