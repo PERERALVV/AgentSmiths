@@ -66,15 +66,9 @@ function Chat() {
             startInactivityTimers();
         };
 
-        const handleChatEnd = () => {
+        const handleEndConversation = () => {
             console.log('Starting to create the website');
             socket.emit('end_conversation');
-        }
-
-        const handleEndConversation = (state) => {
-            //socket.emit(sid,messages);
-            console.log('Starting to create the website');
-            navigate('/Demo');
         }
 
         socket.on('connect', handleConnect);
@@ -83,7 +77,6 @@ function Chat() {
         socket.on('warning', handleWarning);
         socket.on('end_conversation', handleEndConversation);
         socket.on('start_conversation', handleStartConversation);
-        socket.on('chat_end', handleChatEnd);
 
         // Cleanup to avoid multiple listeners
         return () => {
@@ -93,7 +86,6 @@ function Chat() {
             socket.off('warning', handleWarning);
             socket.off('end_conversation', handleEndConversation);
             socket.off('start_conversation', handleStartConversation);
-            socket.on('chat_end', handleChatEnd);
         };
     },[]); 
 
