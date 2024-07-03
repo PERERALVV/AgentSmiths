@@ -26,6 +26,8 @@ from core.validators.prompt_validator import is_message_legitimate
 from core.validators.qna_validator import is_qna_match
 from core.validators.summarize import message_summary
 from core.validators.word_count import count_words
+from core.validators.complete_validation import complete_response_validation
+from core.validators.clarify_question import get_clarification
 
 # import json
 # from metagpt.logs import logger
@@ -71,24 +73,6 @@ async def connect(sid,environ,auth):
 
 # ===============only for testing============================
 import importlib
-import re
-
-# Import the Ggemini class
-gemini_module = importlib.import_module('routes.llm')
-gemini = getattr(gemini_module, 'Ggemini')()
-
-def remove_formatting(text: str) -> str:
-    # Remove ** and * used for bold or italic formatting
-    clean_text = re.sub(r'\*\*|[*]', '', text)
-    return clean_text
-
-# Define the get_clarification function
-def get_clarification(message: str) -> str:
-    clarification_prompt = f"Provide a brief clarification for this question: {message}"
-    response = gemini.chatGemini(clarification_prompt)
-    clean_response = remove_formatting(response)
-    return clean_response
-
 # ====================================================================
 BA=BA(sio=sio)
 
@@ -96,19 +80,10 @@ test=getattr(importlib.import_module("core.temp_done"),"test")
 
 @sio.on("chat")
 async def chat(sid,message):
-    # await sio.emit('chat',{'sid':sid,'message':message})
-    # response = ra.chainquery({"response": message})
-    # response=get_clarification(message)
-    # print(message)
     if message.lower()=="done":
         await test(sio)
-    #TODO qna_validator.py
-    if count_words(message)>20:
-        message = message_summary(message)
-        message = message.strip('"\'')
-    legitimacy = is_message_legitimate(message)
-    # print(message)
-    # print(legitimacy)
+    # #TODO qna_validator.py
+    legitimacy, message = complete_response_validation(message)
     if not legitimacy:
         response = 'An illegitimate prompt injection was detected. \
             Please note that after 3 illegitimate attempts, \
@@ -116,7 +91,6 @@ async def chat(sid,message):
         await sio.emit('warning', {'sid': sid, 'message': response})  
     else:
         # qna_match = is_qna_match()
-
         active_users[sid]["conversation"].append({"user": message})
         response = await BA.consult(message)
         if response:
