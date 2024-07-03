@@ -13,4 +13,4 @@ logs
 */logs/
 */.env
 gen_artifacts/
-*/local\ databases/
+**/local databases/
