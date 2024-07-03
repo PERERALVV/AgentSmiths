@@ -7,10 +7,8 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 def set_root_path():
     os.environ['ROOT_PATH'] = script_dir
 
-def initDB():
-    vecDB.initDB()
-
 
 def setupall():
     set_root_path()
-    initDB()
+    # vecDB.initDB()
+

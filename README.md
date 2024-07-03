@@ -9,5 +9,3 @@ use the command
 > ```docker exec -it AgentSmiths-backend-server /bin/bash``` 
 
 to enter docker container terminal
-
-initialize config2.yaml in MAS/Metagt/config.config2.yaml
