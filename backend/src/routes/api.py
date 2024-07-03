@@ -10,7 +10,6 @@ from database.database2 import (
     create_chatHistory,
     fetch_one_chatHistory,
     fetch_all_chatHistory,
-    # update_chatHistory,
     remove_chatHistory,
 )
 from models.model import static_requirements_chats
@@ -18,14 +17,8 @@ from database.database2 import (
     create_staticChatHistory,
     fetch_one_staticChatHistory,
     fetch_all_staticChatHistory,
-    # update_staticChatHistory,
     remove_staticChatHistory,
 )
-
-from core.validators.prompt_validator import is_message_legitimate
-from core.validators.qna_validator import is_qna_match
-from core.validators.summarize import message_summary
-from core.validators.word_count import count_words
 from core.validators.complete_validation import complete_response_validation
 from core.validators.clarify_question import get_clarification
 
@@ -60,6 +53,13 @@ async def root():
     
 # ==========================================
 # gayuni
+# ===============only for testing============================
+import importlib
+# ====================================================================
+BA=BA(sio=sio)
+
+test=getattr(importlib.import_module("core.temp_done"),"test")
+
 @sio.on("connect")
 async def connect(sid,environ,auth):
     userID = sid
@@ -70,25 +70,27 @@ async def connect(sid,environ,auth):
     }
     print(f'{sid} : connected')
     await sio.emit('join',{'sid':sid})
-
-# ===============only for testing============================
-import importlib
-# ====================================================================
-BA=BA(sio=sio)
-
-test=getattr(importlib.import_module("core.temp_done"),"test")
+    response = await BA.consult('Hi! Nice to meet you!')
+    await sio.emit('chat_response', {'sid': sid, 'message': response})
+    active_users[sid]["conversation"].append({"bot": response})
 
 @sio.on("chat")
 async def chat(sid,message):
     if message.lower()=="done":
         await test(sio)
-    # #TODO qna_validator.py
-    legitimacy, message = complete_response_validation(message)
+
+    conversation = active_users[sid]["conversation"]
+
+    legitimacy, qna, message = complete_response_validation(message,conversation)
     if not legitimacy:
         response = 'An illegitimate prompt injection was detected. \
             Please note that after 3 illegitimate attempts, \
                 your user account will be banned from AgentSmiths.'
         await sio.emit('warning', {'sid': sid, 'message': response})  
+    elif not qna:
+        response = 'The answer you provided does not answer the question, \
+            please provide a valid answer'
+        await sio.emit('chat_response', {'sid': sid, 'message': response})
     else:
         # qna_match = is_qna_match()
         active_users[sid]["conversation"].append({"user": message})
@@ -155,13 +157,6 @@ async def get_requirement_by_id(userID):
         return response
     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
 
-# @app.put("/api/chatHistory{userID}", response_model=requirements_chats)
-# async def put_chatHistory(userID:str,conv:list):
-#     response = await update_chatHistory(userID,conv)
-#     if response:
-#         return response
-#     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
-
 @app.delete("/api/chatHistory{userID}")
 async def delete_chatHistory(userID):
     response = await remove_chatHistory(userID)
@@ -189,13 +184,6 @@ async def get_requirement_by_id(userID):
     if response:
         return response
     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
-
-# @app.put("/api/staticChatHistory{userID}", response_model=static_requirements_chats)
-# async def put_chatHistory(userID:str,conv:list,desc:list):
-#     response = await update_staticChatHistory(userID,conv)
-#     if response:
-#         return response
-#     raise HTTPException(404, f"There is no conversation by the user ID {userID}")
 
 @app.delete("/api/staticChatHistory{userID}")
 async def delete_staticChatHistory(userID):

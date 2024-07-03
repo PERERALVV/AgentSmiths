@@ -1,50 +1,10 @@
-python -m pip install -q --upgrade pip
-pip install -q -U langchain
-pip install -q -U python-dotenv
-pip install -U -q langchain-google-genai pillow
-
-pip install -q -U google-generativeai
-
-//Gayuni
-python -m venv venv
-.\venv\Scripts\Activate
-$env:PYTHONPATH
-pip install fastapi==0.78.0 uvicorn==0.17.6
-
-//frontend
-npm init
-npm install
-npm start
-npm install @mui/material
-npm install react-router-dom
-npm install react-dom
-npm install web-vitals
-npm install @emotion/react @emotion/styled
-npm start
-npm install react-icons
-npm install --save react-spinners
+react-router-dom
+react-dom
+web-vitals
+@emotion/react @emotion/styled
+react-icons
+--save react-spinners
 
 
-//backend
-pip install fastapi
-pip install uvicorn
-uvicorn api:app --reload
-pip install 'uvicorn[standard]'
-pip install websockets
-uvicorn api:app --reload //Inside App file to run the server
-python --fileName--
-pip install transformers
-
-//Steps - Gayuni
-1. Run frontend - npm start //(inside frontend folder)
-2. Run backend - uvicorn api:app --reload //(inside app folder)
-3. Run agents - python demo.py //(inside agents folder)
-4. Run validator - python demo.py //(inside agents folder)
-
-cd AgentSmiths/frontend
-cd AgentSmiths/backend/app
-cd AgentSmiths/backend/agents
-
-//Files - Gayuni
 
 

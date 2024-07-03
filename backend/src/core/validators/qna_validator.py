@@ -5,7 +5,7 @@ scores = model.predict([('Query1', 'Paragraph1'), ('Query2', 'Paragraph2')])
 
 def is_qna_match(question: str,answer:str) -> bool:
     scores = model.predict([(question,answer)])
-    if scores>0.5:
+    if scores>0.7:
         return True
     else:
         return False

@@ -5,6 +5,8 @@ import { IoSendSharp } from "react-icons/io5";
 import { GradientTextDiv } from "../../styles/components/GradientText";
 import { ChatDiv, ChatHr, ChatScrollDiv, ClarifyButton, MessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField } from "../../styles/components/ChatBox";
 import { useNavigate } from 'react-router-dom';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 
 const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
 
@@ -18,6 +20,7 @@ function Chat() {
     const [warningTimer, setWarningTimer] = useState(null);
     const [navigateTimer, setNavigateTimer] = useState(null);
     const [isInputDisabled, setIsInputDisabled] = useState(false);
+    const [warningCount, setWarningCount] = useState(0); 
     // const [responses, setResponses] = useState([]);
 
     useEffect(()=>{
@@ -33,7 +36,6 @@ function Chat() {
         };
 
         const handleJoin = (data) => {
-            setMessages((prevMessages) => [...prevMessages, { ...data, type: 'join' }]);
             console.log('Joined:', data);
         };
 
@@ -47,6 +49,18 @@ function Chat() {
         const handleWarning = (data) => {
             setMessages((prevMessages) => [...prevMessages, { ...data, type: 'warning' }]);
             console.log('Received warning from backend:', data);
+
+            setWarningCount((prevCount) => {
+                const newCount = prevCount + 1;
+                if (newCount >= 3) {
+                    // toast.error('Your session will be terminated in 2 seconds.');
+                    setTimeout(() => {
+                        navigate('/'); 
+                    }, 5000);  
+                }
+                return newCount;
+            });
+
             setIsInputDisabled(false);
             startInactivityTimers();
         };
