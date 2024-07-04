@@ -69,14 +69,38 @@ function Chat() {
         const handleEndConversation = () => {
             console.log('Starting to create the website');
             socket.emit('end_conversation');
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { sid: sid, message: 'Yayy! Now I have all the information to create the perfect website for you! Your website is now being built.', type: 'chat_response' }
+            ]);
+            setIsInputDisabled(true);
+        }
+
+        const handleCodeReady = () => {
+            console.log('Starting to create the website');
+            //Show button
+        }
+
+        const handleSomethingWrong = () => {
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { sid: sid, message: 'Oops! Something went wrong. You will be directed to the Home page', type: 'warning' }
+            ]);
+            console.warn('Something went wrong.');
+            setTimeout(() => {
+                navigate('/');
+                console.warn('User redirected to HomePage due to inactivity.');
+            }, 4000);
         }
 
         socket.on('connect', handleConnect);
         socket.on('disconnect', handleDisconnect);
         socket.on('chat_response', handleChatResponse);
         socket.on('warning', handleWarning);
-        socket.on('end_conversation', handleEndConversation);
         socket.on('start_conversation', handleStartConversation);
+        socket.on('end_conversation', handleEndConversation);
+        socket.on('code_ready',handleCodeReady);
+        socket.on('something_wrong',handleSomethingWrong);
 
         // Cleanup to avoid multiple listeners
         return () => {
@@ -84,8 +108,10 @@ function Chat() {
             socket.off('disconnect', handleDisconnect);
             socket.off('chat_response', handleChatResponse);
             socket.off('warning', handleWarning);
-            socket.off('end_conversation', handleEndConversation);
             socket.off('start_conversation', handleStartConversation);
+            socket.off('end_conversation', handleEndConversation);
+            socket.off('code_ready',handleCodeReady);
+            socket.off('something_wrong',handleSomethingWrong);
         };
     },[]); 
 
