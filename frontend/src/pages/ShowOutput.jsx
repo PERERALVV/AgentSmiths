@@ -1,72 +1,172 @@
-import React, { useState } from "react";
-import FormatterSection from "../components/pages/ShowOutput/FormatterSection";
-import BottomBar from "../components/pages/ShowOutput/BottomBar";
-import EditTool from "../components/pages/ShowOutput/EditTool";
-import {
-  ShowOutputCon,
-  ShowOutputMiddle,
-  NavCon,
-  Button,
-  ButtonCon,
-  EditToolContainer,
-  FormatterSectionCon,
-} from "../styles/pages/ShowOutput";
+import React, { useState, useEffect } from "react";
+import GrapesEditor from "../../src/components/pages/ShowOutput/GrapesEditor";
+import prevIcon from "../images/previous.png";
+import nextIcon from "../images/next.png";
 
 const ShowOutput = () => {
-  const [activeButton, setActiveButton] = useState(null);
-  const [activeComponent, setActiveComponent] = useState(null);
+  const [htmlContent, setHtmlContent] = useState("");
+  const [cssContent, setCssContent] = useState("");
+  const [currentFile, setCurrentFile] = useState("");
+  const [htmlFiles, setHtmlFiles] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleClick = (index) => {
-    setActiveButton(index);
-    setActiveComponent(index);
+  const fetchContent = async (filename) => {
+    try {
+      console.log(`Fetching HTML and CSS content from backend for ${filename}`);
+      const response = await fetch(
+        `http://localhost:8000/get-html-css/${filename}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch content");
+      }
+      const data = await response.json();
+      setHtmlContent(data.html);
+      setCssContent(data.css || "");
+      setCurrentFile(filename);
+    } catch (error) {
+      console.error("Error fetching content:", error);
+    }
   };
 
+  const fetchHtmlFiles = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/get-html-files");
+      if (!response.ok) {
+        throw new Error("Failed to fetch HTML files list");
+      }
+      const data = await response.json();
+      setHtmlFiles(data.files);
+      if (data.files.length > 0) {
+        fetchContent(data.files[0]);
+        setCurrentIndex(0);
+      }
+    } catch (error) {
+      console.error("Error fetching HTML files list:", error);
+    }
+  };
+
+  const handleSaveHtml = async (html) => {
+    try {
+      console.log(`Saving HTML content to backend for ${currentFile}`);
+      const response = await fetch("http://localhost:8000/save-html", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ filename: currentFile, html }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to save HTML content");
+      }
+      alert("HTML content saved successfully");
+    } catch (error) {
+      console.error("Error saving content:", error);
+      alert("Error saving HTML content");
+    }
+  };
+
+  const handleSaveCss = async (css) => {
+    try {
+      const cssFilename = currentFile.replace(".html", ".css");
+      console.log(`Saving CSS content to backend for ${cssFilename}`);
+      const response = await fetch("http://localhost:8000/save-css", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ filename: cssFilename, css }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to save CSS content");
+      }
+      alert("CSS content saved successfully");
+    } catch (error) {
+      console.error("Error saving content:", error);
+      alert("Error saving CSS content");
+    }
+  };
+
+  const fetchNextFile = () => {
+    if (htmlFiles.length === 0) return;
+    const nextIndex = (currentIndex + 1) % htmlFiles.length;
+    fetchContent(htmlFiles[nextIndex]);
+    setCurrentIndex(nextIndex);
+  };
+
+  const fetchPreviousFile = () => {
+    if (htmlFiles.length === 0) return;
+    const prevIndex = (currentIndex - 1 + htmlFiles.length) % htmlFiles.length;
+    fetchContent(htmlFiles[prevIndex]);
+    setCurrentIndex(prevIndex);
+  };
+
+  useEffect(() => {
+    fetchHtmlFiles();
+  }, []);
+
   return (
-    <ShowOutputCon>
-      <NavCon>
-        <ButtonCon>
-          <Button
-            style={{ borderRadius: "25px 0px 0px 25px" }}
-            onClick={() => {
-              handleClick("1");
-            }}
-            active={activeButton === "1"}
-          >
-            Color Editor
-          </Button>
-          <Button
-            style={{ borderRadius: "0px" }}
-            onClick={() => {
-              handleClick("2");
-            }}
-            active={activeButton === "2"}
-          >
-            Font Editor
-          </Button>
-          <Button
-            style={{ borderRadius: "0px" }}
-            onClick={() => {
-              handleClick("3");
-            }}
-            active={activeButton === "3"}
-          >
-            Text Editor
-          </Button>
-          <Button style={{ borderRadius: "0px 25px 25px 0px" }}>
-            Speak with an Agent
-          </Button>
-        </ButtonCon>
-      </NavCon>
-      <ShowOutputMiddle>
-        <FormatterSectionCon>
-          <FormatterSection />
-        </FormatterSectionCon>
-        <EditToolContainer>
-          {activeComponent && <EditTool activeComponent={activeComponent} />}
-        </EditToolContainer>
-      </ShowOutputMiddle>
-      <BottomBar />
-    </ShowOutputCon>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <GrapesEditor
+        htmlContent={htmlContent}
+        cssContent={cssContent}
+        onSaveHtml={handleSaveHtml}
+        onSaveCss={handleSaveCss}
+        onLinkClick={fetchContent}
+      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px",
+          backgroundColor: "#f0f0f0",
+        }}
+      >
+        <button
+          onClick={fetchPreviousFile}
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#4CAF50",
+            borderRadius: "50px",
+            border: "none",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src={prevIcon}
+            alt="Previous"
+            style={{ width: "30px", height: "30px", marginRight: "5px" }}
+          />
+          Previous
+        </button>
+        <span style={{ fontSize: "16px", margin: "0 20px" }}>
+          {currentFile}
+        </span>
+        <button
+          onClick={fetchNextFile}
+          style={{
+            padding: "10px",
+            fontSize: "16px",
+            cursor: "pointer",
+            backgroundColor: "#4CAF50",
+            borderRadius: "50px",
+            border: "none",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <img
+            src={nextIcon}
+            alt="Next"
+            style={{ width: "30px", height: "30px", marginRight: "5px" }}
+          />
+          Next
+        </button>
+      </div>
+    </div>
   );
 };
 

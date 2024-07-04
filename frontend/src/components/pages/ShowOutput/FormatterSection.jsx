@@ -1,53 +1,22 @@
-import React, { useState, useEffect } from "react";
-import GrapesEditor from "./GrapesEditor";
-import { GrapesEditorCon } from "../../../styles/pages/ShowOutput";
+// FormatterSection.jsx
 
-const FormatterSection = () => {
-  const [htmlContent, setHtmlContent] = useState("<p>hello</p>");
+import React from "react";
 
-  useEffect(() => {
-    const fetchHtmlContent = async () => {
-      try {
-        const response = await fetch("../../../../public/index.html");
-        const text = await response.text();
-        setHtmlContent(text);
-      } catch (error) {
-        console.error("Failed to load HTML content:", error);
-      }
-    };
-
-    fetchHtmlContent();
-  }, []);
-
-  const handleSave = async (newHtml) => {
-    try {
-      const response = await fetch("/api/save-html", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ html: newHtml }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("HTML saved successfully:", data);
-      } else {
-        console.error("Failed to save HTML");
-      }
-    } catch (error) {
-      console.error("Error saving HTML:", error);
-    }
-  };
-
+const FormatterSection = ({ onFormat }) => {
   return (
-    <GrapesEditorCon>
-      {htmlContent ? (
-        <GrapesEditor initialHtml={htmlContent} onSave={handleSave} />
-      ) : (
-        <p>Loading HTML content...</p>
-      )}
-    </GrapesEditorCon>
+    <div style={{ padding: "10px", backgroundColor: "#f0f0f0" }}>
+      <button
+        onClick={onFormat}
+        style={{
+          padding: "10px",
+          fontSize: "16px",
+          cursor: "pointer",
+          backgroundColor: "#4CAF50",
+        }}
+      >
+        Format HTML
+      </button>
+    </div>
   );
 };
 
