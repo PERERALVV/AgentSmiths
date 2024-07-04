@@ -106,7 +106,7 @@ async def chat(sid,message):
     elif not qna:
         response = 'The answer you provided does not answer the question, \
             please provide a valid answer'
-        await sio.emit('chat_response', {'sid': sid, 'message': response})
+        await sio.emit('qna_warning', {'sid': sid, 'message': response})
     else:
         # qna_match = is_qna_match()
         active_users[sid]["conversation"].append({"user": message})

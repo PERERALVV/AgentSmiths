@@ -72,3 +72,18 @@ export const MiddleHolderDiv = styled.div`
     margin : 0 2rem;
     flex-shrink: 0;
 `;
+
+export const DownloadButton = styled.button`
+    background-color: #07297A; /* Example button color */
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+
+    &:hover {
+        background-color: #05468A; /* Darken on hover */
+    }
+`;

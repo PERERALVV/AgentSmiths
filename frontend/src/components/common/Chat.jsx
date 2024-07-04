@@ -1,22 +1,23 @@
 import React,{useEffect, useState} from "react";
-import io from 'socket.io-client';
+import { useSocket } from '../../SocketContext';
+// import io from 'socket.io-client';
+
 import Message from "./Message";
 import { IoSendSharp } from "react-icons/io5";
 import { GradientTextDiv } from "../../styles/components/GradientText";
 import { ChatDiv, ChatHr, ChatScrollDiv, ClarifyButton, MessageContainerDiv, ReqChatButton, ReqChatInputDiv, ReqChatInputField } from "../../styles/components/ChatBox";
 import { useNavigate } from 'react-router-dom';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
 
-const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
+// const socket = io('http://localhost:80', { transports: ['websocket'] });  // Use only WebSocket to prevent fallback transport issues
 
 function Chat() {
     const navigate = useNavigate();
+    const { socket, sid } = useSocket();
 
-    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [isConnected, setIsConnected] = useState(false);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
-    const [sid, setSid] = useState('');  
+    // const [sid, setSid] = useState('');  
     const [warningTimer, setWarningTimer] = useState(null);
     const [navigateTimer, setNavigateTimer] = useState(null);
     const [isInputDisabled, setIsInputDisabled] = useState(false);
@@ -24,16 +25,21 @@ function Chat() {
     // const [responses, setResponses] = useState([]);
 
     useEffect(()=>{
+        if (!socket) {
+            console.warn("Socket is not available from the context.");
+            return;
+        }
+
         const handleConnect = () => {
             setIsConnected(true);
-            setSid(socket.id);  // Capture the socket ID
-            console.log('Socket connected');
+            // setSid(socket.id);  // Capture the socket ID
+            console.log('Socket connected in Chat: ',sid);
             socket.emit('start_conversation')
         };
 
         const handleDisconnect = () => {
             setIsConnected(false);
-            console.log('Socket disconnected');
+            console.log('Socket disconnected in Chat');
         };
 
         const handleStartConversation = () => {
@@ -61,6 +67,14 @@ function Chat() {
                 }
                 return newCount;
             });
+
+            setIsInputDisabled(false);
+            startInactivityTimers();
+        };
+
+        const handleQnaWarning = (data) => {
+            setMessages((prevMessages) => [...prevMessages, { ...data, type: 'warning' }]);
+            console.log('Received qna warning from backend:', data);
 
             setIsInputDisabled(false);
             startInactivityTimers();
@@ -97,6 +111,7 @@ function Chat() {
         socket.on('disconnect', handleDisconnect);
         socket.on('chat_response', handleChatResponse);
         socket.on('warning', handleWarning);
+        socket.on('qna_warning', handleQnaWarning);
         socket.on('start_conversation', handleStartConversation);
         socket.on('end_conversation', handleEndConversation);
         socket.on('code_ready',handleCodeReady);
@@ -108,12 +123,13 @@ function Chat() {
             socket.off('disconnect', handleDisconnect);
             socket.off('chat_response', handleChatResponse);
             socket.off('warning', handleWarning);
+            socket.off('qna_warning', handleQnaWarning);
             socket.off('start_conversation', handleStartConversation);
             socket.off('end_conversation', handleEndConversation);
             socket.off('code_ready',handleCodeReady);
             socket.off('something_wrong',handleSomethingWrong);
         };
-    },[]); 
+    },[socket]); 
 
     const handleMessageSend = () => {
         if (message.trim()) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { SocketProvider } from './SocketContext';
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import Home from './pages/Home';
 import SupportPage from './pages/Support';
@@ -11,18 +12,20 @@ import StaticWebsites from './pages/StaticWebsites';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/Support" element={<SupportPage/>} />
-        <Route path="/ServicePlans" element={<ServicePlansPage/>} />
-        <Route path="/ContactUs" element={<ContactPage/>} />
-        <Route path="/GetStarted" element={<ChatInterface />} />
-        <Route path="/StaticWebsites" element={<StaticWebsites/>} />
-        <Route path="/LogIn" element={<LogInPage/>} />
-        <Route path="/Demo" element={<DemoPage/>} />
-      </Routes>
-    </BrowserRouter>
+    <SocketProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home/>} />
+          <Route path="/Support" element={<SupportPage/>} />
+          <Route path="/ServicePlans" element={<ServicePlansPage/>} />
+          <Route path="/ContactUs" element={<ContactPage/>} />
+          <Route path="/GetStarted" element={<ChatInterface />} />
+          <Route path="/StaticWebsites" element={<StaticWebsites/>} />
+          <Route path="/LogIn" element={<LogInPage/>} />
+          <Route path="/Demo" element={<DemoPage/>} />
+        </Routes>
+      </BrowserRouter>
+    </SocketProvider>
   );
 }
 
