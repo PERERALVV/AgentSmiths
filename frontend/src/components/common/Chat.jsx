@@ -46,7 +46,7 @@ function Chat() {
             console.log('handleStartConversation');
         };
 
-        const handleChatResponse = (data) => {
+        const handleMessageExchange = (data) => {
             setMessages((prevMessages) => [...prevMessages, { ...data, type: 'chat_response' }]);
             console.log('Received chat response:', data);
             setIsInputDisabled(false);
@@ -109,7 +109,7 @@ function Chat() {
 
         socket.on('connect', handleConnect);
         socket.on('disconnect', handleDisconnect);
-        socket.on('chat_response', handleChatResponse);
+        socket.on('message_exchange', handleMessageExchange);
         socket.on('warning', handleWarning);
         socket.on('qna_warning', handleQnaWarning);
         socket.on('start_conversation', handleStartConversation);
@@ -121,7 +121,7 @@ function Chat() {
         return () => {
             socket.off('connect', handleConnect);
             socket.off('disconnect', handleDisconnect);
-            socket.off('chat_response', handleChatResponse);
+            socket.off('message_exchange', handleMessageExchange);
             socket.off('warning', handleWarning);
             socket.off('qna_warning', handleQnaWarning);
             socket.off('start_conversation', handleStartConversation);
@@ -134,7 +134,7 @@ function Chat() {
     const handleMessageSend = () => {
         if (message.trim()) {
             setMessages((prevMessages) => [...prevMessages, { sid: sid, message: message.trim(), type: 'chat' }]);
-            socket.emit('chat', message);
+            socket.emit('message_exchange', message);
             var messageBox = document.getElementById('message');
             messageBox.value='';	            
             setMessage('');  

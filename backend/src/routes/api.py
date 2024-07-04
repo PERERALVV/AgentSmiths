@@ -65,7 +65,7 @@ async def connect(sid,environ,auth):
     print(f'{sid} : connected')
 
 @sio.on("start_conversation")
-async def start_conversation(sid):    
+async def start_conversation(sid):  
     userID = sid
     # # userID = auth.get('userID') 
     active_users[sid] = {
@@ -75,7 +75,7 @@ async def start_conversation(sid):
     print(f'{sid} : start_conversation')
     # await sio.emit('join',{'sid':sid})
     response = await BA.consult('Hi! Nice to meet you!')
-    await sio.emit('chat_response', {'sid': sid, 'message': response})
+    await sio.emit('message_exchange', {'sid': sid, 'message': response})
     active_users[sid]["conversation"].append({"bot": response})
 
 @sio.on("end_conversation")
@@ -90,31 +90,31 @@ async def end_conversation(sid):
         await post_chatHistory(chatHistory)
     print(f'{sid} : conversation saved')
 
-@sio.on("chat")
-async def chat(sid,message):
-    if message.lower()=="done":
-        await test(sio)
+# @sio.on("message_exchange")
+# async def message_exchange(sid,message):
+#     if message.lower()=="done":
+#         await test(sio)
 
-    conversation = active_users[sid]["conversation"]
+#     conversation = active_users[sid]["conversation"]
 
-    legitimacy, qna, message = complete_response_validation(message,conversation)
-    if not legitimacy:
-        response = 'An illegitimate prompt injection was detected. \
-            Please note that after 3 illegitimate attempts, \
-                your user account will be banned from AgentSmiths.'
-        await sio.emit('warning', {'sid': sid, 'message': response})  
-    elif not qna:
-        response = 'The answer you provided does not answer the question, \
-            please provide a valid answer'
-        await sio.emit('qna_warning', {'sid': sid, 'message': response})
-    else:
-        # qna_match = is_qna_match()
-        active_users[sid]["conversation"].append({"user": message})
-        response = await BA.consult(message)
-        if response:
-            print(f'Response for message "{message}": {response}')  # Print the response
-            active_users[sid]["conversation"].append({"bot": response})
-            await sio.emit('chat_response', {'sid': sid, 'message': response})   
+#     legitimacy, qna, message = complete_response_validation(message,conversation)
+#     if not legitimacy:
+#         response = 'An illegitimate prompt injection was detected. \
+#             Please note that after 3 illegitimate attempts, \
+#                 your user account will be banned from AgentSmiths.'
+#         await sio.emit('warning', {'sid': sid, 'message': response})  
+#     elif not qna:
+#         response = 'The answer you provided does not answer the question, \
+#             please provide a valid answer'
+#         await sio.emit('qna_warning', {'sid': sid, 'message': response})
+#     else:
+#         # qna_match = is_qna_match()
+#         active_users[sid]["conversation"].append({"user": message})
+#         response = await BA.consult(message)
+#         if response:
+#             print(f'Response for message "{message}": {response}')  # Print the response
+#             active_users[sid]["conversation"].append({"bot": response})
+#             await sio.emit('message_exchange', {'sid': sid, 'message': response})   
 
 @sio.on("disconnect")
 async def disconnect(sid):
