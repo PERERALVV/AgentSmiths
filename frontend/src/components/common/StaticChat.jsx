@@ -135,8 +135,8 @@ function StaticChat() {
     
         // Create the conversation data
         const conversation = Object.values(responses).map(response => ({
-            questionId: response.questionId,
-            question: response.question,
+            // questionId: response.questionId,
+            // question: response.question,
             label: response.label,
             answers: response.answers,
         }));

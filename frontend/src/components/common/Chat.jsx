@@ -135,6 +135,7 @@ function Chat() {
         if (message.trim()) {
             setMessages((prevMessages) => [...prevMessages, { sid: sid, message: message.trim(), type: 'chat' }]);
             socket.emit('message_exchange', message);
+            console.log('user_message sent to backend')
             var messageBox = document.getElementById('message');
             messageBox.value='';	            
             setMessage('');  
