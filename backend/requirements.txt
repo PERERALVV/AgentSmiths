@@ -19,6 +19,6 @@ python-multipart
 pymongo
 python-jose
 Werkzeug
-jwt
+PyJWT
 passlib
 python-decouple
