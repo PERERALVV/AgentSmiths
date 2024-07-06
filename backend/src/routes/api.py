@@ -854,6 +854,7 @@ load_dotenv()
 class EmailRequest(BaseModel):
     topic: str
     message: str
+    status: str
 
 
 SMTP_SERVER = os.getenv("SMTP_SERVER")
@@ -909,7 +910,7 @@ async def send_email(request: EmailRequest):
             server.login(SMTP_USERNAME, SMTP_PASSWORD)
             server.sendmail(EMAIL_FROM, EMAIL_TO, msg.as_string())
 
-        feedback_data = {"topic": request.topic, "message": request.message}
+        feedback_data = {"topic": request.topic, "message": request.message, "status": request.status}
         result = await collection.insert_one(feedback_data)
         if not result.inserted_id:
             raise HTTPException(
