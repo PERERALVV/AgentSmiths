@@ -1,0 +1,141 @@
+.cs-message-input {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    background-color: #fff;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    box-sizing: border-box;
+    padding: 0;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+  .cs-message-input__content-editor-wrapper {
+    box-sizing: border-box;
+    position: relative;
+    background-color: #c6e3fa;
+    margin: 0;
+    padding: 0.6em 0.9em;
+    border-radius: 0.7em;
+    flex-grow: 1;
+  }
+  .cs-message-input--disabled .cs-message-input__content-editor-wrapper {
+    background-color: rgba(198, 227, 250, 0.38);
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .cs-message-input__content-editor-container {
+    box-sizing: border-box;
+    position: relative;
+    background-color: #c6e3fa;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: hidden;
+    overflow-y: auto;
+    font-size: 0.94em;
+    line-height: 1.35em;
+    min-height: 1.35em;
+    max-height: 5.4em;
+    padding: 0em 0em 0em 0em;
+    scroll-padding: 0em;
+  }
+  .cs-message-input--disabled .cs-message-input__content-editor-container {
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent;
+  }
+  .cs-message-input__content-editor {
+    box-sizing: border-box;
+    flex-grow: 1;
+    background-color: #c6e3fa;
+    font-family: Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+    outline: 0;
+    border-top: 0 none;
+    border-right: 0 none;
+    border-bottom: 0 none;
+    border-left: 0 none;
+    overflow: visible;
+    color: rgba(0, 0, 0, 0.87);
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  .cs-message-input--disabled .cs-message-input__content-editor {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .cs-message-input__content-editor[data-placeholder]:empty:before {
+    box-sizing: border-box;
+    content: attr(data-placeholder);
+    color: rgba(0, 0, 0, 0.38);
+    display: block;
+    cursor: text;
+  }
+  .cs-message-input__tools {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+  }
+  .cs-message-input__tools .cs-button {
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .cs-message-input__tools .cs-button--send {
+    align-self: flex-end;
+  }
+  .cs-message-input__tools .cs-button--attachment {
+    align-self: flex-end;
+  }
+  .cs-message-input__tools:first-child .cs-button:first-child {
+    margin-left: 0;
+  }
+  .cs-message-input__tools:first-child .cs-button:last-child {
+    margin-right: 0;
+  }
+  .cs-message-input__tools:last-child .cs-button:first-child {
+    margin-left: 0;
+  }
+  .cs-message-input__tools:last-child .cs-button:last-child {
+    margin-right: 0;
+  }
+  
+  .cs-input-toolbox {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0 0 0.4em 0;
+  }
+  .cs-input-toolbox .cs-button {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    margin: 0 0.5em 0 0;
+    font-size: 1.2em;
+  }
+  
+  .cs-chat-container .cs-message-input {
+    border-top: solid 1px #d1dbe3;
+    border-right: solid 0px #d1dbe3;
+    border-bottom: solid 0px #d1dbe3;
+    border-left: solid 0px #d1dbe3;
+    margin-top: auto;
+    padding: 0.3em 0 0.3em 0em;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #fff;
+  }
+  .cs-chat-container .cs-message-input .cs-message-input__content-editor-wrapper:first-child {
+    margin-left: 0.8em;
+  }
+  .cs-chat-container .cs-message-input .cs-message-input__content-editor-wrapper:last-child {
+    margin-right: 0.8em;
+  }
+  .cs-chat-container .cs-input-toolbox {
+    margin: 0;
+    padding: 0 0.8em 0.17em 0;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: #fff;
+  }

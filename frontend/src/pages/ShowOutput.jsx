@@ -142,7 +142,9 @@ const ShowOutput = () => {
           />
           Previous
         </button>
-        <span style={{ fontSize: "16px", margin: "0 20px" }}>
+        <span
+          style={{ fontSize: "16px", margin: "0 20px", backgroundColor: "red" }}
+        >
           {currentFile}
         </span>
         <button
@@ -158,12 +160,12 @@ const ShowOutput = () => {
             alignItems: "center",
           }}
         >
+          Next
           <img
             src={nextIcon}
             alt="Next"
-            style={{ width: "30px", height: "30px", marginRight: "5px" }}
+            style={{ width: "30px", height: "30px", marginLeft: "5px" }}
           />
-          Next
         </button>
       </div>
     </div>

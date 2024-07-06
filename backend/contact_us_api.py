@@ -9,6 +9,8 @@ import re
 import base64
 import os
 from dotenv import load_dotenv
+from motor.motor_asyncio import AsyncIOMotorClient
+from urllib.parse import quote_plus
 
 load_dotenv()
 
@@ -28,6 +30,7 @@ app.add_middleware(
 class EmailRequest(BaseModel):
     topic: str
     message: str
+    status: str
 
 
 SMTP_SERVER = os.getenv("SMTP_SERVER")
@@ -36,6 +39,14 @@ SMTP_USERNAME = os.getenv("SMTP_EMAIL")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 EMAIL_FROM = os.getenv("SMTP_EMAIL")
 EMAIL_TO = os.getenv("SMTP_EMAIL")
+
+username = quote_plus('ayesha')
+password = quote_plus('pTPivwignr4obw2U')
+cluster = 'cluster0.mhaksto.mongodb.net'
+uri = f'mongodb+srv://{username}:{password}@{cluster}/?retryWrites=true&w=majority&appName=Cluster0&ssl=true'
+client = AsyncIOMotorClient(uri)
+db = client['AGENTSMTHS']
+collection = db['feedback']
 
 
 def extract_base64_images(html):
@@ -75,7 +86,14 @@ async def send_email(request: EmailRequest):
             server.login(SMTP_USERNAME, SMTP_PASSWORD)
             server.sendmail(EMAIL_FROM, EMAIL_TO, msg.as_string())
 
-        return {"message": "Email sent successfully"}
+        feedback_data = {"topic": request.topic,
+                         "message": request.message, "status": request.status}
+        result = await collection.insert_one(feedback_data)
+        if not result.inserted_id:
+            raise HTTPException(
+                status_code=500, detail="Failed to save feedback")
+
+        return {"message": "Email sent and feedback saved successfully"}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

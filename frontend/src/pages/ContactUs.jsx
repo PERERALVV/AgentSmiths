@@ -53,6 +53,7 @@ const ContactUs = () => {
       await axios.post("http://localhost:8000/send-email", {
         topic,
         message,
+        status: "unread",
       });
       alert("Email sent successfully!");
     } catch (error) {

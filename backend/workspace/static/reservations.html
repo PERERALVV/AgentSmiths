@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Website - Reservations</title>
+    <style>
+        /* Basic Styling - Customize as needed */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #f0f0f0;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .confirmation-message {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .social-media {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .social-media a {
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Make a Reservation</h1>
+    </header>
+    <main class="container">
+        <h2>Reservation Form</h2>
+        <form id="reservation-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+            <label for="guests">Number of Guests:</label>
+            <input type="number" id="guests" name="guests" min="1" required>
+            <label for="requests">Special Requests (optional):</label>
+            <textarea id="requests" name="requests"></textarea>
+            <button type="submit">Submit Reservation</button>
+        </form>
+        <div class="confirmation-message" id="confirmation-message">
+            <h3>Your reservation has been submitted!</h3>
+            <p>Confirmation Number: <span id="confirmation-number"></span></p>
+            <p>Reservation Details:</p>
+            <ul>
+                <li>Name: <span id="confirmation-name"></span></li>
+                <li>Email: <span id="confirmation-email"></span></li>
+                <li>Phone: <span id="confirmation-phone"></span></li>
+                <li>Date: <span id="confirmation-date"></span></li>
+                <li>Time: <span id="confirmation-time"></span></li>
+                <li>Guests: <span id="confirmation-guests"></span></li>
+                <li>Special Requests: <span id="confirmation-requests"></span></li>
+            </ul>
+        </div>
+        <h2>Contact Information</h2>
+        <p>Phone: (123) 456-7890</p>
+        <p>Email: info@restaurant.com</p>
+    </main>
+    <footer>
+        <p>&copy; 2023 Restaurant Name. All rights reserved.</p>
+        <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+    </footer>
+    <script>
+        const reservationForm = document.getElementById('reservation-form');
+        const confirmationMessage = document.getElementById('confirmation-message');
+        const confirmationNumber = document.getElementById('confirmation-number');
+        const confirmationName = document.getElementById('confirmation-name');
+        const confirmationEmail = document.getElementById('confirmation-email');
+        const confirmationPhone = document.getElementById('confirmation-phone');
+        const confirmationDate = document.getElementById('confirmation-date');
+        const confirmationTime = document.getElementById('confirmation-time');
+        const confirmationGuests = document.getElementById('confirmation-guests');
+        const confirmationRequests = document.getElementById('confirmation-requests');
+
+        reservationForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            const requests = document.getElementById('requests').value;
+
+            // Generate a random confirmation number (replace with your actual logic)
+            const randomConfirmationNumber = Math.floor(Math.random() * 1000000);
+
+            // Update confirmation message elements
+            confirmationNumber.textContent = randomConfirmationNumber;
+            confirmationName.textContent = name;
+            confirmationEmail.textContent = email;
+            confirmationPhone.textContent = phone;
+            confirmationDate.textContent = date;
+            confirmationTime.textContent = time;
+            confirmationGuests.textContent = guests;
+            confirmationRequests.textContent = requests;
+
+            // Display confirmation message
+            confirmationMessage.style.display = 'block';
+
+            // Clear form fields (optional)
+            reservationForm.reset();
+        });
+    </script>
+</body>
+</html>
