@@ -18,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" Component={SupportAgentPage}></Route>
         <Route path="/s" Component={SupportPage}></Route>
+        {/* <Route path="/o" Component={ShowOutput}></Route> */}
       </Routes>
     </BrowserRouter>
   );

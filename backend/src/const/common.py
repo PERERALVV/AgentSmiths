@@ -2,6 +2,7 @@ import os
 DEFAULT_IGNORE_PATHS = [
     '.git',
     '.gitignore',
+    '.gitkeep',
     '.idea',
     '.vscode',
     '.next',

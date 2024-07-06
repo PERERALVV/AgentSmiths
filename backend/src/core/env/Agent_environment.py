@@ -32,7 +32,18 @@ def hire(employees: List[type]):
 
 
 
-async def create(project):
+async def create(project,clientID,projectID,project_name,connection):
+    """
+    project: project object
+    clientID: clientID of the client
+    projectID: projectID of the project(sid)
+    project_name: name of the project
+    connection: connection function to talk to frontend
+    """
+    project.clientID=clientID
+    project.projectID=projectID
+    project.name=project_name
+    project.user_connection=connection
     project.root_path=get_root(clientID=project.clientID,project_name=project.name,projectID=project.projectID)
     project.user_convo=[
     {
@@ -54,21 +65,22 @@ async def create(project):
     ]
 #====================================================================================================================================================
 # ==============this code should be in gayunis code and it should be called from here instead of sio take that as param==============================
-    try:
-        # msg = await sio.call('send_message', {"message":rsp['content']},timeout=120,to=project.clientID)
-        msg = input("Enter your response: ")
-    except Exception as e:
-        LOG.error(f"Error in sending message: {e}")
+    # try:
+    #     # msg = await sio.call('send_message', {"message":rsp['content']},timeout=120,to=project.clientID)
+    #     msg = input("Enter your response: ")
+    # except Exception as e:
+    #     LOG.error(f"Error in sending message: {e}")
+    msg = await project.user_connection("Please describe your website in as much detail as possible",projectID)
         # add code to end whole process here maybe return None and from outside check if the return is None then end the process
 #====================================================================================================================================================
-    project.user_convo[-1]['answer']=msg
+    project.user_convo[-1]['answer'] = msg
     LOG.info(project.user_convo)
     employees = hire([Buisness_analyst, Requirements_analyst, Architect, Techlead, Developer,Dev_ops])
     LOG.info(employees)
     # define initial agent to start the project
-    # project.next_agent = "Buisness_analyst"
+    project.next_agent = "Buisness_analyst"
     # project.next_agent = "Requirements_analyst"
-    project.next_agent = "Dev_ops"
+    # project.next_agent = "Dev_ops"
     employees = {list(item.keys())[0]: list(item.values())[0] for item in employees}
     while project.next_agent is not None:
         employee = employees.get(project.next_agent)

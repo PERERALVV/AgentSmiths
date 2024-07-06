@@ -4,6 +4,8 @@ USE_JSON=False # model will return json response if set to True
 
 FILTER_RELEVANT_FILES=True # IF TRUE will only return files that are relevant to the project else will return all files
 
+FRONTEND_ONLY=True # IF TRUE will only return frontend files else will return all files
+
 import os
 def get_root(clientID,project_name,projectID):
     # Get the current script's directory

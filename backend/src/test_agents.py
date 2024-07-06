@@ -634,7 +634,7 @@ async def run_plan():
     #     project.current_sub_task_index=i
     #     iterations=0
     #     LOG.info(f"Task {j+1} Sub Task {i+1}")
-    #     # FIXME: some times the code goes in circles with fixing the code review being the same every time(maybe the rework code not updating the code_waiting_for_review)
+    #
     #     while True:
     #       if project.update_codebase or iterations==4:# if while loop runs more than 4 times then update the codebase since we might be going in circles with fixing the code
     #           result = await update_codebase.run(result)

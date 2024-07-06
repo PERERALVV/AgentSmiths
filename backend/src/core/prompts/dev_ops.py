@@ -61,6 +61,7 @@ READMEFILE="""
 {% for command in commands %}
 {{ command.command }}
 {% endfor %}
+npm install
 ```
 - And to start the project run the following command in the same terminal
 ```

@@ -60,7 +60,7 @@ const SupportBot = ({setActive , close, socket}) => {
     if (connected_with_human) {
       socket.emit('chat_to_human', message);
     } else {
-      socket.emit('chat', message);
+      socket.emit('support/chat', message);
     }
   };
 

@@ -6,6 +6,8 @@ ask_questions=getattr(importlib.import_module('core.actions.ask_questions'), 'as
 review_spec=getattr(importlib.import_module('core.actions.review_spec'), 'review_spec')
 modify_spec=getattr(importlib.import_module('core.actions.modify_spec'), 'ModifySpec')
 
+FRONTENDONLY=getattr(importlib.import_module('const.ProjectConst'), 'FRONTEND_ONLY')
+
 MAX_ROUNDS = 5
 
 class Buisness_analyst(Agent):
@@ -27,14 +29,17 @@ class Buisness_analyst(Agent):
                 break
             iterations += 1
         original_spec = project.BaSpecification
-        try:
-            LOG.info(f'{self.job_role} is modifying the spec')
-            project = await self.actions[2].run(project)
-        except Exception as e:
-            LOG.error(f'Error in modifying the spec {e}')
-            project.BaSpecification = original_spec
-            project.next_agent = "Requirements_analyst"
-            return project
+        if FRONTENDONLY:
+            try:
+                LOG.info(f'{self.job_role} is modifying the spec')
+                project = await self.actions[2].run(project)
+            except Exception as e:
+                LOG.error(f'Error in modifying the spec {e}')
+                project.BaSpecification = original_spec
+                project.user_connection("exit",project.projectID)
+                project.next_agent = "Requirements_analyst"
+                return project
         
+        project.user_connection("exit",project.projectID)
         project.next_agent = "Requirements_analyst"
         return project

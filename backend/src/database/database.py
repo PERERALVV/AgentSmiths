@@ -22,6 +22,13 @@ db = client["AGENTSMTHS"] # Replace with your database name
 support_chat_collection = db["support_chats"] # Replace with your collection name
 faq_collection = db["FAQs"] # Replace with your collection name
 review_chat_collection = db["review_chats"] # Replace with your collection name
+
+# =======ayesha's code=======================
+user_collection = db["User"]
+forgot_password_collection = db["user_otp"]
+projects_collection = db["projects"]
+group_collections = db["group_collections"]
+feedback_collection = db["feedback"]
 # ===========================================================
 
 # ===================================models for support_chats===================================
@@ -39,7 +46,7 @@ class SupportChat(BaseModel):
     user_id: str
     messages: List[Message] = []
     connect_to_human: bool = False
-    status: str = "unread"
+    status: str = "Unread"
 
 class ChatMessage(BaseModel):
     message: str
@@ -124,6 +131,63 @@ async def retrieve_faqs():
 
 # =====================================================================================================
 
+#===================gayuni=======================================
+from models.model import requirements_chats ,static_requirements_chats
+
+requirements_collection = db["requirements_chats"]
+static_requirements_chats = db["static_requirements_chats"]
+
+async def create_chatHistory(chatHistory):
+    document = chatHistory
+    result = await requirements_collection.insert_one(document)
+    return document
+
+async def fetch_one_chatHistory(userID):
+    document = await requirements_collection.find_one({"userID":userID})
+    return document
+
+async def fetch_all_chatHistory():
+    all_chatHistory=[]
+    cursor = requirements_collection.find({})
+    async for document in cursor:
+        all_chatHistory.append(requirements_chats(**document))
+    return all_chatHistory
+
+async def remove_chatHistory(userID):
+    await requirements_collection.delete_one({"userID":userID})
+    return True
+
+async def create_staticChatHistory(staticChatHistory):
+    document = staticChatHistory
+    result = await static_requirements_chats.insert_one(document)
+    return document
+
+async def fetch_one_staticChatHistory(userID):
+    document = await static_requirements_chats.find_one({"userID":userID})
+    return document
+
+async def fetch_all_staticChatHistory():
+    all_staticChatHistory=[]
+    cursor = static_requirements_chats.find({})
+    async for document in cursor:
+        all_staticChatHistory.append(static_requirements_chats(**document))
+    return all_staticChatHistory
+
+async def remove_staticChatHistory(userID,conversationID):
+    await static_requirements_chats.delete_one({"userID":userID},{"conversationID":conversationID})
+    return True
+#===========================ping db==================================
+async def main():
+    try:
+        await client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB!")
+    except Exception as e:
+        print(e)
+# ============================================================================
+# Since the asyncio event loop is already running, we should call main() with await
+import asyncio
+
+asyncio.get_event_loop().create_task(main())
 # # Example FAQs to store
 
 # # Store them using the new function

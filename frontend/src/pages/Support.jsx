@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import FaqMenu from "../components/pages/Support/faqmenu";
+// import FaqMenu from "../components/pages/Support/faqmenu";
 import SupportBot from "../components/pages/Support/supportbot";
-import FaqItem from "../components/pages/Support/faqitem";
+import FaqItem from "../components/pages/Support/FaqItem";
 import ChatbotButton from "../components/pages/Support/chatbotButton";
 import styled from 'styled-components';
 import io from 'socket.io-client';
@@ -56,7 +56,8 @@ const SupportPage = () => {
                 <SupportBot setActive={setActive} socket={socket} close={close}/>
               </div>
               <div style={{ display: isActive ? 'none' : 'block' }}>
-                <FaqMenu />
+                {/* <FaqMenu /> */}
+                <img src="./images/FAQs.gif" alt="" />
                 <ChatbotButton setActive={setActive} open={open} />
               </div>
             </SupportLeftContainer>

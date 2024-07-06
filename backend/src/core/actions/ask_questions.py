@@ -36,16 +36,15 @@ class ask_questions(Action):
             rsp=self.parse_json(rsp)
             while rsp['state']=="Question":
                 project.user_convo.append({"question":rsp['content'],"answer":""})
-                LOG.info(project.user_convo)
-#====================================================================================================================================================
-# ==============this code should be in gayunis code and it should be called from here instead of sio take that as param==============================
-                try:
-                    # msg = await sio.call('send_message', {"message":rsp['content']},timeout=120,to=project.clientID)
-                    msg = input("Enter your response: ")
-                except Exception as e:
-                    LOG.error(f"Error in sending message: {e}")
-                    # add code to end whole process here maybe return None and from outside check if the return is None then end the process
-#====================================================================================================================================================
+            #====================================================================================================================================================
+            # ==============this code should be in gayunis code and it should be called from here instead of sio take that as param==============================
+                # try:
+                #     # msg = await sio.call('send_message', {"message":rsp['content']},timeout=120,to=project.clientID)
+                #     msg = input("Enter your response: ")
+                # except Exception as e:
+                #     LOG.error(f"Error in sending message: {e}")
+                msg= await project.user_connection(rsp['content'],project.projectID)
+            #====================================================================================================================================================
                 project.user_convo[-1]['answer']=msg
                 rsp=await self.askM(msg)
                 rsp=self.parse_json(rsp)
@@ -65,15 +64,15 @@ class ask_questions(Action):
             while rsp['state']=="Question":
                 project.user_convo.append({"question":rsp['content'],"answer":""})
                 LOG.info(project.user_convo)
-#====================================================================================================================================================
-# ==============this code should be in gayunis code and it should be called from here instead of sio take that as param==============================
-                try:
-                    # msg = await sio.call('send_message', {"message":rsp['content']},timeout=120,to=project.clientID)
-                    msg = input("Enter your response: ")
-                except Exception as e:
-                    LOG.error(f"Error in sending message: {e}")
-                    # add code to end whole process here maybe return None and from outside check if the return is None then end the process
-#====================================================================================================================================================
+            #====================================================================================================================================================
+            # ==============this code should be in gayunis code and it should be called from here instead of sio take that as param==============================
+                # try:
+                #     # msg = await sio.call('send_message', {"message":rsp['content']},timeout=120,to=project.clientID)
+                #     msg = input("Enter your response: ")
+                # except Exception as e:
+                #     LOG.error(f"Error in sending message: {e}")
+                msg= await project.user_connection(rsp['content'],project.projectID)
+            #====================================================================================================================================================
                 project.user_convo[-1]['answer']=msg
                 rsp=await self.askM(msg)
                 rsp=self.parse_json(rsp)

@@ -32,8 +32,8 @@ class parse_rough_task(Action):
         msg=render_template_with_data(PARSE_TASK, data)
         # LOG.info(msg)
         resp = await self.askM(msg)
-        # LOG.info(resp)
         resp=self.parse_json(resp)
+        LOG.info(resp)
         project.sub_tasks_for_current_task=[task['save_file'] for task in resp['tasks'] if task['type'] == 'save_file']
         LOG.info(project.sub_tasks_for_current_task)
         project.commands.append([task['command'] for task in resp['tasks'] if task['type'] == 'command'])

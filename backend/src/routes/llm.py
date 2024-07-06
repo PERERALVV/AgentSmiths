@@ -115,6 +115,7 @@ class Ggemini:
                 original_chat = self.chat.history
                 global google_api_key
                 google_api_key = google_api_keys[google_api_keys.index(google_api_key) + 1] if google_api_key in google_api_keys and google_api_keys.index(google_api_key) + 1 < len(google_api_keys) else google_api_keys[0]
+                LOG.info(f"Switched to key number{google_api_keys.index(google_api_key)}")
                 genai.configure(api_key=google_api_key)
                 time.sleep(2**i)  # wait for 2^i seconds before retrying
                 self.chat.history=original_chat

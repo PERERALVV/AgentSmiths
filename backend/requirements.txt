@@ -10,3 +10,15 @@ chromadb
 google-generativeai
 colorlog
 jinja2
+pydantic
+motor
+transformers
+torch
+sentence_transformers
+python-multipart
+pymongo
+python-jose
+Werkzeug
+jwt
+passlib
+python-decouple
