@@ -22,7 +22,16 @@ const Header = () => {
     //   </MobileMenuButton>
     //   <MobileMenu open={open} handleClose={handleClose} />
     // </HeaderMainCon>
-    <div>header</div>
+    <div
+      style={{
+        height: "50px",
+        backgroundColor: "orange",
+        textAlign: "center",
+        fontSize: "20px",
+      }}
+    >
+      header
+    </div>
   );
 };
 

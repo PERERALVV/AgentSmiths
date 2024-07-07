@@ -1,0 +1,118 @@
+[
+    {
+        "id": 1,
+        "question": "What is the name of your website?",
+        "label": "Name of the website",
+        "options": [],
+        "answer_type": "text"
+    },
+    {
+        "id": 2,
+        "question": "What is the purpose of the website?",
+        "label": "Purpose of the website",
+        "options": [
+            "Personal portfolio",
+            "Business promotion",
+            "Informational (e.g., blog, news)",
+            "E-commerce",
+            "Community or non-profit"
+        ],
+        "answer_type": "radio_button"
+    },
+    {
+        "id": 3,
+        "question": "Who is the target audience?",
+        "label": "Target audience",
+        "options": [
+            "General public",
+            "Students",
+            "Business professionals",
+            "Clients or customers",
+            "Niche community or interest group"
+        ],
+        "answer_type": "checkbox"
+    },
+    {
+        "id": 4,
+        "question": "Is there a specific target age group?",
+        "label": "Target age group",
+        "options": [
+            "Kids",
+            "Teens",
+            "Young adults (Age 18 to early 30s)",
+            "Mature adults (Late 30s to mid 50s)",
+            "Seniors"
+        ],
+        "answer_type": "checkbox"
+    },
+    {
+        "id": 5,
+        "question": "What key sections or pages should be included?",
+        "label": "Key sections or web pages",
+        "options": [
+            "Home",
+            "About",
+            "Services",
+            "Portfolio or Gallery",
+            "Blog or News",
+            "Contact"
+        ],
+        "answer_type": "checkbox"
+    },
+    {
+        "id": 6,
+        "question": "Do you have a preferred layout?",
+        "label": "Layout",
+        "options": [
+            "Single-page layout",
+            "Multi-page layout",
+            "Grid-based layout",
+            "Flexible, open to suggestions"
+        ],
+        "answer_type": "radio_button"
+    },
+    {
+        "id": 7,
+        "question": "What design elements do you want to include?",
+        "label": "Design elements",
+        "options": [
+            "Sliders",
+            "Image galleries",
+            "Navigation bars",
+            "Hero sections",
+            "None, prefer a minimal design"
+        ],
+        "answer_type": "checkbox"
+    },
+    {
+        "id": 8,
+        "question": "User experience requirements",
+        "label": "User experience requirements",
+        "options": [
+            "Easy and intuitive",
+            "Professional and informative",
+            "Engaging and interactive",
+            "Welcoming and friendly"
+        ],
+        "answer_type": "checkbox"
+    },
+    {
+        "id": 9,
+        "question": "Any user journey considerations?",
+        "label": "User journey considerations",
+        "options": [
+            "Easy navigation",
+            "Clear call-to-actions",
+            "Minimal user input",
+            "No specific preferences"
+        ],
+        "answer_type": "checkbox"
+    },
+    {
+        "id": 10,
+        "question": "Please provide a brief description about your needs which might not have been coverd during this conversation",
+        "label": "About the website",
+        "options": [],
+        "answer_type": "text"
+    }
+]

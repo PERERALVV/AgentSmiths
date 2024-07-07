@@ -117,6 +117,12 @@ export const Button = styled.button`
  *
  */
 
+export const GrapesEditorCon = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
+
 /*
  *
  *
