@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import GrapesEditor from "../../src/components/pages/ShowOutput/GrapesEditor";
-import prevIcon from "../images/previous.png";
-import nextIcon from "../images/next.png";
-
 const ShowOutput = () => {
   const [htmlContent, setHtmlContent] = useState("");
   const [cssContent, setCssContent] = useState("");
@@ -133,10 +130,12 @@ const ShowOutput = () => {
             border: "none",
             display: "flex",
             alignItems: "center",
+            fontFamily: "nunito",
+            fontWeight: "bold",
           }}
         >
           <img
-            src={prevIcon}
+            src={"./images/previous.png"}
             alt="Previous"
             style={{ width: "30px", height: "30px", marginRight: "5px" }}
           />
@@ -158,11 +157,13 @@ const ShowOutput = () => {
             border: "none",
             display: "flex",
             alignItems: "center",
+            fontFamily: "nunito",
+            fontWeight: "bold",
           }}
         >
           Next
           <img
-            src={nextIcon}
+            src={"./images/next.png"}
             alt="Next"
             style={{ width: "30px", height: "30px", marginLeft: "5px" }}
           />

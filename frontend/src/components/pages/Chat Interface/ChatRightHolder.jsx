@@ -53,7 +53,10 @@ function ChatRightHolder() {
 
   return (
     <RightHolderDiv>
-      <RightHolderImage src="RightHolder.gif" alt="Unprocessed Image" />
+      <RightHolderImage
+        src="./images/RightHolder.gif"
+        alt="Unprocessed Image"
+      />
       {isCodeReady ? (
         <DownloadButton onClick={handleDownload}>
           Download Source Code

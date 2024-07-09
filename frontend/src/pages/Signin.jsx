@@ -72,7 +72,7 @@ function Signin() {
         <Grid item xs={12} lg={6}>
           <Hidden mdDown>
             <img
-              src="./img/Login.gif"
+              src="./images/Login.gif"
               alt="Image"
               className={classes.loginImage}
             />

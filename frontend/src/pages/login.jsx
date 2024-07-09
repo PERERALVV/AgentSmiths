@@ -107,7 +107,7 @@ function Login() {
         <Hidden mdDown>
           <Grid item lg={6} className={classes.imageContainer}>
             <img
-              src="./img/Login.gif"
+              src="./images/Login.gif"
               alt="Image"
               className={classes.loginImage}
               height={"80%"}

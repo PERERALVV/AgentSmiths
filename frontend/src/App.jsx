@@ -21,35 +21,48 @@ import ProfilePage from "./pages/profilePage";
 import FeedbackPage from "./pages/feedbackPage";
 import Support from "./pages/Support";
 import SupportAgent from "./pages/SupportAgent";
+import StaticDynamicNavigator from "./pages/StaticDynamicNavigator";
+import styled from "styled-components";
+
+const AppWrapper = styled.div`
+  font-family: "Nunito", sans-serif;
+`;
 
 const App = () => {
   return (
     <SocketProvider>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" Component={MainLayout}>
-            <Route index Component={Home} />
-            <Route path="/contactus" Component={ContactUs} />
+        <AppWrapper>
+          <Routes>
+            <Route path="/" Component={MainLayout}>
+              <Route index Component={Home} />
+              <Route path="/contactus" Component={ContactUs} />
+
+              <Route path="/userprofileview" Component={UserProfileView} />
+              <Route path="/passwordChange" Component={passwordChange} />
+              <Route path="/chat" Component={ChatInterface} />
+              <Route path="/staticwebsites" Component={StaticWebSites} />
+              <Route path="/support" Component={Support} />
+              <Route path="/supportagent" Component={SupportAgent} />
+              <Route
+                path="/staticdynamicnavigator"
+                Component={StaticDynamicNavigator}
+              />
+            </Route>
             <Route path="/showoutput" Component={ShowOutput} />
-            <Route path="/userprofileview" Component={UserProfileView} />
-            <Route path="/passwordChange" Component={passwordChange} />
-            <Route path="/chat" Component={ChatInterface} />
-            <Route path="/staticwebsites" Component={StaticWebSites} />
-            <Route path="/support" Component={Support} />
-            <Route path="/supportagent" Component={SupportAgent} />
-          </Route>
-          <Route path="/login" Component={Login} />
-          <Route path="/signin" Component={Signin} />
-          <Route path="/fpw" Component={forgotPassword} />
-          <Route path="/otp" Component={otp} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/chatlist" element={<ChatListPage />} />
-          <Route path="/notification" element={<NotificationPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/adminfeedback" element={<FeedbackPage />} />
-        </Routes>
+            <Route path="/login" Component={Login} />
+            <Route path="/signin" Component={Signin} />
+            <Route path="/fpw" Component={forgotPassword} />
+            <Route path="/otp" Component={otp} />
+            <Route path="/dashboard" element={DashboardPage} />
+            <Route path="/users" element={UsersPage} />
+            <Route path="/projects" element={ProjectsPage} />
+            <Route path="/chatlist" element={ChatListPage} />
+            <Route path="/notification" element={NotificationPage} />
+            <Route path="/profile" element={ProfilePage} />
+            <Route path="/adminfeedback" element={FeedbackPage} />
+          </Routes>
+        </AppWrapper>
       </BrowserRouter>
     </SocketProvider>
   );

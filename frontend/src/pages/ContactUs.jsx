@@ -4,10 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import Card from "../components/pages/Contact Us/Card";
 import CustomToolbar from "../components/pages/Contact Us/CustomToolBar";
-import send from "../images/send.png";
-import phone from "../images/phone.png";
-import email from "../images/email.png";
-import location from "../images/location.png";
+
 import {
   Container,
   ImageContainer,
@@ -130,16 +127,20 @@ const ContactUs = () => {
           />
           <StyledButton onClick={handleSend}>
             <img
-              src={send}
+              src={"./images/send.png"}
               alt="Send"
-              style={{ height: "20px", width: "auto", marginRight: "8px" }}
+              style={{
+                height: "20px",
+                width: "auto",
+                marginRight: "8px",
+              }}
             />
             Send Message
           </StyledButton>
           <CompanyDetails>
             <p>
               <img
-                src={phone}
+                src={"./images/phone.png"}
                 alt="phone"
                 style={{ height: "20px", width: "auto", marginRight: "8px" }}
               />
@@ -153,7 +154,7 @@ const ContactUs = () => {
             </p>
             <p>
               <img
-                src={email}
+                src={"./images/email.png"}
                 alt="email"
                 style={{ height: "20px", width: "auto", marginRight: "8px" }}
               />
@@ -167,7 +168,7 @@ const ContactUs = () => {
             </p>
             <p>
               <img
-                src={location}
+                src={"./images/location.png"}
                 alt="location"
                 style={{ height: "20px", width: "auto", marginRight: "8px" }}
               />

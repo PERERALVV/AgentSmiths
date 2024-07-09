@@ -28,3 +28,13 @@ SMTP_USERNAME = os.getenv("SMTP_EMAIL")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 EMAIL_FROM = os.getenv("SMTP_EMAIL")
 EMAIL_TO = os.getenv("SMTP_EMAIL")
+
+import { useNavigate } from "react-router-dom";
+
+  const navigate = useNavigate();
+  const staticWebsites = () => {
+    navigate("/staticwebsites");
+  };
+  const dynamicWebsites = () => {
+    navigate("/chat");
+  };

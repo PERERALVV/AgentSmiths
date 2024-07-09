@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import backgroundImage from "../../images/ContactUs.gif";
 
 export const Container = styled.div`
   font-family: inherit;
@@ -14,7 +13,7 @@ export const Container = styled.div`
 export const ImageContainer = styled.div`
   max-height: 800px;
   flex: 1;
-  background-image: url(${backgroundImage});
+  background-image: url("./images/ContactUs.gif");
   background-size: cover;
   background-position: center;
   border-radius: 5px;
@@ -29,7 +28,7 @@ export const FormContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #f5f5f5f5;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
   border-radius: 5px;

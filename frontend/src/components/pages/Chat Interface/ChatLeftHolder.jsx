@@ -8,7 +8,7 @@ function ChatLeftHolder() {
   return (
     <LeftHolderDiv>
       <BrandName />
-      <LeftHolderImage src="ReqChat2.gif" alt="Unprocessed Image" />
+      <LeftHolderImage src="./images/ReqChat2.gif" alt="Unprocessed Image" />
     </LeftHolderDiv>
   );
 }
