@@ -128,7 +128,7 @@ const ContactUs = () => {
           />
           <StyledButton onClick={handleSend} style={{ fontFamily: "Nunito" }}>
             <img
-              src={"./images/send.gif"}
+              src={"./images/send.png"}
               alt="Send"
               style={{
                 height: "20px",

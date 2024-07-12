@@ -28,7 +28,7 @@ export const FormContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5f5;
+  background-color: #f5f5f5;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
   border-radius: 5px;
@@ -65,15 +65,15 @@ export const CardsContainer = styled.div`
 export const StyledCard = styled.div`
   padding: 10px;
   margin: 5px;
-  border: 1px solid ${(props) => (props.selected ? "#00796b" : "#ccc")};
+  border: 1px solid ${(props) => (props.selected ? "#0d2b1a" : "#ccc")};
   border-radius: 30px;
   cursor: pointer;
-  background: ${(props) => (props.selected ? "#00796b" : "#f9f9f9")};
+  background: ${(props) => (props.selected ? "#0d2b1a" : "#f9f9f9")};
   color: ${(props) => (props.selected ? "#fff" : "#333")};
   transition: background 0.3s, border 0.3s, color 0.3s;
   &:hover {
-    border: 1px solid #004d40;
-    background: #004d40;
+    border: 1px solid #0d2b1a;
+    background: #0d2b1a;
     color: #fff;
   }
   backdrop-filter: blur(5px);
@@ -95,14 +95,14 @@ export const Input = styled.input`
   font-size: 16px;
   transition: background 0.3s, border 0.3s, color 0.3s;
   &:hover {
-    border: 1px solid #00796b;
+    border: 1px solid #0d2b1a;
     background: #e0f2f1;
-    color: #00796b;
+    color: #0d2b1a;
   }
   &:focus {
-    border: 1px solid #004d40;
+    border: 1px solid #0d2b1a;
     background: #e0f2f1;
-    color: #004d40;
+    color: #0d2b1a;
     outline: none;
   }
 `;
@@ -113,14 +113,14 @@ export const StyledButton = styled.button`
   margin-top: 20px;
   border: none;
   border-radius: 30px;
-  background-color: #00796b;
+  background-color: #0d2b1a;
   color: white;
   cursor: pointer;
   font-size: 16px;
   transition: background 0.3s;
   align-self: flex-end;
   &:hover {
-    background-color: #004d40;
+    background-color: #000000;
   }
 `;
 
