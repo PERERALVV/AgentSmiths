@@ -42,7 +42,7 @@ const UserProfileView = () => {
 
   const fetchUserData = async (token) => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/userDetails", {
+      const response = await axios.get("http://127.0.0.1:8080/userDetails", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -101,7 +101,7 @@ const UserProfileView = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/updateProfile",
+        "http://127.0.0.1:8080/updateProfile",
         data,
         {
           headers: {
@@ -132,7 +132,7 @@ const UserProfileView = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://127.0.0.1:8000/logout",
+        "http://127.0.0.1:8080/logout",
         {},
         { withCredentials: true }
       );
@@ -206,7 +206,7 @@ const UserProfileView = () => {
               alt="User Avatar"
               src={
                 userData?.avatar
-                  ? `http://127.0.0.1:8000/${userData.avatar}`
+                  ? `http://127.0.0.1:8080/${userData.avatar}`
                   : ""
               }
               sx={{ width: 150, height: 150, border: "4px solid white" }}

@@ -21,10 +21,10 @@ const Actions = ({ fetch_chatlist, markAsDone, review }) => {
 const AcContainer = styled.div`
   border-radius: 25px;
   background: #d9d9d9;
-  width: 258px;
-  height: 567px;
+  // width: 258px;
+  // height: 567px;
   flex-shrink: 0;
-  padding: 10px;
+  padding: 10px 10px 60px 10px;
   display: flex;
   flex-direction: column;
   gap: 50px;

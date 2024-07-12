@@ -16,6 +16,7 @@ const ChatbotInput = ({ handleSend }) => {
             gap: "12.814px",
             flex: "1 0 0",
             alignSelf: "stretch",
+            borderRadius: "0px 0px 0px 25px",
           }}
           placeholder="Type message here"
           sendButton={true}

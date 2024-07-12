@@ -49,7 +49,7 @@ const Sidebar = () => {
   const handleLogout = async () => {
     console.log("Logout button clicked");
     try {
-      const response = await fetch("http://localhost:8000/logout", {
+      const response = await fetch("http://localhost:8080/logout", {
         method: "POST",
         credentials: "include",
       });

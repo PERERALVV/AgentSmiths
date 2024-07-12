@@ -1,12 +1,14 @@
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import zipfile
 # from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
 BASE_PATH = './workspace/static/'
+ZIP_PATH = './workspace/zip/'
 
 # app.mount("/static", StaticFiles(directory=BASE_PATH), name="static")
 
@@ -80,3 +82,29 @@ async def save_css(request: Request):
         file.write(css_content)
 
     return {"message": "CSS content saved successfully"}
+
+
+@app.get("/create-zip")
+async def create_zip():
+    zip_file_path = os.path.join(ZIP_PATH, "static.zip")
+
+    if not os.path.exists(ZIP_PATH):
+        os.makedirs(ZIP_PATH)
+
+    with zipfile.ZipFile(zip_file_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(BASE_PATH):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, os.path.relpath(file_path, BASE_PATH))
+
+    return {"message": "Zip file created successfully"}
+
+
+@app.get("/download-zip")
+async def download_zip():
+    zip_file_path = os.path.join(ZIP_PATH, "static.zip")
+
+    if not os.path.exists(zip_file_path):
+        raise HTTPException(status_code=404, detail="Zip file not found")
+
+    return FileResponse(path=zip_file_path, filename="static.zip")

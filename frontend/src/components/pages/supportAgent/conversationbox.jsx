@@ -20,46 +20,54 @@ const StyledConversation = styled.button`
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   cursor: pointer; // This changes the cursor to a pointer when hovering over the button
   border-radius: 25px;
-  background: #fff;
-  width: 815px;
-  height: 127.742px;
-  flex-shrink: 0;
+  margin: 10px;
+  width: 600px;
+  background: #d9d9d9;
+  // height: 127.742px;
+  // flex-shrink: 0;
   padding: 20px;
   &:active {
     // This applies styles when the button is clicked
     box-shadow: 0 0 10px #999; // This adds a glow effect
   }
+  @media (max-width: 768px) {
+    max-width: 80vw;
+  }
 `;
 const Conversationwrapper = styled.div`
-  width: 815px;
-  height: 141.34px;
+  // width: 815px;
+  // height: 141.34px;
   flex-shrink: 0;
 `;
-const Username = styled.h1`
+const Username = styled.div`
   all: unset;
-  width: 259px;
-  height: 37.262px;
+  //width: 100%;
+  //height: 205px;
   flex-shrink: 0;
   color: #000;
-  text-align: center;
-  font-family: "tahoma";
+  text-align: left;
+  font-family: "nunito";
   font-size: 25px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 `;
 
 const Content = styled.p`
   color: #000;
   text-align: left;
-  font-family: "tahoma";
+  font-family: "nunito";
   font-size: 25px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  width: 800px;
-  height: 74.525px;
+  //width: 100%;
+  // height: 74.525px;
   flex-shrink: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 `;
 
 export default ConversationBox;

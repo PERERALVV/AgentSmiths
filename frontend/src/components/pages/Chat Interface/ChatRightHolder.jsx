@@ -49,6 +49,7 @@ function ChatRightHolder() {
     console.log("Download button clicked");
     socket.emit("download_file");
     console.log("Download request sent");
+    // navigate("/chat-interface");
   };
 
   return (

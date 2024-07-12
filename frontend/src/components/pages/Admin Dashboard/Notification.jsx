@@ -18,7 +18,7 @@ const NotificationsComponent = () => {
   };
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:8000/notifications");
+    ws.current = new WebSocket("ws://localhost:8080/notifications");
 
     ws.current.onopen = () => {
       console.log("WebSocket connected");

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import FaqMenu from "../components/pages/Support/faqmenu";
 import SupportBot from "../components/pages/Support/supportbot";
 import FaqItem from "../components/pages/Support/FaqItem";
 import ChatbotButton from "../components/pages/Support/chatbotButton";
@@ -7,7 +6,6 @@ import styled from "styled-components";
 import io from "socket.io-client";
 
 const backend = "http://localhost:8080/";
-// const backend='http://127.0.0.1:8080/'
 const socket = io(backend);
 const close = () => {
   socket.emit("close");
@@ -36,32 +34,28 @@ const SupportPage = () => {
   }, []);
   return (
     <SupportPageContainer>
-      <SupportPageHeader></SupportPageHeader>
       <SupportPageBody>
         <FAQlist>
-          <FaqItem></FaqItem>
-          <FaqItem></FaqItem>
-          <FaqItem></FaqItem>
-          <FaqItem></FaqItem>
-          <FaqItem></FaqItem>
-          <FaqItem></FaqItem>
-          <FaqItem></FaqItem>
           {FAQs.map((faq, index) => (
-            <FaqItem
-              key={index} // Add a unique key prop using the index
-              Question={faq.question}
-              Answer={faq.answer}
-            />
+            <FaqItem key={index} Question={faq.question} Answer={faq.answer} />
           ))}
         </FAQlist>
         <SupportLeftContainer>
           <div style={{ display: isActive ? "block" : "none" }}>
-            <SupportBot setActive={setActive} socket={socket} close={close} />
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <SupportBot setActive={setActive} socket={socket} close={close} />
+            </div>
           </div>
-          <div style={{ display: isActive ? "none" : "block" }}>
-            {/* <FaqMenu /> */}
-            <img src="./images/FAQs.gif" alt="" />
-            <ChatbotButton setActive={setActive} open={open} />
+          <div
+            style={{
+              display: isActive ? "none" : "flex",
+              flexDirection: isActive ? "none" : "column",
+            }}
+          >
+            <Simg></Simg>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <ChatbotButton setActive={setActive} open={open} />
+            </div>
           </div>
         </SupportLeftContainer>
       </SupportPageBody>
@@ -70,37 +64,28 @@ const SupportPage = () => {
 };
 
 const SupportPageContainer = styled.div`
-  width: 98%;
-`;
-const SupportPageHeader = styled.span`
-  width: 100%;
-  height: 67px;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  flex-direction: column;
 `;
 
-const SupportPageBody = styled.span`
+const SupportPageBody = styled.div`
   display: flex;
-  width: 100%;
-  min-width: 1805px;
-  min-height: 916px;
-  flex-direction: row;
-  gap: 12.814px;
-  align-items: top;
+  flex-direction: column;
+  gap: 12px;
   justify-content: center;
   margin: 2%;
-  //   background: var(--bg-cool, red);
-
-  @media (max-width: 768px) {
-    flex-direction: column;
+  @media (min-width: 1100px) {
+    flex-direction: row;
   }
 `;
 
 const SupportLeftContainer = styled.div`
-  width: 527px;
-  min-height: 916px;
-  height: 100%;
   flex-shrink: 0;
   display: flex;
-  gap: 12.814px;
+  justify-content: flex-right;
+  gap: 12px;
   flex-direction: column;
   margin-top: 2%;
   margin-bottom: 2%;
@@ -108,10 +93,7 @@ const SupportLeftContainer = styled.div`
   overflow-x: hidden;
   position: sticky;
   top: 0;
-
   @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
     justify-content: center;
     align-items: top;
   }
@@ -123,5 +105,14 @@ const FAQlist = styled.div`
   gap: 12.814px;
   margin-top: 2%;
   margin-bottom: 2%;
+`;
+
+const Simg = styled.div`
+  width: 500px;
+  height: 500px;
+  background: url("./images/FAQs.gif");
+  @media (max-width: 1100px) {
+    display: none;
+  }
 `;
 export default SupportPage;

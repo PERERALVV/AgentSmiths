@@ -79,7 +79,7 @@ const Feedback = () => {
   const fetchFeedbacks = async (token) => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8000/adminfeedback", {
+      const response = await axios.get("http://localhost:8080/adminfeedback", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,7 +104,7 @@ const Feedback = () => {
       }
 
       setLoading(true);
-      await axios.delete(`http://localhost:8000/adminfeedback/${feedbackId}`, {
+      await axios.delete(`http://localhost:8080/adminfeedback/${feedbackId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -130,7 +130,7 @@ const Feedback = () => {
     try {
       setLoading(true);
       await axios.put(
-        `http://localhost:8000/adminfeedback/${feedbackId}/update`,
+        `http://localhost:8080/adminfeedback/${feedbackId}/update`,
         null,
         {
           headers: {

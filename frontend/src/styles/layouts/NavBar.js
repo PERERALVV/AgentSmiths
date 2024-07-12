@@ -4,11 +4,11 @@ import styled from "styled-components";
 export const NavBarDiv = styled.nav`
   display: flex;
   // align-items: center; /* Center-align items vertically */
-  justify-content: flex-end; /* Aligns child to the right */
+  justify-content: flex-end;
   margin: 20px;
   margin-bottom: 40px;
   height: 50px;
-  width: 98%; /* Set width to 100% to take up the full width of the screen */
+  width: 98%;
   @media (max-width: 750px) {
     flex-direction: column;
     height: auto;
@@ -22,7 +22,7 @@ export const NavLinkA = styled(Link)`
   font-weight: bolder;
   text-decoration: none;
   @media (max-width: 1100px) {
-    font-size: 16px; /* Set font size to 17px when screen size is less than 75% */
+    font-size: 16px;
   }
 `;
 
@@ -35,12 +35,13 @@ export const NavBarUl = styled.ul`
   align-items: center;
   justify-content: space-evenly;
   flex-grow: 1;
-  margin-top: 0;
+  margin-top: 0px;
   @media (max-width: 750px) {
     flex-direction: column;
     border-radius: 0rem;
     height: auto;
     min-height: 60px;
+    width: 100%;
   }
 `;
 
@@ -51,20 +52,21 @@ export const NavBarButton = styled.button`
   border: none;
   border-radius: 0rem 52rem 52rem 0rem;
   color: #ffffff;
-  font-size: 20px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: Bold;
+  font-family: "Nunito", sans-serif;
   margin-left: 15px;
-  display: flex; /* Use flexbox for alignment */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  text-align: center; /* Center text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   @media (max-width: 1100px) {
-    font-size: 16px; /* Set font size to 17px when screen size is less than 75% */
+    font-size: 16px;
   }
   @media (max-width: 750px) {
-    width: 100%;
+    width: 108%;
     border-radius: 0rem;
-    margin-left: 0rem;
+    margin: 0px;
     height: 40px;
     // display:none;
     display: ${({ isVisible }) =>

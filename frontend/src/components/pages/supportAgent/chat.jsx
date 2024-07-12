@@ -142,7 +142,7 @@ const Container = styled.div`
 `;
 const StyledHeader = styled.div`
   display: flex;
-  width: 533px;
+  //width: 533px;
   height: 111px;
   padding: 17.085px;
   align-items: center;

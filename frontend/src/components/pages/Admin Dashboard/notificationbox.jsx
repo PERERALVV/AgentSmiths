@@ -77,7 +77,7 @@ const NotificationBox = ({
 
     fetchNotifications();
 
-    const websocket = new WebSocket("ws://localhost:8000/notifications");
+    const websocket = new WebSocket("ws://localhost:8080/notifications");
 
     websocket.onmessage = (event) => {
       const data = JSON.parse(event.data);

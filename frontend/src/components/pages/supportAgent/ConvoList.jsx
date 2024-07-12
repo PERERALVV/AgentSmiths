@@ -12,7 +12,6 @@ const ChatList = ({ chats, onChatSelect, noOngoingChat }) => {
   };
   return (
     <StyledChatlist>
-      <ConversationBox></ConversationBox>
       {chats.map((chat, index) => {
         // Find the last message sent by the "User" starting from the end
         const lastUserMessage = _.findLast(
@@ -39,10 +38,9 @@ const ChatList = ({ chats, onChatSelect, noOngoingChat }) => {
 };
 
 const StyledChatlist = styled.div`
-  width: 887px;
-  height: 828px;
-  flex-shrink: 0;
-  background: #d9d9d9;
+  width: 100%;
+  // height: 828px;
+  //flex-shrink: 0;
   padding: 20px;
   overflow: auto; // This makes the div scrollable
 

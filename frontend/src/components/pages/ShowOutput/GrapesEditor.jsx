@@ -1,5 +1,3 @@
-// GrapesEditor.jsx
-
 import React, { useEffect, useRef } from "react";
 import grapesjs from "grapesjs";
 import "grapesjs/dist/css/grapes.min.css";

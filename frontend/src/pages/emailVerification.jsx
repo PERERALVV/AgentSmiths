@@ -42,7 +42,7 @@ const ForgotPasswordPage = () => {
     event.preventDefault();
     localStorage.setItem("email", email);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/emailCheck", {
+      const response = await axios.post("http://localhost:8080/emailCheck", {
         email: email,
       });
 

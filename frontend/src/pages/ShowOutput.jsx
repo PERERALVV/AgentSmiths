@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import GrapesEditor from "../../src/components/pages/ShowOutput/GrapesEditor";
+import BottomBar from "../../src/components/pages/ShowOutput/BottomBar";
+import { ShowOutputContainer } from "../../src/styles/pages/ShowOutput";
 const ShowOutput = () => {
   const [htmlContent, setHtmlContent] = useState("");
   const [cssContent, setCssContent] = useState("");
@@ -11,7 +13,7 @@ const ShowOutput = () => {
     try {
       console.log(`Fetching HTML and CSS content from backend for ${filename}`);
       const response = await fetch(
-        `http://localhost:8000/get-html-css/${filename}`
+        `http://localhost:8080/get-html-css/${filename}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch content");
@@ -27,7 +29,7 @@ const ShowOutput = () => {
 
   const fetchHtmlFiles = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get-html-files");
+      const response = await fetch("http://localhost:8080/get-html-files");
       if (!response.ok) {
         throw new Error("Failed to fetch HTML files list");
       }
@@ -45,7 +47,7 @@ const ShowOutput = () => {
   const handleSaveHtml = async (html) => {
     try {
       console.log(`Saving HTML content to backend for ${currentFile}`);
-      const response = await fetch("http://localhost:8000/save-html", {
+      const response = await fetch("http://localhost:8080/save-html", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +68,7 @@ const ShowOutput = () => {
     try {
       const cssFilename = currentFile.replace(".html", ".css");
       console.log(`Saving CSS content to backend for ${cssFilename}`);
-      const response = await fetch("http://localhost:8000/save-css", {
+      const response = await fetch("http://localhost:8080/save-css", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,12 +99,40 @@ const ShowOutput = () => {
     setCurrentIndex(prevIndex);
   };
 
+  const createAndDownloadZip = async () => {
+    try {
+      // Create the zip file
+      const createResponse = await fetch("http://localhost:8080/create-zip");
+      if (!createResponse.ok) {
+        throw new Error("Failed to create zip file");
+      }
+
+      // Download the zip file
+      const downloadResponse = await fetch(
+        "http://localhost:8080/download-zip"
+      );
+      if (!downloadResponse.ok) {
+        throw new Error("Failed to download zip file");
+      }
+      const blob = await downloadResponse.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "static.zip";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error("Error downloading zip file:", error);
+    }
+  };
+
   useEffect(() => {
     fetchHtmlFiles();
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <ShowOutputContainer>
       <GrapesEditor
         htmlContent={htmlContent}
         cssContent={cssContent}
@@ -110,66 +140,13 @@ const ShowOutput = () => {
         onSaveCss={handleSaveCss}
         onLinkClick={fetchContent}
       />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "10px",
-          backgroundColor: "#f0f0f0",
-        }}
-      >
-        <button
-          onClick={fetchPreviousFile}
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#4CAF50",
-            borderRadius: "50px",
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            fontFamily: "nunito",
-            fontWeight: "bold",
-          }}
-        >
-          <img
-            src={"./images/previous.png"}
-            alt="Previous"
-            style={{ width: "30px", height: "30px", marginRight: "5px" }}
-          />
-          Previous
-        </button>
-        <span
-          style={{ fontSize: "16px", margin: "0 20px", backgroundColor: "red" }}
-        >
-          {currentFile}
-        </span>
-        <button
-          onClick={fetchNextFile}
-          style={{
-            padding: "10px",
-            fontSize: "16px",
-            cursor: "pointer",
-            backgroundColor: "#4CAF50",
-            borderRadius: "50px",
-            border: "none",
-            display: "flex",
-            alignItems: "center",
-            fontFamily: "nunito",
-            fontWeight: "bold",
-          }}
-        >
-          Next
-          <img
-            src={"./images/next.png"}
-            alt="Next"
-            style={{ width: "30px", height: "30px", marginLeft: "5px" }}
-          />
-        </button>
-      </div>
-    </div>
+      <BottomBar
+        fetchPreviousFile={fetchPreviousFile}
+        fetchNextFile={fetchNextFile}
+        currentFile={currentFile}
+        downloadZip={createAndDownloadZip}
+      />
+    </ShowOutputContainer>
   );
 };
 

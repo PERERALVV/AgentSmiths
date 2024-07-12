@@ -114,7 +114,7 @@ const SupportChatLayout = () => {
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/support-chat", {
+        const response = await axios.get("http://127.0.0.1:8080/support-chat", {
           headers: {
             Authorization: `Bearer ${cookies.token}`,
           },
@@ -141,7 +141,7 @@ const SupportChatLayout = () => {
   const handleDeleteChat = async (chatId) => {
     console.log("Deleting chat with ID:", chatId);
     try {
-      await axios.delete(`http://127.0.0.1:8000/support-chat/${chatId}`, {
+      await axios.delete(`http://127.0.0.1:8080/support-chat/${chatId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },

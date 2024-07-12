@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   font-family: inherit;
   display: flex;
-  min-height: 100vh;
+  min-height: 88vh;
   background-color: #ffffff;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -108,6 +108,7 @@ export const Input = styled.input`
 `;
 
 export const StyledButton = styled.button`
+  display: flex;
   padding: 10px 20px;
   margin-top: 20px;
   border: none;

@@ -69,7 +69,7 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8000/users", {
+      const response = await axios.get("http://localhost:8080/users", {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -108,7 +108,7 @@ const Users = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:8000/users/${editingUser.id}`,
+        `http://localhost:8080/users/${editingUser.id}`,
         updatedUser,
         {
           headers: {
@@ -147,7 +147,7 @@ const Users = () => {
       }
 
       setLoading(true);
-      await axios.delete(`http://localhost:8000/users/${userId}`, {
+      await axios.delete(`http://localhost:8080/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },

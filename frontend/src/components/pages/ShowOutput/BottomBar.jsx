@@ -1,39 +1,49 @@
 import React from "react";
 import {
-  BottomBarCon,
-  BottomButton,
-  PageNavigationButton,
-  Arrow,
+  BottomBarContainer,
+  NavigationButton,
+  ButtonImage,
+  CurrentFile,
+  RightDiv,
+  DownloadDiv,
 } from "../../../styles/pages/ShowOutput";
 
-const BottomBar = () => {
+const BottomBar = ({
+  fetchPreviousFile,
+  fetchNextFile,
+  currentFile,
+  downloadZip,
+}) => {
   return (
-    <BottomBarCon>
-      <PageNavigationButton>
-        <BottomButton>{"<<"} Previous web page</BottomButton>
-        <BottomButton>Next web page {">>"}</BottomButton>
-      </PageNavigationButton>
-      <BottomButton
-        style={{
-          boxShadow:
-            "rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset",
-        }}
-      >
-        Generate Website
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Arrow
-            src="https://images.vexels.com/media/users/3/136987/isolated/preview/7fbb17ce79710b1d578b02cc02da8592-thin-right-arrowhead.png"
-            alt="arrow"
+    <BottomBarContainer>
+      <NavigationButton onClick={fetchPreviousFile}>
+        <ButtonImage
+          src={"./images/previous.png"}
+          alt="Previous"
+          style={{ marginRight: "5px" }}
+        />
+        Previous&nbsp;&nbsp;
+      </NavigationButton>
+      <CurrentFile>{currentFile}</CurrentFile>
+      <RightDiv>
+        <DownloadDiv onClick={downloadZip}>
+          <ButtonImage
+            src={"./images/download.png"}
+            alt="Download"
+            style={{ margin: "0px" }}
           />
-        </div>
-      </BottomButton>
-    </BottomBarCon>
+        </DownloadDiv>
+
+        <NavigationButton onClick={fetchNextFile}>
+          &nbsp;&nbsp;Next
+          <ButtonImage
+            src={"./images/next.png"}
+            alt="Next"
+            style={{ marginLeft: "5px" }}
+          />
+        </NavigationButton>
+      </RightDiv>
+    </BottomBarContainer>
   );
 };
 

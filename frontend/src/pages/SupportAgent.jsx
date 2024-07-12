@@ -6,7 +6,7 @@ import styled from "styled-components";
 import io from "socket.io-client";
 
 const backend = "http://localhost:8080/";
-// const backend='http://127.0.0.1:8000'
+// const backend='http://localhost:8080'
 const socket = io(backend);
 const human_id = "vibuda";
 
@@ -156,7 +156,6 @@ const SupportAgentPage = () => {
 
   return (
     <SupportAgentPageContainer>
-      <SupportAgentPageHeader></SupportAgentPageHeader>
       <SupportAgentPageBody>
         <PageChatQContainer>
           <ChatList
@@ -186,22 +185,18 @@ const SupportAgentPage = () => {
   );
 };
 const SupportAgentPageContainer = styled.div`
-  width: 45%;
-`;
-const SupportAgentPageHeader = styled.span`
-  width: 100%;
-  height: 67px;
+  width: 100vw;
+  display: flex;
 `;
 
 const SupportAgentPageBody = styled.span`
-  width: 100%;
+  width: 100vw;
   height: auto;
   display: flex;
   flex-direction: row;
-  gap: 100px;
+  gap: 70px;
   margin-left: 2%;
   margin-right: 2%;
-
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -209,22 +204,21 @@ const SupportAgentPageBody = styled.span`
 `;
 
 const PagechatContainer = styled.div`
-  width: 100%;
-  max-width: 533px;
+  //width: 100%;
   height: auto;
   flex-shrink: 0;
 `;
 
 const PageActionsConytainer = styled.div`
   width: 100%;
-  max-width: 258px;
+  width: 258px;
   height: auto;
   flex-shrink: 0;
 `;
 
 const PageChatQContainer = styled.div`
   width: 100%;
-  max-width: 890px;
+  max-width: 700px;
   height: auto;
   flex-shrink: 0;
 `;

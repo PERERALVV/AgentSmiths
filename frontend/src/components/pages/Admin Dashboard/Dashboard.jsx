@@ -20,22 +20,22 @@ const DashboardPage = () => {
     const fetchData = async () => {
       try {
         const userResponse = await axios.get(
-          "http://localhost:8000/users/count"
+          "http://localhost:8080/users/count"
         );
         setUserCount(userResponse.data.count);
 
         const projectResponse = await axios.get(
-          "http://localhost:8000/projects/count"
+          "http://localhost:8080/projects/count"
         );
         setProjectCount(projectResponse.data.count);
 
         const chatResponse = await axios.get(
-          "http://localhost:8000/support-chat/count"
+          "http://localhost:8080/support-chat/count"
         );
         setChatCount(chatResponse.data.count);
 
         const feedbackResponse = await axios.get(
-          "http://localhost:8000/adminfeedback/count"
+          "http://localhost:8080/adminfeedback/count"
         );
         setFeedbackCount(feedbackResponse.data.count);
       } catch (error) {

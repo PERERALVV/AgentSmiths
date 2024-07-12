@@ -37,7 +37,6 @@ const App = () => {
             <Route path="/" Component={MainLayout}>
               <Route index Component={Home} />
               <Route path="/contactus" Component={ContactUs} />
-
               <Route path="/userprofileview" Component={UserProfileView} />
               <Route path="/passwordChange" Component={passwordChange} />
               <Route path="/chat" Component={ChatInterface} />
@@ -54,13 +53,13 @@ const App = () => {
             <Route path="/signin" Component={Signin} />
             <Route path="/fpw" Component={forgotPassword} />
             <Route path="/otp" Component={otp} />
-            <Route path="/dashboard" element={DashboardPage} />
-            <Route path="/users" element={UsersPage} />
-            <Route path="/projects" element={ProjectsPage} />
-            <Route path="/chatlist" element={ChatListPage} />
-            <Route path="/notification" element={NotificationPage} />
-            <Route path="/profile" element={ProfilePage} />
-            <Route path="/adminfeedback" element={FeedbackPage} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/chatlist" element={<ChatListPage />} />
+            <Route path="/notification" element={<NotificationPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/adminfeedback" element={<FeedbackPage />} />
           </Routes>
         </AppWrapper>
       </BrowserRouter>

@@ -47,7 +47,7 @@ const ContactUs = () => {
     const topic = selectedTopic === "Other" ? customTopic : selectedTopic;
 
     try {
-      await axios.post("http://localhost:8000/send-email", {
+      await axios.post("http://localhost:8080/send-email", {
         topic,
         message,
         status: "unread",
@@ -109,6 +109,7 @@ const ContactUs = () => {
               placeholder="Please specify the topic"
               value={customTopic}
               onChange={(e) => setCustomTopic(e.target.value)}
+              style={{ fontFamily: "Nunito" }}
             />
           )}
           <SubHeader>Tell us:</SubHeader>
@@ -125,9 +126,9 @@ const ContactUs = () => {
               marginBottom: "20px",
             }}
           />
-          <StyledButton onClick={handleSend}>
+          <StyledButton onClick={handleSend} style={{ fontFamily: "Nunito" }}>
             <img
-              src={"./images/send.png"}
+              src={"./images/send.gif"}
               alt="Send"
               style={{
                 height: "20px",

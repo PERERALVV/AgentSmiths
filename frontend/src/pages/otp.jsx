@@ -93,7 +93,7 @@ const ConfirmPasswordPage = () => {
 
     try {
       const email = localStorage.getItem("email");
-      const response = await axios.post("http://127.0.0.1:8000/otpCheck", {
+      const response = await axios.post("http://localhost:8080/otpCheck", {
         otp: enteredOtp,
         email: email,
       });

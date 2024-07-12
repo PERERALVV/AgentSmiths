@@ -96,7 +96,7 @@ const ProjectList = () => {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8000/projects", {
+      const response = await axios.get("http://localhost:8080/projects", {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
@@ -120,7 +120,7 @@ const ProjectList = () => {
       }
 
       setLoading(true);
-      await axios.delete(`http://localhost:8000/projects/${userID}`, {
+      await axios.delete(`http://localhost:8080/projects/${userID}`, {
         headers: {
           Authorization: `Bearer ${cookies.token}`,
         },
