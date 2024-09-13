@@ -1,7 +1,7 @@
 .vscode/
 */node_modules/
 */workspace/
-.env
+.env 
 */__pycache__/
 *.py[cod]
 */.devcontainer/
@@ -10,6 +10,6 @@ config2.yaml
 metagpt/
 logs
 */logs/
-*/.env
+*/.env 
 gen_artifacts/
-**/local databases/
+**/local databases/ 
