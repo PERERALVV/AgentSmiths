@@ -1,3 +1,15 @@
 .vscode/
-*/.env
-*/.env
+*/node_modules/
+*/workspace/
+.env 
+*/__pycache__/
+*.py[cod]
+*/.devcontainer/
+MAS/MetaGPT/config/config2.yaml
+config2.yaml
+metagpt/
+logs
+*/logs/
+*/.env 
+gen_artifacts/
+**/local databases/ 

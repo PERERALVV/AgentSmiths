@@ -1,7 +1,24 @@
-python -m pip install -q --upgrade pip
-pip install -q -U langchain
-pip install -q -U python-dotenv
-pip install -U -q langchain-google-genai pillow
-
-
-pip install -q -U google-generativeai
+langchain
+python-dotenv
+langchain-community
+langchain-experimental
+fastapi
+python-socketio
+langchain_google_genai
+uvicorn
+chromadb
+google-generativeai
+colorlog
+jinja2
+pydantic
+motor
+transformers
+torch
+sentence_transformers
+python-multipart
+pymongo
+python-jose
+Werkzeug
+PyJWT
+passlib
+python-decouple
